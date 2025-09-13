@@ -4,10 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Respond to Quote - PrintHub Egypt</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/rtl.css">
+    
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/vendor.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
     <style>
         /* Custom Styles for Quote Response Page */
         .quote-response-container {
@@ -689,6 +697,28 @@
     <!-- Main Content -->
     <main class="main-content">
         <div class="quote-response-container">
+            <!-- Breadcrumb Navigation -->
+            <nav class="breadcrumb-container" aria-label="Breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="dashboard.html" class="breadcrumb-link">
+                            <i class="fas fa-home"></i>
+                            <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="quotes.html" class="breadcrumb-link">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span data-en="Quotes" data-ar="العروض">Quotes</span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <i class="fas fa-reply"></i>
+                        <span data-en="Respond to Quote" data-ar="الرد على العرض">Respond to Quote</span>
+                    </li>
+                </ol>
+            </nav>
+
             <!-- Quote Header -->
             <div class="quote-header">
                 <div class="quote-header-content">
@@ -831,7 +861,7 @@
                                                 <div class="file-size">2.4 MB</div>
                                             </div>
                                         </div>
-                                        <button class="btn-download">
+                                        <button class="btn-download" onclick="downloadFile('business_card_design.pdf')" title="Download business_card_design.pdf">
                                             <i class="fas fa-download"></i>
                                         </button>
                                     </div>
@@ -845,7 +875,7 @@
                                                 <div class="file-size">856 KB</div>
                                             </div>
                                         </div>
-                                        <button class="btn-download">
+                                        <button class="btn-download" onclick="downloadFile('company_logo.png')" title="Download company_logo.png">
                                             <i class="fas fa-download"></i>
                                         </button>
                                     </div>
@@ -1003,11 +1033,11 @@
                                         <i class="fas fa-times"></i>
                                         <span data-en="Cancel" data-ar="إلغاء">Cancel</span>
                                     </button>
-                                    <button type="button" class="btn btn-outline">
+                                    <button type="button" class="btn btn-outline" onclick="saveDraft()">
                                         <i class="fas fa-save"></i>
                                         <span data-en="Save Draft" data-ar="حفظ المسودة">Save Draft</span>
                                     </button>
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="button" class="btn btn-primary submit-quote" onclick="submitQuote()">
                                         <i class="fas fa-paper-plane"></i>
                                         <span data-en="Send Quote" data-ar="إرسال العرض">Send Quote</span>
                                     </button>
@@ -1020,7 +1050,9 @@
         </div>
     </main>
 
+    <!-- Custom JavaScript -->
     <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
     <script src="../assets/js/language.js"></script>
     <script>
         // Calculate pricing in real-time
@@ -1029,28 +1061,193 @@
             const quantity = 1000; // Fixed from request
             const setupFee = parseFloat(document.getElementById('setupFee').value) || 0;
             const discount = parseFloat(document.getElementById('discount').value) || 0;
+            const deliveryCost = parseFloat(document.getElementById('deliveryCost').value) || 0;
             
             const subtotal = unitPrice * quantity;
             const discountAmount = (subtotal + setupFee) * (discount / 100);
-            const total = subtotal + setupFee - discountAmount;
+            const total = subtotal + setupFee + deliveryCost - discountAmount;
             
             // Update price summary
             document.getElementById('subtotal').textContent = `EGP ${subtotal.toFixed(2).toLocaleString()}`;
             document.getElementById('setupFeeDisplay').textContent = `EGP ${setupFee.toFixed(2).toLocaleString()}`;
             document.getElementById('discountAmount').textContent = `- EGP ${discountAmount.toFixed(2).toLocaleString()}`;
             document.getElementById('totalQuote').textContent = `EGP ${total.toFixed(2).toLocaleString()}`;
+            
+            // Show/hide delivery cost
+            const deliveryMethod = document.getElementById('deliveryMethod').value;
+            const deliverySection = document.getElementById('deliveryCostSection');
+            if (deliveryMethod === 'pickup') {
+                deliverySection.style.display = 'none';
+                document.getElementById('deliveryCost').value = '0';
+            } else {
+                deliverySection.style.display = 'block';
+            }
         }
         
-        // Add event listeners for price calculation
-        document.getElementById('unitPrice').addEventListener('input', calculateTotal);
-        document.getElementById('setupFee').addEventListener('input', calculateTotal);
-        document.getElementById('discount').addEventListener('input', calculateTotal);
+        // Save draft functionality
+        function saveDraft() {
+            const formData = new FormData(document.getElementById('quoteResponseForm'));
+            const draftData = Object.fromEntries(formData);
+            
+            // Add timestamp
+            draftData.savedAt = new Date().toISOString();
+            
+            // Save to localStorage
+            localStorage.setItem('quote_draft_QR-2024-0156', JSON.stringify(draftData));
+            
+            // Show success message
+            showToast('Draft saved successfully', 'success');
+        }
         
-        // Form submission
-        document.getElementById('quoteResponseForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Quote sent successfully!');
-            window.location.href = 'quotes.html';
+        // Load draft on page load
+        function loadDraft() {
+            const savedDraft = localStorage.getItem('quote_draft_QR-2024-0156');
+            if (savedDraft) {
+                const draftData = JSON.parse(savedDraft);
+                
+                // Fill form fields
+                Object.keys(draftData).forEach(key => {
+                    const field = document.getElementById(key);
+                    if (field && key !== 'savedAt') {
+                        field.value = draftData[key];
+                    }
+                });
+                
+                // Recalculate totals
+                calculateTotal();
+                
+                // Show notification
+                const savedDate = new Date(draftData.savedAt).toLocaleString();
+                showToast(`Draft loaded from ${savedDate}`, 'info');
+            }
+        }
+        
+        // Submit quote response
+        function submitQuote() {
+            const form = document.getElementById('quoteResponseForm');
+            const formData = new FormData(form);
+            
+            // Validate required fields
+            const requiredFields = ['unitPrice', 'productionTime', 'deliveryMethod', 'validUntil'];
+            let isValid = true;
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    isValid = false;
+                } else {
+                    field.classList.remove('error');
+                }
+            });
+            
+            if (!isValid) {
+                showToast('Please fill all required fields', 'error');
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = document.querySelector('.submit-quote');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending Quote...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Clear draft
+                localStorage.removeItem('quote_draft_QR-2024-0156');
+                
+                // Show success and redirect
+                showToast('Quote sent successfully!', 'success');
+                setTimeout(() => {
+                    window.location.href = 'quotes.html';
+                }, 1500);
+            }, 2000);
+        }
+        
+        // File upload handling
+        function handleFileSelect(event) {
+            const files = event.target.files;
+            const fileList = document.getElementById('fileList');
+            
+            if (files.length === 0) return;
+            
+            fileList.innerHTML = '';
+            
+            Array.from(files).forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <div class="file-info">
+                        <i class="fas fa-file-alt"></i>
+                        <span class="file-name">${file.name}</span>
+                        <span class="file-size">(${(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                    </div>
+                    <button type="button" class="remove-file" onclick="removeFile(${index})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        }
+        
+        // Remove file from upload
+        function removeFile(index) {
+            const fileInput = document.getElementById('fileInput');
+            const dt = new DataTransfer();
+            const files = fileInput.files;
+            
+            for (let i = 0; i < files.length; i++) {
+                if (i !== index) {
+                    dt.items.add(files[i]);
+                }
+            }
+            
+            fileInput.files = dt.files;
+            handleFileSelect({ target: fileInput });
+        }
+        
+        // Download file functionality
+        function downloadFile(filename) {
+            // In a real application, this would download from server
+            showToast(`Downloading ${filename}...`, 'info');
+            
+            // Simulate download
+            setTimeout(() => {
+                showToast(`${filename} downloaded successfully`, 'success');
+            }, 1000);
+        }
+        
+        // Add event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load any saved draft
+            loadDraft();
+            
+            // Price calculation listeners
+            ['unitPrice', 'setupFee', 'discount', 'deliveryCost'].forEach(id => {
+                const field = document.getElementById(id);
+                if (field) {
+                    field.addEventListener('input', calculateTotal);
+                }
+            });
+            
+            // Delivery method change
+            const deliveryMethod = document.getElementById('deliveryMethod');
+            if (deliveryMethod) {
+                deliveryMethod.addEventListener('change', calculateTotal);
+            }
+            
+            // File input
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput) {
+                fileInput.addEventListener('change', handleFileSelect);
+            }
+            
+            // Auto-save draft every 2 minutes
+            setInterval(saveDraft, 120000);
+            
+            // Initial calculation
+            calculateTotal();
         });
 
         // File upload drag and drop

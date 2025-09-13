@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Vendor - PrintHub Egypt Admin</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+    <style>
+        /* Admin Layout Styles */
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar - Same as Dashboard */
+        .admin-sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #2C3E50 0%, #1a252f 100%);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .sidebar-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .admin-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        .menu-label {
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .menu-item.active {
+            background: rgba(102, 126, 234, 0.2);
+            color: white;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #667eea;
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+
+        .menu-item span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .menu-badge {
+            margin-left: auto;
+            background: #E74C3C;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .admin-main {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .admin-topbar {
+            background: white;
+            padding: 20px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: #667eea;
+        }
+
+        .breadcrumb .separator {
+            color: #999;
+        }
+
+        .breadcrumb .current {
+            color: #2C3E50;
+            font-weight: 600;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Page Content */
+        .page-content {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2C3E50;
+            margin: 0 0 8px 0;
+        }
+
+        .page-subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: #e0e6ed;
+            z-index: -1;
+        }
+
+        .step.active:not(:last-child)::after,
+        .step.completed:not(:last-child)::after {
+            background: #667eea;
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            background: #f0f2f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #999;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step.active .step-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .step.completed .step-icon {
+            background: #27AE60;
+            color: white;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #999;
+        }
+
+        .step.active .step-title,
+        .step.completed .step-title {
+            color: #2C3E50;
+        }
+
+        /* Form Sections */
+        .form-container {
+            display: grid;
+            gap: 25px;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 20px 25px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-bottom: 1px solid #e0e6ed;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .section-body {
+            padding: 25px;
+        }
+
+        /* Form Elements */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .required {
+            color: #E74C3C;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 10px 15px;
+            border: 1px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        /* Logo Upload */
+        .logo-upload {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-preview {
+            width: 120px;
+            height: 120px;
+            border: 2px dashed #e0e6ed;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-preview:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
+        }
+
+        .logo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+        }
+
+        .logo-preview.has-image img {
+            display: block;
+        }
+
+        .logo-preview.has-image .upload-placeholder {
+            display: none;
+        }
+
+        .upload-placeholder {
+            text-align: center;
+        }
+
+        .upload-placeholder i {
+            font-size: 32px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .upload-placeholder span {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .logo-requirements {
+            flex: 1;
+        }
+
+        .logo-requirements h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2C3E50;
+            margin: 0 0 10px 0;
+        }
+
+        .logo-requirements ul {
+            margin: 0;
+            padding-left: 20px;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .logo-requirements li {
+            margin-bottom: 5px;
+        }
+
+        /* Checkbox Group */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        /* Document Upload */
+        .document-upload {
+            border: 2px dashed #e0e6ed;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .document-upload:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
+        }
+
+        .document-upload i {
+            font-size: 40px;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .document-upload h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2C3E50;
+            margin: 0 0 5px 0;
+        }
+
+        .document-upload p {
+            font-size: 12px;
+            color: #999;
+            margin: 0;
+        }
+
+        .uploaded-files {
+            display: grid;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-icon {
+            width: 32px;
+            height: 32px;
+            background: #667eea;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .file-name {
+            font-size: 14px;
+            color: #2C3E50;
+        }
+
+        .file-size {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .remove-file {
+            background: none;
+            border: none;
+            color: #E74C3C;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Form Actions */
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            margin-top: 30px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary {
+            background: #f0f2f5;
+            color: #666;
+        }
+
+        .btn-outline {
+            background: white;
+            border: 2px solid #e0e6ed;
+            color: #666;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Success Message */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-info {
+            background: #e8f4ff;
+            border-left: 4px solid #2196F3;
+            color: #2196F3;
+        }
+
+        .alert i {
+            font-size: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .admin-main {
+                margin-left: 0;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-steps {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .step:not(:last-child)::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub">
+                    <h2>PrintHub</h2>
+                    <span class="admin-badge">Admin</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <div class="menu-section">
+                    <div class="menu-label">Main</div>
+                    <a href="dashboard.html" class="menu-item">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="reports.html" class="menu-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">Management</div>
+                    <a href="users.html" class="menu-item">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                    <a href="vendors.html" class="menu-item active">
+                        <i class="fas fa-store"></i>
+                        <span>Vendors</span>
+                        <span class="menu-badge">3</span>
+                    </a>
+                    <a href="services.html" class="menu-item">
+                        <i class="fas fa-print"></i>
+                        <span>Services</span>
+                    </a>
+                    <a href="categories.html" class="menu-item">
+                        <i class="fas fa-tags"></i>
+                        <span>Categories</span>
+                    </a>
+                    <a href="orders.html" class="menu-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Orders</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">System</div>
+                    <a href="settings.html" class="menu-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Security</span>
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb-container">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li><a href="dashboard.html" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</a></li>
+                        <li><a href="vendors.html" data-en="Vendors" data-ar="المورديين">Vendors</a></li>
+                        <li class="active" data-en="Add New Vendor" data-ar="إضافة مورد جديد">Add New Vendor</li>
+                    </ol>
+                </div>
+            </nav>
+
+            <!-- Top Bar -->
+            <div class="admin-topbar">
+                <div class="topbar-left">
+                    <h1 class="page-title" data-en="Add New Vendor" data-ar="إضافة مورد جديد">Add New Vendor</h1>
+                </div>
+
+                <div class="topbar-right">
+                    <button class="btn btn-outline" onclick="saveDraft()">
+                        <i class="fas fa-save"></i>
+                        <span data-en="Save Draft" data-ar="حفظ المسودة">Save Draft</span>
+                    </button>
+                    <button class="btn btn-primary" onclick="publishVendor()">
+                        <i class="fas fa-check"></i>
+                        <span data-en="Publish Vendor" data-ar="نشر المورد">Publish Vendor</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1>Add New Vendor</h1>
+                    <p class="page-subtitle">Create a new vendor account and configure their platform access</p>
+                </div>
+
+                <!-- Progress Steps -->
+                <div class="progress-steps">
+                    <div class="step active">
+                        <div class="step-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="step-title">Company Info</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="step-title">Account Details</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="step-title">Settings</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="step-title">Review</div>
+                    </div>
+                </div>
+
+                <!-- Form Container -->
+                <form class="form-container" id="addVendorForm">
+                    <!-- Company Information -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <h2 class="section-title">Company Information</h2>
+                        </div>
+                        <div class="section-body">
+                            <!-- Logo Upload -->
+                            <div class="form-group full-width">
+                                <label class="form-label">Company Logo</label>
+                                <div class="logo-upload">
+                                    <div class="logo-preview" onclick="document.getElementById('logoInput').click()">
+                                        <img id="logoPreview" alt="Logo">
+                                        <div class="upload-placeholder">
+                                            <i class="fas fa-camera"></i>
+                                            <span>Upload Logo</span>
+                                        </div>
+                                        <input type="file" id="logoInput" accept="image/*" style="display: none;" onchange="previewLogo(event)">
+                                    </div>
+                                    <div class="logo-requirements">
+                                        <h4>Logo Requirements:</h4>
+                                        <ul>
+                                            <li>Recommended size: 300x300px</li>
+                                            <li>Maximum file size: 2MB</li>
+                                            <li>Supported formats: JPG, PNG</li>
+                                            <li>Transparent background preferred</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Company Name (English) <span class="required">*</span>
+                                    </label>
+                                    <input type="text" class="form-input" placeholder="Enter company name in English" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Company Name (Arabic) <span class="required">*</span>
+                                    </label>
+                                    <input type="text" class="form-input" placeholder="أدخل اسم الشركة بالعربية" dir="rtl" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Business Registration Number <span class="required">*</span>
+                                    </label>
+                                    <input type="text" class="form-input" placeholder="Enter registration number" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tax ID</label>
+                                    <input type="text" class="form-input" placeholder="Enter tax ID (optional)">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Business Type <span class="required">*</span></label>
+                                    <select class="form-select" required>
+                                        <option value="">Select business type</option>
+                                        <option>Printing Company</option>
+                                        <option>Design & Printing</option>
+                                        <option>Advertising Agency</option>
+                                        <option>Packaging Specialist</option>
+                                        <option>Digital Printing</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Established Year</label>
+                                    <input type="number" class="form-input" placeholder="e.g., 2015" min="1900" max="2024">
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label class="form-label">Company Description</label>
+                                <textarea class="form-textarea" placeholder="Brief description of the company and its services..."></textarea>
+                                <span class="form-hint">This will be displayed on the vendor's public profile</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <h2 class="section-title">Contact Information</h2>
+                        </div>
+                        <div class="section-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Primary Phone <span class="required">*</span>
+                                    </label>
+                                    <input type="tel" class="form-input" placeholder="+20 XXX XXX XXXX" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Secondary Phone</label>
+                                    <input type="tel" class="form-input" placeholder="+20 XXX XXX XXXX">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Business Email <span class="required">*</span>
+                                    </label>
+                                    <input type="email" class="form-input" placeholder="company@example.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Website</label>
+                                    <input type="url" class="form-input" placeholder="https://www.example.com">
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label class="form-label">
+                                    Business Address <span class="required">*</span>
+                                </label>
+                                <input type="text" class="form-input" placeholder="Full street address" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">City <span class="required">*</span></label>
+                                    <select class="form-select" required>
+                                        <option value="">Select city</option>
+                                        <option>Cairo</option>
+                                        <option>Giza</option>
+                                        <option>Alexandria</option>
+                                        <option>Luxor</option>
+                                        <option>Aswan</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Postal Code</label>
+                                    <input type="text" class="form-input" placeholder="12345">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Details -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h2 class="section-title">Account Details</h2>
+                        </div>
+                        <div class="section-body">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i>
+                                <div>
+                                    <strong>Account Access:</strong> These credentials will be sent to the vendor via email for their first login.
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Contact Person Name <span class="required">*</span>
+                                    </label>
+                                    <input type="text" class="form-input" placeholder="Full name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Contact Person Email <span class="required">*</span>
+                                    </label>
+                                    <input type="email" class="form-input" placeholder="email@example.com" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Username <span class="required">*</span>
+                                    </label>
+                                    <input type="text" class="form-input" placeholder="vendor_username" required>
+                                    <span class="form-hint">Username must be unique and contain no spaces</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Temporary Password <span class="required">*</span>
+                                    </label>
+                                    <input type="password" class="form-input" placeholder="********" required>
+                                    <span class="form-hint">Vendor will be required to change on first login</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Services & Capabilities -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-print"></i>
+                            </div>
+                            <h2 class="section-title">Services & Capabilities</h2>
+                        </div>
+                        <div class="section-body">
+                            <div class="form-group full-width">
+                                <label class="form-label">Service Categories</label>
+                                <div class="checkbox-group">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat1" checked>
+                                        <label for="cat1">Business Cards</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat2" checked>
+                                        <label for="cat2">Flyers & Brochures</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat3">
+                                        <label for="cat3">Banners & Signage</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat4">
+                                        <label for="cat4">Packaging</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat5" checked>
+                                        <label for="cat5">Stickers & Labels</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat6">
+                                        <label for="cat6">T-Shirt Printing</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat7">
+                                        <label for="cat7">Wedding Cards</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat8">
+                                        <label for="cat8">Corporate Gifts</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Production Capacity</label>
+                                    <select class="form-select">
+                                        <option>Small Scale (1-100 orders/month)</option>
+                                        <option>Medium Scale (100-500 orders/month)</option>
+                                        <option>Large Scale (500+ orders/month)</option>
+                                        <option>Industrial Scale</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Service Areas</label>
+                                    <select class="form-select">
+                                        <option>Local (City only)</option>
+                                        <option>Regional (Multiple cities)</option>
+                                        <option>Nationwide</option>
+                                        <option>International</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Documents -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h2 class="section-title">Documents & Verification</h2>
+                        </div>
+                        <div class="section-body">
+                            <div class="document-upload" onclick="document.getElementById('docInput').click()">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <h4>Upload Documents</h4>
+                                <p>Business license, tax certificate, portfolio samples (PDF, JPG, PNG - Max 10MB)</p>
+                                <input type="file" id="docInput" multiple accept=".pdf,.jpg,.png" style="display: none;" onchange="handleDocuments(event)">
+                            </div>
+
+                            <div class="uploaded-files" id="uploadedFiles" style="display: none;">
+                                <!-- Files will be listed here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Platform Settings -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <h2 class="section-title">Platform Settings</h2>
+                        </div>
+                        <div class="section-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Account Status</label>
+                                    <select class="form-select">
+                                        <option>Active - Immediate Access</option>
+                                        <option>Pending - Requires Approval</option>
+                                        <option>Limited - Trial Period</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Subscription Plan</label>
+                                    <select class="form-select">
+                                        <option>Free Tier (10 quotes/month)</option>
+                                        <option>Basic (50 quotes/month)</option>
+                                        <option>Professional (200 quotes/month)</option>
+                                        <option>Enterprise (Unlimited)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Commission Rate (%)</label>
+                                    <input type="number" class="form-input" placeholder="e.g., 10" min="0" max="100" value="10">
+                                    <span class="form-hint">Platform commission on completed orders</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Payment Terms</label>
+                                    <select class="form-select">
+                                        <option>Weekly Payout</option>
+                                        <option>Bi-weekly Payout</option>
+                                        <option>Monthly Payout</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label class="form-label">Internal Notes</label>
+                                <textarea class="form-textarea" placeholder="Any internal notes about this vendor (not visible to vendor)..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button class="btn btn-secondary" onclick="window.location.href='vendors.html'">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Vendors
+                    </button>
+                    <div class="action-buttons">
+                        <button class="btn btn-outline" onclick="saveDraft()">
+                            <i class="fas fa-save"></i>
+                            Save as Draft
+                        </button>
+                        <button class="btn btn-primary" onclick="createVendor()">
+                            <i class="fas fa-check"></i>
+                            Create Vendor Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/language.js"></script>
+    <script>
+        // Preview logo
+        function previewLogo(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('logoPreview').src = e.target.result;
+                    document.querySelector('.logo-preview').classList.add('has-image');
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Handle document uploads
+        function handleDocuments(event) {
+            const files = event.target.files;
+            const uploadedFilesDiv = document.getElementById('uploadedFiles');
+            
+            if (files.length > 0) {
+                uploadedFilesDiv.style.display = 'block';
+                uploadedFilesDiv.innerHTML = '';
+                
+                for (let file of files) {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = `
+                        <div class="file-info">
+                            <div class="file-icon">
+                                <i class="fas fa-file"></i>
+                            </div>
+                            <div>
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-size">${(file.size / 1024).toFixed(2)} KB</div>
+                            </div>
+                        </div>
+                        <button class="remove-file" onclick="this.parentElement.remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    uploadedFilesDiv.appendChild(fileItem);
+                }
+            }
+        }
+
+        // Save draft
+        function saveDraft() {
+            const formData = new FormData(document.getElementById('addVendorForm'));
+            localStorage.setItem('vendorDraft', JSON.stringify(Object.fromEntries(formData)));
+            
+            if (window.Toast) {
+                Toast.show('Vendor draft saved successfully!', 'success');
+            } else {
+                alert('Vendor draft saved successfully!');
+            }
+        }
+
+        // Publish vendor
+        function publishVendor() {
+            if (document.getElementById('addVendorForm').checkValidity()) {
+                // Simulate API call
+                const loadingBtn = event.target;
+                loadingBtn.disabled = true;
+                loadingBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publishing...';
+                
+                setTimeout(() => {
+                    if (window.Toast) {
+                        Toast.show('Vendor published successfully!', 'success');
+                    } else {
+                        alert('Vendor published successfully! They can now access their account.');
+                    }
+                    window.location.href = 'vendors.html';
+                }, 2000);
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        }
+
+        // Create vendor (legacy function)
+        function createVendor() {
+            publishVendor();
+        }
+
+        // Load draft on page load
+        window.addEventListener('load', function() {
+            const draft = localStorage.getItem('vendorDraft');
+            if (draft) {
+                const draftData = JSON.parse(draft);
+                Object.keys(draftData).forEach(key => {
+                    const field = document.querySelector(`[name="${key}"]`);
+                    if (field) {
+                        field.value = draftData[key];
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- Additional Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/language.js"></script>
+</body>
+</html>

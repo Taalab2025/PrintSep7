@@ -39,13 +39,13 @@
         <div class="container">
             <div class="navbar-container">
                 <!-- Logo -->
-                <a href="/" class="navbar-brand">
+                <a href="index.html" class="navbar-brand">
                     <i class="fas fa-print"></i>
                     <span>PrintHub Egypt</span>
                 </a>
 
                 <!-- Mobile Menu Toggle -->
-                <div class="mobile-menu-toggle">
+                <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -54,23 +54,23 @@
                 <!-- Navigation Menu -->
                 <ul class="navbar-menu">
                     <li class="navbar-item">
-                        <a href="/services.html" class="navbar-link" data-translate="services">Services</a>
+                        <a href="services.html" class="navbar-link active" data-translate="services">Services</a>
                         <div class="navbar-dropdown">
-                            <a href="/services.html?category=business-cards">Business Cards</a>
-                            <a href="/services.html?category=brochures">Brochures</a>
-                            <a href="/services.html?category=banners">Banners</a>
-                            <a href="/services.html?category=packaging">Packaging</a>
-                            <a href="/services.html">View All</a>
+                            <a href="services.html?category=business-cards">Business Cards</a>
+                            <a href="services.html?category=brochures">Brochures</a>
+                            <a href="services.html?category=banners">Banners</a>
+                            <a href="services.html?category=packaging">Packaging</a>
+                            <a href="services.html">View All</a>
                         </div>
                     </li>
                     <li class="navbar-item">
-                        <a href="/vendors.html" class="navbar-link" data-translate="vendors">Vendors</a>
+                        <a href="vendors.html" class="navbar-link" data-translate="vendors">Vendors</a>
                     </li>
                     <li class="navbar-item">
-                        <a href="/how-it-works.html" class="navbar-link">How It Works</a>
+                        <a href="about.html" class="navbar-link" data-translate="about">About</a>
                     </li>
                     <li class="navbar-item">
-                        <a href="/about.html" class="navbar-link" data-translate="about">About</a>
+                        <a href="quote-request.html" class="navbar-link">Get Quote</a>
                     </li>
                 </ul>
 
@@ -78,25 +78,25 @@
                 <div class="navbar-actions d-flex align-items-center gap-3">
                     <!-- Language Switcher -->
                     <div class="language-switcher">
-                        <span class="language-option active" data-lang="en">EN</span>
-                        <span class="language-option" data-lang="ar">عربي</span>
+                        <span class="language-option active" data-lang="en" onclick="switchLanguage('en')">EN</span>
+                        <span class="language-option" data-lang="ar" onclick="switchLanguage('ar')">عربي</span>
                     </div>
 
                     <!-- Auth Links (shown when not logged in) -->
                     <div class="auth-links d-flex gap-2">
-                        <a href="/login.html" class="btn btn-outline btn-sm" data-translate="signIn">Sign In</a>
-                        <a href="/register.html" class="btn btn-primary btn-sm" data-translate="signUp">Sign Up</a>
+                        <a href="login.html" class="btn btn-outline btn-sm" data-translate="signIn">Sign In</a>
+                        <a href="register.html" class="btn btn-primary btn-sm" data-translate="signUp">Sign Up</a>
                     </div>
 
                     <!-- User Menu (shown when logged in) - Hidden by default -->
                     <div class="user-menu d-none align-items-center gap-3">
-                        <a href="/customer/dashboard.html" class="navbar-link">
+                        <a href="../customer/dashboard.html" class="navbar-link">
                             <i class="fas fa-user-circle"></i>
                             <span data-translate="dashboard">Dashboard</span>
                         </a>
-                        <a href="/cart.html" class="navbar-link position-relative">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="cart-count badge badge-danger">0</span>
+                        <a href="quote-comparison.html" class="navbar-link position-relative">
+                            <i class="fas fa-balance-scale"></i>
+                            <span data-translate="compare">Compare</span>
                         </a>
                     </div>
                 </div>
@@ -722,10 +722,31 @@
     </footer>
 
     <!-- JavaScript Files -->
-    <script src="/assets/js/main.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/language.js"></script>
 
     <!-- Initialize page-specific functionality -->
     <script>
+        // Navigation functionality
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.navbar-menu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            menu.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+        
+        function switchLanguage(lang) {
+            const options = document.querySelectorAll('.language-option');
+            options.forEach(option => option.classList.remove('active'));
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+            
+            // Apply language change
+            if (typeof changeLanguage === 'function') {
+                changeLanguage(lang);
+            }
+        }
+
         // Homepage specific JavaScript
         document.addEventListener('DOMContentLoaded', function() {
             // Animate numbers on scroll

@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - PrintHub Egypt</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+
+    <style>
+        /* Customer Layout Styles */
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .customer-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Customer Sidebar */
+        .customer-sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #27AE60 0%, #1e8449 100%);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .sidebar-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .customer-badge {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .sidebar-user {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .user-details h4 {
+            margin: 0 0 4px 0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .user-details p {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-section {
+            margin-bottom: 25px;
+        }
+
+        .menu-label {
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .menu-item.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: white;
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+
+        .menu-item .badge {
+            background: #e74c3c;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 10px;
+            margin-left: auto;
+        }
+
+        /* Main Content */
+        .customer-main {
+            flex: 1;
+            margin-left: 260px;
+            padding: 25px;
+            min-height: 100vh;
+        }
+
+        .main-header {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2C3E50;
+            margin: 0 0 5px 0;
+        }
+
+        .header-title p {
+            color: #7f8c8d;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .notification-btn {
+            position: relative;
+            background: #f8f9fa;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #666;
+        }
+
+        .notification-btn:hover {
+            background: #e9ecef;
+            color: #27AE60;
+        }
+
+        .header-notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8f9fa;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .user-profile-btn:hover {
+            background: #e9ecef;
+        }
+
+        /* Enhanced Customer Dashboard Styles */
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(45deg);
+        }
+
+        .welcome-section h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-section p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-primary, .btn-outline {
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .notification-badge {
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            margin-left: 0.25rem;
+        }
+
+        /* Enhanced Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .action-btn {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #2c3e50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .action-btn i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .action-btn span {
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        .action-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #3498db;
+            color: white;
+            border-radius: 12px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .action-badge.new {
+            background: #e74c3c;
+            animation: pulse 2s infinite;
+        }
+
+        .action-badge.warning {
+            background: #f39c12;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Enhanced Statistics Grid */
+        .dashboard-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+            color: #2c3e50;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        /* Enhanced Activity Section */
+        .recent-activity {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f8f9fa;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .activity-item:hover {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .activity-icon.success { background: #d4edda; color: #155724; }
+        .activity-icon.info { background: #cce5ff; color: #004085; }
+        .activity-icon.warning { background: #fff3cd; color: #856404; }
+        .activity-icon.primary { background: #e3f2fd; color: #1976d2; }
+
+        /* Order Progress Enhancement */
+        .order-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .order-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .welcome-section h1 {
+                font-size: 1.5rem;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .welcome-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                </div>
+
+                <nav class="main-nav" aria-label="Main navigation">
+                    <a href="../public/index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+                    <a href="../public/services.html" data-en="Services" data-ar="الخدمات">Services</a>
+                    <a href="../public/vendors.html" data-en="Vendors" data-ar="الموردون">Vendors</a>
+                    <a href="../public/about.html" data-en="About" data-ar="حول">About</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span data-en="My Account" data-ar="حسابي">My Account</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span></a>
+                            <a href="profile.html"><i class="fas fa-user"></i> <span data-en="Profile" data-ar="الملف الشخصي">Profile</span></a>
+                            <a href="quotes.html"><i class="fas fa-file-invoice"></i> <span data-en="My Quotes" data-ar="عروض الأسعار">My Quotes</span></a>
+                            <a href="orders.html"><i class="fas fa-box"></i> <span data-en="Orders" data-ar="الطلبات">Orders</span></a>
+                            <hr>
+                            <a href="../public/login.html"><i class="fas fa-sign-out-alt"></i> <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span></a>
+                        </div>
+                    </div>
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <span data-en="العربية" data-ar="English">العربية</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="../public/index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li class="active" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="container">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h1 data-en="Welcome back, Ahmed!" data-ar="مرحباً بعودتك، أحمد!">Welcome back, Ahmed!</h1>
+                <p data-en="Here's what's happening with your printing orders" data-ar="إليك ما يحدث مع طلبات الطباعة الخاصة بك">Here's what's happening with your printing orders</p>
+                <div class="welcome-actions">
+                    <button class="btn-primary" onclick="startQuickTour()">
+                        <i class="fas fa-compass"></i>
+                        <span data-en="Quick Tour" data-ar="جولة سريعة">Quick Tour</span>
+                    </button>
+                    <button class="btn-outline" onclick="viewNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span data-en="Notifications" data-ar="الإشعارات">Notifications</span>
+                        <span class="notification-badge">3</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <a href="../public/quote-request.html" class="action-btn" onclick="trackAction('new_quote_request')">
+                    <i class="fas fa-plus-circle"></i>
+                    <span data-en="New Quote Request" data-ar="طلب عرض سعر جديد">New Quote Request</span>
+                </a>
+                <a href="quotes.html" class="action-btn" onclick="trackAction('view_quotes')">
+                    <i class="fas fa-file-alt"></i>
+                    <span data-en="View Quotes" data-ar="عرض الأسعار">View Quotes</span>
+                    <span class="action-badge">8</span>
+                </a>
+                <a href="orders.html" class="action-btn" onclick="trackAction('track_orders')">
+                    <i class="fas fa-truck"></i>
+                    <span data-en="Track Orders" data-ar="تتبع الطلبات">Track Orders</span>
+                    <span class="action-badge">2</span>
+                </a>
+                <a href="messages.html" class="action-btn" onclick="trackAction('view_messages')">
+                    <i class="fas fa-envelope"></i>
+                    <span data-en="Messages" data-ar="الرسائل">Messages</span>
+                    <span class="action-badge new">3</span>
+                </a>
+                <a href="reviews.html" class="action-btn" onclick="trackAction('pending_reviews')">
+                    <i class="fas fa-star"></i>
+                    <span data-en="Pending Reviews" data-ar="مراجعات معلقة">Pending Reviews</span>
+                    <span class="action-badge warning">2</span>
+                </a>
+                <a href="../public/quote-comparison.html" class="action-btn" onclick="trackAction('compare_quotes')">
+                    <i class="fas fa-balance-scale"></i>
+                    <span data-en="Compare Quotes" data-ar="مقارنة الأسعار">Compare Quotes</span>
+                </a>
+            </div>
+
+            <!-- Statistics Grid -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(39, 174, 96, 0.1);">
+                        <i class="fas fa-file-invoice" style="color: #27AE60; font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-label" data-en="Active Quotes" data-ar="عروض أسعار نشطة">Active Quotes</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(52, 152, 219, 0.1);">
+                        <i class="fas fa-clock" style="color: #3498db; font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-label" data-en="Pending Responses" data-ar="ردود معلقة">Pending Responses</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(231, 76, 60, 0.1);">
+                        <i class="fas fa-box" style="color: #e74c3c; font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="stat-value">2</div>
+                    <div class="stat-label" data-en="Orders in Progress" data-ar="طلبات قيد التنفيذ">Orders in Progress</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(155, 89, 182, 0.1);">
+                        <i class="fas fa-check-circle" style="color: #9b59b6; font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="stat-value">15</div>
+                    <div class="stat-label" data-en="Completed Orders" data-ar="طلبات مكتملة">Completed Orders</div>
+                </div>
+            </div>
+
+            <!-- Recent Activity and Current Orders -->
+            <div class="dashboard-grid">
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <h3 data-en="Recent Activity" data-ar="النشاط الأخير">Recent Activity</h3>
+
+                    <div class="activity-item">
+                        <div class="activity-icon success">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title" data-en="Quote received from PrintPro" data-ar="تم استلام عرض سعر من PrintPro">Quote received from PrintPro</div>
+                            <div class="activity-time" data-en="2 hours ago" data-ar="قبل ساعتين">2 hours ago</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon info">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title" data-en="Order #1234 shipped" data-ar="تم شحن الطلب #1234">Order #1234 shipped</div>
+                            <div class="activity-time" data-en="1 day ago" data-ar="قبل يوم واحد">1 day ago</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon warning">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title" data-en="Review reminder for order #1232" data-ar="تذكير بالمراجعة للطلب #1232">Review reminder for order #1232</div>
+                            <div class="activity-time" data-en="2 days ago" data-ar="قبل يومين">2 days ago</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon primary">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title" data-en="New quote request submitted" data-ar="تم تقديم طلب عرض سعر جديد">New quote request submitted</div>
+                            <div class="activity-time" data-en="3 days ago" data-ar="قبل 3 أيام">3 days ago</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Current Orders -->
+                <div class="recent-activity">
+                    <h3 data-en="Current Orders" data-ar="الطلبات الحالية">Current Orders</h3>
+
+                    <div class="order-list">
+                        <div class="order-item">
+                            <div class="order-header">
+                                <span class="order-number">#1235</span>
+                                <span class="order-status" style="background: #f39c12; color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">
+                                    <span data-en="In Production" data-ar="قيد الإنتاج">In Production</span>
+                                </span>
+                            </div>
+                            <div class="order-details">
+                                <p data-en="500 Business Cards - Premium" data-ar="500 بطاقة عمل - فاخرة">500 Business Cards - Premium</p>
+                                <p class="order-vendor">FastPrint Solutions</p>
+                                <div class="order-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 60%;"></div>
+                                    </div>
+                                    <small data-en="Expected delivery: Dec 15" data-ar="التسليم المتوقع: 15 ديسمبر">Expected delivery: Dec 15</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="order-item">
+                            <div class="order-header">
+                                <span class="order-number">#1234</span>
+                                <span class="order-status" style="background: #3498db; color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">
+                                    <span data-en="Shipped" data-ar="تم الشحن">Shipped</span>
+                                </span>
+                            </div>
+                            <div class="order-details">
+                                <p data-en="10 Roll-up Banners" data-ar="10 لافتات رول أب">10 Roll-up Banners</p>
+                                <p class="order-vendor">Quality Prints Co.</p>
+                                <div class="order-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 85%;"></div>
+                                    </div>
+                                    <small data-en="Arriving tomorrow" data-ar="يصل غداً">Arriving tomorrow</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="orders.html" class="view-all-link" style="display: block; text-align: center; margin-top: 1rem; color: #27AE60;">
+                        <span data-en="View All Orders →" data-ar="عرض جميع الطلبات ←">View All Orders →</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 data-en="About PrintHub" data-ar="عن PrintHub">About PrintHub</h4>
+                    <p data-en="Your trusted printing marketplace in Egypt" data-ar="سوق الطباعة الموثوق به في مصر">Your trusted printing marketplace in Egypt</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+                    <ul>
+                        <li><a href="../public/services.html" data-en="Services" data-ar="الخدمات">Services</a></li>
+                        <li><a href="../public/vendors.html" data-en="Vendors" data-ar="الموردون">Vendors</a></li>
+                        <li><a href="../public/about.html" data-en="About Us" data-ar="من نحن">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Contact" data-ar="اتصل بنا">Contact</h4>
+                    <p><i class="fas fa-envelope"></i> info@printhub.eg</p>
+                    <p><i class="fas fa-phone"></i> +20 100 123 4567</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-en="© 2024 PrintHub Egypt. All rights reserved." data-ar="© 2024 PrintHub مصر. جميع الحقوق محفوظة.">© 2024 PrintHub Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/language.js"></script>
+    <script>
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize components
+            PrintHub.init();
+            
+            // Initialize page-specific features
+            initDashboard();
+        });
+
+        function initDashboard() {
+            // Initialize customer dashboard features
+            console.log('Customer Dashboard initialized');
+            updateActivityFeed();
+            checkPendingActions();
+        }
+
+        // Enhanced dashboard functions
+        function startQuickTour() {
+            showToast('Starting quick tour of your dashboard...', 'info');
+            // Tour implementation would go here
+        }
+
+        function viewNotifications() {
+            showToast('Loading your notifications...', 'info');
+            // Open notifications panel
+        }
+
+        function trackAction(action) {
+            // Analytics tracking for user actions
+            console.log('User action tracked:', action);
+        }
+
+        function updateActivityFeed() {
+            // Update the recent activity with real-time data
+            const activityItems = document.querySelectorAll('.activity-item');
+            activityItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const title = this.querySelector('.activity-title').textContent;
+                    showToast(`Opening ${title}`, 'info');
+                });
+            });
+        }
+
+        function checkPendingActions() {
+            // Check for pending reviews, messages, etc.
+            setTimeout(() => {
+                showToast('You have 2 pending reviews to complete', 'warning');
+            }, 3000);
+        }
+
+        // Order progress tracking
+        function viewOrderDetails(orderId) {
+            showToast(`Loading details for order ${orderId}`, 'info');
+            window.location.href = `orders.html?id=${orderId}`;
+        }
+
+        function trackOrderProgress(orderId) {
+            showToast(`Tracking progress for order ${orderId}`, 'info');
+            // Open tracking modal
+        }
+
+        // Toast notification system
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            const colors = {
+                success: '#27ae60',
+                error: '#e74c3c', 
+                warning: '#f39c12',
+                info: '#3498db'
+            };
+            
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 600;
+                z-index: 10000;
+                background: ${colors[type]};
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            `;
+            
+            toast.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 4000);
+        }
+    </script>
+</body>
+</html>

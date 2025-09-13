@@ -3,12 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- SEO Meta Tags -->
     <title>Request a Quote - PrintHub Egypt</title>
+    <meta name="description" content="Get instant quotes from verified printing vendors in Egypt. Submit your printing requirements and receive competitive quotes within hours.">
+    <meta name="keywords" content="printing quote egypt, get printing quote, طلب عرض سعر طباعة">
+    <meta name="author" content="PrintHub Egypt">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
+    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -507,32 +523,71 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navigation Header -->
     <nav class="navbar">
         <div class="container">
-            <div class="nav-wrapper">
-                <a href="index.html" class="logo">
+            <div class="navbar-container">
+                <!-- Logo -->
+                <a href="index.html" class="navbar-brand">
                     <i class="fas fa-print"></i>
                     <span>PrintHub Egypt</span>
                 </a>
 
-                <div class="nav-menu">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="services.html" class="nav-link">Services</a>
-                    <a href="#" class="nav-link active">Get Quote</a>
-                    <a href="about.html" class="nav-link">About</a>
-                    <a href="contact.html" class="nav-link">Contact</a>
+                <!-- Mobile Menu Toggle -->
+                <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
 
-                <div class="nav-actions">
-                    <button class="btn btn-outline" onclick="toggleLanguage()">
-                        <i class="fas fa-globe"></i>
-                        <span id="langText">عربي</span>
-                    </button>
-                    <a href="login.html" class="btn btn-primary">Login</a>
-                    <button class="menu-toggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
+                <!-- Navigation Menu -->
+                <ul class="navbar-menu">
+                    <li class="navbar-item">
+                        <a href="services.html" class="navbar-link" data-translate="services">Services</a>
+                        <div class="navbar-dropdown">
+                            <a href="services.html?category=business-cards">Business Cards</a>
+                            <a href="services.html?category=brochures">Brochures</a>
+                            <a href="services.html?category=banners">Banners</a>
+                            <a href="services.html?category=packaging">Packaging</a>
+                            <a href="services.html">View All</a>
+                        </div>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="vendors.html" class="navbar-link" data-translate="vendors">Vendors</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="about.html" class="navbar-link" data-translate="about">About</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="quote-request.html" class="navbar-link active">Get Quote</a>
+                    </li>
+                </ul>
+
+                <!-- Right Side Menu -->
+                <div class="navbar-actions d-flex align-items-center gap-3">
+                    <!-- Language Switcher -->
+                    <div class="language-switcher">
+                        <span class="language-option active" data-lang="en" onclick="switchLanguage('en')">EN</span>
+                        <span class="language-option" data-lang="ar" onclick="switchLanguage('ar')">عربي</span>
+                    </div>
+
+                    <!-- Auth Links (shown when not logged in) -->
+                    <div class="auth-links d-flex gap-2">
+                        <a href="login.html" class="btn btn-outline btn-sm" data-translate="signIn">Sign In</a>
+                        <a href="register.html" class="btn btn-primary btn-sm" data-translate="signUp">Sign Up</a>
+                    </div>
+
+                    <!-- User Menu (shown when logged in) - Hidden by default -->
+                    <div class="user-menu d-none align-items-center gap-3">
+                        <a href="../customer/dashboard.html" class="navbar-link">
+                            <i class="fas fa-user-circle"></i>
+                            <span data-translate="dashboard">Dashboard</span>
+                        </a>
+                        <a href="quote-comparison.html" class="navbar-link position-relative">
+                            <i class="fas fa-balance-scale"></i>
+                            <span data-translate="compare">Compare</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -845,7 +900,31 @@
         </div>
     </footer>
 
+    <!-- JavaScript Files -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/language.js"></script>
+    
     <script>
+        // Navigation functionality
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.navbar-menu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            menu.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+        
+        function switchLanguage(lang) {
+            const options = document.querySelectorAll('.language-option');
+            options.forEach(option => option.classList.remove('active'));
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+            
+            // Apply language change
+            if (typeof changeLanguage === 'function') {
+                changeLanguage(lang);
+            }
+        }
+
         // Form Step Navigation
         let currentStep = 1;
         let uploadedFiles = [];

@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services Management - Admin Panel | PrintHub Egypt</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+    
+    <style>
+        /* Admin Dashboard Specific Styles */
+        body {
+            background: #f0f2f5;
+        }
+
+        /* Sidebar */
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #2C3E50 0%, #1a252f 100%);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .admin-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        .menu-label {
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .menu-item.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+
+        .menu-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            margin-left: auto;
+        }
+
+        /* Main Content */
+        .admin-main {
+            margin-left: 260px;
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        .admin-header {
+            background: white;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e8e9ea;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .admin-content {
+            padding: 30px;
+        }
+
+        /* Services Page Specific Styles */
+        .services-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .services-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e8e9ea;
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        /* Services Table */
+        .services-table-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e8e9ea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-filters {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .services-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .services-table th,
+        .services-table td {
+            padding: 15px 25px;
+            text-align: left;
+            border-bottom: 1px solid #f8f9fa;
+        }
+
+        .services-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1976d2;
+        }
+
+        .service-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .service-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .service-desc {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .actions-dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            background: none;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            color: #7f8c8d;
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: white;
+            border: 1px solid #e8e9ea;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            min-width: 150px;
+            z-index: 10;
+            display: none;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dropdown-item:hover {
+            background: #f8f9fa;
+        }
+
+        /* Add Service Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e8e9ea;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e8e9ea;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #219a52;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #e8e9ea;
+            color: #7f8c8d;
+        }
+
+        .btn-outline:hover {
+            border-color: #3498db;
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-print" style="font-size: 24px; color: #3498db;"></i>
+                    <h2>PrintHub</h2>
+                    <span class="admin-badge">Admin</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <div class="menu-section">
+                    <div class="menu-label">Main</div>
+                    <a href="dashboard.html" class="menu-item">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="reports.html" class="menu-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">Management</div>
+                    <a href="users.html" class="menu-item">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                        <span class="menu-badge">12</span>
+                    </a>
+                    <a href="vendors.html" class="menu-item">
+                        <i class="fas fa-store"></i>
+                        <span>Vendors</span>
+                        <span class="menu-badge">3</span>
+                    </a>
+                    <a href="services.html" class="menu-item active">
+                        <i class="fas fa-print"></i>
+                        <span>Services</span>
+                        <span class="menu-badge">25</span>
+                    </a>
+                    <a href="categories.html" class="menu-item">
+                        <i class="fas fa-tags"></i>
+                        <span>Categories</span>
+                    </a>
+                    <a href="orders.html" class="menu-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Orders</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">System</div>
+                    <a href="settings.html" class="menu-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Security</span>
+                    </a>
+                    <a href="../public/index.html" class="menu-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <!-- Breadcrumb Navigation -->
+                <nav class="breadcrumb-container" aria-label="Breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="dashboard.html" class="breadcrumb-link">
+                                <i class="fas fa-home"></i>
+                                <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            <i class="fas fa-print"></i>
+                            <span data-en="Services Management" data-ar="إدارة الخدمات">Services Management</span>
+                        </li>
+                    </ol>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <i class="fas fa-globe"></i>
+                        <span id="langText">عربي</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="admin-content">
+                <!-- Page Header -->
+                <div class="services-header">
+                    <div>
+                        <h1 data-en="Services Management" data-ar="إدارة الخدمات">Services Management</h1>
+                        <p data-en="Manage printing services, categories, and pricing" data-ar="إدارة خدمات الطباعة والفئات والأسعار">Manage printing services, categories, and pricing</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="showAddServiceModal()">
+                        <i class="fas fa-plus"></i>
+                        <span data-en="Add Service" data-ar="إضافة خدمة">Add Service</span>
+                    </button>
+                </div>
+
+                <!-- Statistics -->
+                <div class="services-stats">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <i class="fas fa-print"></i>
+                            </div>
+                            <i class="fas fa-arrow-up text-success"></i>
+                        </div>
+                        <div class="stat-value">25</div>
+                        <div class="stat-label" data-en="Total Services" data-ar="إجمالي الخدمات">Total Services</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <i class="fas fa-arrow-up text-success"></i>
+                        </div>
+                        <div class="stat-value">22</div>
+                        <div class="stat-label" data-en="Active Services" data-ar="الخدمات النشطة">Active Services</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                                <i class="fas fa-tags"></i>
+                            </div>
+                            <i class="fas fa-arrow-up text-success"></i>
+                        </div>
+                        <div class="stat-value">8</div>
+                        <div class="stat-label" data-en="Categories" data-ar="الفئات">Categories</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <i class="fas fa-arrow-up text-success"></i>
+                        </div>
+                        <div class="stat-value">1,245</div>
+                        <div class="stat-label" data-en="Total Orders" data-ar="إجمالي الطلبات">Total Orders</div>
+                    </div>
+                </div>
+
+                <!-- Services Table -->
+                <div class="services-table-container">
+                    <div class="table-header">
+                        <h3 data-en="All Services" data-ar="جميع الخدمات">All Services</h3>
+                        <div class="search-filters">
+                            <div class="search-box">
+                                <input type="text" class="form-control" placeholder="Search services..." style="min-width: 200px;">
+                            </div>
+                            <select class="form-control" style="min-width: 150px;">
+                                <option value="">All Categories</option>
+                                <option value="business-cards">Business Cards</option>
+                                <option value="brochures">Brochures</option>
+                                <option value="banners">Banners</option>
+                                <option value="packaging">Packaging</option>
+                            </select>
+                            <select class="form-control" style="min-width: 120px;">
+                                <option value="">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <table class="services-table">
+                        <thead>
+                            <tr>
+                                <th data-en="Service" data-ar="الخدمة">Service</th>
+                                <th data-en="Category" data-ar="الفئة">Category</th>
+                                <th data-en="Price Range" data-ar="نطاق السعر">Price Range</th>
+                                <th data-en="Vendors" data-ar="الموردين">Vendors</th>
+                                <th data-en="Orders" data-ar="الطلبات">Orders</th>
+                                <th data-en="Status" data-ar="الحالة">Status</th>
+                                <th data-en="Actions" data-ar="الإجراءات">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="service-info">
+                                        <div class="service-icon">
+                                            <i class="fas fa-id-card"></i>
+                                        </div>
+                                        <div>
+                                            <div class="service-name">Business Cards</div>
+                                            <div class="service-desc">Professional business card printing</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Marketing Materials</td>
+                                <td>EGP 50 - 500</td>
+                                <td>12 vendors</td>
+                                <td>345</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <div class="actions-dropdown">
+                                        <button class="dropdown-toggle" onclick="toggleDropdown(this)">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a href="#" class="dropdown-item" onclick="editService(1)">
+                                                <i class="fas fa-edit"></i>
+                                                Edit
+                                            </a>
+                                            <a href="#" class="dropdown-item" onclick="viewService(1)">
+                                                <i class="fas fa-eye"></i>
+                                                View Details
+                                            </a>
+                                            <a href="#" class="dropdown-item" onclick="toggleServiceStatus(1)">
+                                                <i class="fas fa-toggle-on"></i>
+                                                Disable
+                                            </a>
+                                            <a href="#" class="dropdown-item" onclick="deleteService(1)">
+                                                <i class="fas fa-trash"></i>
+                                                Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="service-info">
+                                        <div class="service-icon">
+                                            <i class="fas fa-file-alt"></i>
+                                        </div>
+                                        <div>
+                                            <div class="service-name">Brochures</div>
+                                            <div class="service-desc">Tri-fold and bi-fold brochures</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Marketing Materials</td>
+                                <td>EGP 100 - 800</td>
+                                <td>8 vendors</td>
+                                <td>189</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <div class="actions-dropdown">
+                                        <button class="dropdown-toggle" onclick="toggleDropdown(this)">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a href="#" class="dropdown-item" onclick="editService(2)">
+                                                <i class="fas fa-edit"></i>
+                                                Edit
+                                            </a>
+                                            <a href="#" class="dropdown-item" onclick="viewService(2)">
+                                                <i class="fas fa-eye"></i>
+                                                View Details
+                                            </a>
+                                            <a href="#" class="dropdown-item" onclick="toggleServiceStatus(2)">
+                                                <i class="fas fa-toggle-on"></i>
+                                                Disable
+                                            </a>
+                                            <a href="#" class="dropdown-item" onclick="deleteService(2)">
+                                                <i class="fas fa-trash"></i>
+                                                Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="service-info">
+                                        <div class="service-icon">
+                                            <i class="fas fa-flag"></i>
+                                        </div>
+                                        <div>
+                                            <div class="service-name">Vinyl Banners</div>
+                                            <div class="service-desc">Large format outdoor banners</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Large Format</td>
+                                <td>EGP 200 - 2000</td>
+                                <td>6 vendors</td>
+                                <td>156</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <div class="actions-dropdown">
+                                        <button class="dropdown-toggle" onclick="toggleDropdown(this)">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a href="#" class="dropdown-item" onclick="editService(3)">
+                                                <i class="fas fa-edit"></i>
+                                                Edit
+                                            </a>
+                                            <a href="#" class="dropdown-item" onclick="viewService(3)">
+                                                <i class="fas fa-eye"></i>
+                                                View Details
+                                            </a>
+                                            <a href="#" class="dropdown-item" onclick="toggleServiceStatus(3)">
+                                                <i class="fas fa-toggle-on"></i>
+                                                Disable
+                                            </a>
+                                            <a href="#" class="dropdown-item" onclick="deleteService(3)">
+                                                <i class="fas fa-trash"></i>
+                                                Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="service-info">
+                                        <div class="service-icon">
+                                            <i class="fas fa-box"></i>
+                                        </div>
+                                        <div>
+                                            <div class="service-name">Custom Packaging</div>
+                                            <div class="service-desc">Product boxes and custom packaging</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Packaging</td>
+                                <td>EGP 150 - 1500</td>
+                                <td>4 vendors</td>
+                                <td>89</td>
+                                <td><span class="status-badge status-inactive">Inactive</span></td>
+                                <td>
+                                    <div class="actions-dropdown">
+                                        <button class="dropdown-toggle" onclick="toggleDropdown(this)">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a href="#" class="dropdown-item" onclick="editService(4)">
+                                                <i class="fas fa-edit"></i>
+                                                Edit
+                                            </a>
+                                            <a href="#" class="dropdown-item" onclick="viewService(4)">
+                                                <i class="fas fa-eye"></i>
+                                                View Details
+                                            </a>
+                                            <a href="#" class="dropdown-item" onclick="toggleServiceStatus(4)">
+                                                <i class="fas fa-toggle-off"></i>
+                                                Enable
+                                            </a>
+                                            <a href="#" class="dropdown-item" onclick="deleteService(4)">
+                                                <i class="fas fa-trash"></i>
+                                                Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Service Modal -->
+    <div id="addServiceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-en="Add New Service" data-ar="إضافة خدمة جديدة">Add New Service</h3>
+                <button type="button" onclick="hideAddServiceModal()" style="background: none; border: none; font-size: 20px; color: #7f8c8d; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addServiceForm">
+                    <div class="form-group">
+                        <label class="form-label" data-en="Service Name" data-ar="اسم الخدمة">Service Name *</label>
+                        <input type="text" class="form-control" id="serviceName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" data-en="Description" data-ar="الوصف">Description</label>
+                        <textarea class="form-control" id="serviceDesc" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" data-en="Category" data-ar="الفئة">Category *</label>
+                            <select class="form-control" id="serviceCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="business-cards">Business Cards</option>
+                                <option value="brochures">Brochures</option>
+                                <option value="banners">Banners</option>
+                                <option value="packaging">Packaging</option>
+                                <option value="large-format">Large Format</option>
+                                <option value="marketing">Marketing Materials</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-en="Status" data-ar="الحالة">Status</label>
+                            <select class="form-control" id="serviceStatus">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" data-en="Min Price (EGP)" data-ar="الحد الأدنى للسعر">Min Price (EGP)</label>
+                            <input type="number" class="form-control" id="minPrice" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-en="Max Price (EGP)" data-ar="الحد الأقصى للسعر">Max Price (EGP)</label>
+                            <input type="number" class="form-control" id="maxPrice" min="0" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" data-en="Service Icon" data-ar="أيقونة الخدمة">Service Icon (Font Awesome class)</label>
+                        <input type="text" class="form-control" id="serviceIcon" placeholder="fas fa-print">
+                    </div>
+
+                    <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 30px;">
+                        <button type="button" class="btn btn-outline" onclick="hideAddServiceModal()">
+                            <span data-en="Cancel" data-ar="إلغاء">Cancel</span>
+                        </button>
+                        <button type="submit" class="btn btn-success" onclick="saveService(event)">
+                            <i class="fas fa-save"></i>
+                            <span data-en="Save Service" data-ar="حفظ الخدمة">Save Service</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/language.js"></script>
+    
+    <script>
+        // Language toggle functionality
+        function toggleLanguage() {
+            const langText = document.getElementById('langText');
+            const isArabic = langText.textContent === 'عربي';
+            
+            langText.textContent = isArabic ? 'English' : 'عربي';
+            
+            // Toggle RTL/LTR
+            document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
+            document.documentElement.lang = isArabic ? 'ar' : 'en';
+            
+            // Apply language change to all elements
+            if (typeof changeLanguage === 'function') {
+                changeLanguage(isArabic ? 'ar' : 'en');
+            }
+        }
+
+        // Dropdown functionality
+        function toggleDropdown(button) {
+            const dropdown = button.nextElementSibling;
+            const isOpen = dropdown.classList.contains('show');
+            
+            // Close all dropdowns
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.remove('show');
+            });
+            
+            // Toggle current dropdown
+            if (!isOpen) {
+                dropdown.classList.add('show');
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.actions-dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+            }
+        });
+
+        // Add Service Modal
+        function showAddServiceModal() {
+            document.getElementById('addServiceModal').classList.add('show');
+        }
+
+        function hideAddServiceModal() {
+            document.getElementById('addServiceModal').classList.remove('show');
+            document.getElementById('addServiceForm').reset();
+        }
+
+        // Service Management Functions
+        function saveService(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(document.getElementById('addServiceForm'));
+            const serviceData = {
+                name: document.getElementById('serviceName').value,
+                description: document.getElementById('serviceDesc').value,
+                category: document.getElementById('serviceCategory').value,
+                status: document.getElementById('serviceStatus').value,
+                minPrice: document.getElementById('minPrice').value,
+                maxPrice: document.getElementById('maxPrice').value,
+                icon: document.getElementById('serviceIcon').value || 'fas fa-print'
+            };
+
+            // Validate required fields
+            if (!serviceData.name || !serviceData.category) {
+                showToast('Please fill all required fields', 'error');
+                return;
+            }
+
+            // Simulate API call
+            showToast('Service added successfully!', 'success');
+            hideAddServiceModal();
+            
+            // Add to table (in real app, reload data from server)
+            addServiceToTable(serviceData);
+        }
+
+        function editService(serviceId) {
+            console.log('Editing service:', serviceId);
+            showToast('Edit functionality would open edit modal', 'info');
+        }
+
+        function viewService(serviceId) {
+            console.log('Viewing service:', serviceId);
+            showToast('View functionality would show service details', 'info');
+        }
+
+        function toggleServiceStatus(serviceId) {
+            console.log('Toggling status for service:', serviceId);
+            showToast('Service status updated', 'success');
+        }
+
+        function deleteService(serviceId) {
+            if (confirm('Are you sure you want to delete this service?')) {
+                console.log('Deleting service:', serviceId);
+                showToast('Service deleted successfully', 'success');
+            }
+        }
+
+        // Add service to table (demo)
+        function addServiceToTable(serviceData) {
+            const tbody = document.querySelector('.services-table tbody');
+            const row = document.createElement('tr');
+            
+            row.innerHTML = `
+                <td>
+                    <div class="service-info">
+                        <div class="service-icon">
+                            <i class="${serviceData.icon}"></i>
+                        </div>
+                        <div>
+                            <div class="service-name">${serviceData.name}</div>
+                            <div class="service-desc">${serviceData.description || 'No description'}</div>
+                        </div>
+                    </div>
+                </td>
+                <td>${serviceData.category}</td>
+                <td>EGP ${serviceData.minPrice || '0'} - ${serviceData.maxPrice || '0'}</td>
+                <td>0 vendors</td>
+                <td>0</td>
+                <td><span class="status-badge status-${serviceData.status}">${serviceData.status}</span></td>
+                <td>
+                    <div class="actions-dropdown">
+                        <button class="dropdown-toggle" onclick="toggleDropdown(this)">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-edit"></i>
+                                Edit
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-toggle-on"></i>
+                                ${serviceData.status === 'active' ? 'Disable' : 'Enable'}
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-trash"></i>
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            `;
+            
+            tbody.appendChild(row);
+        }
+
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.querySelector('.search-box input');
+            const categoryFilter = document.querySelector('.search-filters select:nth-child(2)');
+            const statusFilter = document.querySelector('.search-filters select:nth-child(3)');
+
+            function filterServices() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedCategory = categoryFilter.value;
+                const selectedStatus = statusFilter.value;
+                const rows = document.querySelectorAll('.services-table tbody tr');
+
+                rows.forEach(row => {
+                    const serviceName = row.querySelector('.service-name').textContent.toLowerCase();
+                    const serviceDesc = row.querySelector('.service-desc').textContent.toLowerCase();
+                    const category = row.children[1].textContent;
+                    const status = row.querySelector('.status-badge').textContent.toLowerCase();
+
+                    const matchesSearch = serviceName.includes(searchTerm) || serviceDesc.includes(searchTerm);
+                    const matchesCategory = !selectedCategory || category.toLowerCase().includes(selectedCategory.toLowerCase());
+                    const matchesStatus = !selectedStatus || status.includes(selectedStatus);
+
+                    if (matchesSearch && matchesCategory && matchesStatus) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+
+            if (searchInput) searchInput.addEventListener('input', filterServices);
+            if (categoryFilter) categoryFilter.addEventListener('change', filterServices);
+            if (statusFilter) statusFilter.addEventListener('change', filterServices);
+        });
+
+        // Toast notification function
+        function showToast(message, type = 'info') {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            // Add to page
+            document.body.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => toast.classList.add('show'), 100);
+            
+            // Hide and remove toast
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

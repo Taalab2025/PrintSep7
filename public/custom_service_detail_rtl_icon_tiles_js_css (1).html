@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تفاصيل الخدمة · كروت شخصية فاخرة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root{
+      --primary:#2C3E50; --accent:#27AE60; --ink:#0f172a; --muted:#6b7280; --border:#E5E7EB; --card:#ffffff; --bg:#f7f8fa; --radius:14px; --r:10px;
+      --tile-bg:#f2f4f7; --tile-br:#e5e7eb; --shadow:0 10px 30px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Cairo, ui-sans-serif, system-ui}
+    body.lang-en{font-family:Inter, ui-sans-serif, system-ui}
+    a{color:var(--primary);text-decoration:none}
+
+    .container{max-width:1240px;margin:0 auto;padding:18px}
+    header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);z-index:50}
+    .nav{display:flex;align-items:center;gap:16px;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:10px;color:var(--primary);font-weight:700}
+    .crumbs{margin-inline-start:auto;color:#6c7280;font-size:13px}
+    .lang-switch{margin-inline-start:12px;border:1px solid var(--border);background:#fff;padding:8px 12px;border-radius:999px;cursor:pointer}
+
+    .row{display:flex;flex-wrap:wrap;gap:20px}
+    .col-8{flex:1 1 760px}
+    .col-4{flex:1 1 360px}
+
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .card-h{padding:14px 18px;border-bottom:1px solid var(--border);font-weight:700;color:var(--primary)}
+    .card-b{padding:18px}
+
+    /* Gallery */
+    .gallery-main{width:100%;aspect-ratio:16/9;background:#eef2f7;border-radius:var(--r);display:flex;align-items:center;justify-content:center}
+    .thumbs{display:flex;gap:10px;overflow:auto;padding-top:12px}
+    .thumb{width:84px;height:64px;background:#eef2f7;border:2px solid transparent;border-radius:10px;cursor:pointer}
+    .thumb.active{border-color:var(--primary)}
+
+    /* Tabs */
+    .tabs{border-bottom:2px solid var(--border)}
+    .tablist{display:flex;gap:12px;margin:0;padding:0;list-style:none}
+    .tab{padding:10px 14px;border-bottom:2px solid transparent;cursor:pointer}
+    .tab.active{border-color:var(--primary);color:var(--primary);font-weight:700}
+    .pan{display:none;padding-top:12px}
+    .pan.active{display:block}
+
+    /* Tile selectors */
+    .group{margin-bottom:12px}
+    .label{display:flex;align-items:center;gap:8px;color:#374151;font-weight:600;margin-bottom:8px}
+    .tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .tile{position:relative;border:1px solid var(--tile-br);border-radius:12px;background:var(--tile-bg);padding:10px;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease}
+    .tile:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.06)}
+    .tile input{position:absolute;inset:0;opacity:0}
+    .tile .icon{height:58px;border-radius:10px;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+    .tile .ttl{margin-top:8px;font-size:13px}
+    .tile .sub{font-size:12px;color:var(--muted)}
+    .tile.active{outline:2px solid var(--primary);outline-offset:2px}
+
+    .stack{display:flex;gap:10px}
+    select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:#fff}
+
+    .pricebox{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+    .rowp{display:flex;justify-content:space-between;padding:6px 0;color:#374151}
+    .rowp.total{font-size:20px;font-weight:800;color:var(--primary)}
+    .eta{color:#64748b;font-size:13px;margin-top:6px}
+
+    .cta{display:flex;gap:10px;margin-top:12px}
+    .btn{padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#fff;color:var(--primary);cursor:pointer}
+    .btn.primary{background:var(--primary);color:#fff;border-color:var(--primary);font-weight:700}
+
+    .muted{color:var(--muted)}
+
+    @media (max-width:960px){.col-8,.col-4{flex:1 1 100%}.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand" id="brand"><i class="fa-solid fa-print"></i> سوق الطباعة</div>
+      <div class="crumbs" id="crumbs">الرئيسية › الخدمات › <span id="crumb">كروت شخصية</span></div>
+      <button class="lang-switch" id="langBtn">English 🇬🇧</button>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top:18px">
+    <div class="row">
+      <section class="col-8">
+        <div class="card">
+          <div class="card-b">
+            <div class="gallery-main" id="preview"></div>
+            <div class="thumbs" id="thumbs"></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <div class="card-b">
+            <div class="tabs">
+              <ul class="tablist">
+                <li class="tab active" data-tab="desc" id="tab-desc">الوصف</li>
+                <li class="tab" data-tab="specs" id="tab-specs">المواصفات</li>
+                <li class="tab" data-tab="files" id="tab-files">متطلبات الملفات</li>
+              </ul>
+            </div>
+            <div class="pan active" id="desc">
+              <h2 id="title" style="margin-top:6px">كروت شخصية فاخرة · مطفي ٣٥٠جم</h2>
+              <p class="muted" id="previewNote">المعاينة التالية تقريبية للألوان والملمس. قد تختلف النتيجة على أرض الواقع بسبب CMYK ونوع الورق.</p>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <div class="badge" style="background:#eef6ff;color:#0b5394;padding:6px 10px;border-radius:999px"><i class="fa-regular fa-clock"></i> <span id="readyIn">جاهز خلال</span> <span id="badge-time">٤٨ ساعة</span></div>
+                <div class="badge" style="background:#ecfdf5;color:#065f46;padding:6px 10px;border-radius:999px"><i class="fa-solid fa-shield"></i> <span id="quality">ضمان الجودة</span></div>
+              </div>
+            </div>
+            <div class="pan" id="specs">
+              <ul style="margin:0;padding:0 18px">
+                <li><span id="lbl-size">المقاس</span>: <span id="spec-size">٨٥×٥٥ مم</span></li>
+                <li><span id="lbl-paper">الورق</span>: <span id="spec-paper">مطفي ٣٥٠ جم</span></li>
+                <li><span id="lbl-finish">التغليف</span>: <span id="spec-finish">تغليف مطفي</span></li>
+                <li><span id="lbl-sides">الطباعة</span>: <span id="spec-sides">وجهين</span></li>
+              </ul>
+            </div>
+            <div class="pan" id="files">
+              <p id="fileGuide">ملف PDF عالي الجودة 300dpi، نزف ٣ مم من كل جانب، المنطقة الآمنة ٣–٥ مم، ألوان CMYK، وتحويل الخطوط إلى Outlines.</p>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <button class="btn" id="btnTemplate"><i class="fa-solid fa-download"></i> <span id="dlTemplate">تنزيل القالب</span></button>
+                <button class="btn" id="btnGuides"><i class="fa-solid fa-book"></i> <span id="designGuides">إرشادات التصميم</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="col-4">
+        <div class="card">
+          <div class="card-h" id="cfgTitle">تهيئة المنتج وعرض السعر الفوري</div>
+          <div class="card-b">
+            <div class="group">
+              <div class="label"><i class="fa-regular fa-square"></i> <span id="lbl-size2">المقاس</span></div>
+              <div class="tiles" id="sizeTiles"></div>
+            </div>
+            <div class="group">
+              <div class="label"><i class="fa-solid fa-up-down-left-right"></i> <span id="lbl-ori">الاتجاه</span></div>
+              <div class="tiles" id="oriTiles"></div>
+            </div>
+            <div class="group">
+              <div class="label"><i class="fa-regular fa-file"></i> <span id="lbl-paper2">نوع الورق</span></div>
+              <div class="tiles" id="paperTiles"></div>
+            </div>
+            <div class="group">
+              <div class="label"><i class="fa-regular fa-gem"></i> <span id="lbl-finish2">التشطيبات</span></div>
+              <div class="tiles" id="finishTiles"></div>
+            </div>
+            <div class="group">
+              <div class="label"><i class="fa-regular fa-clone"></i> <span id="lbl-sides2">الطباعة</span></div>
+              <div class="tiles" id="sideTiles"></div>
+            </div>
+
+            <div class="stack">
+              <div style="flex:1">
+                <div class="label" id="lbl-qty">الكمية</div>
+                <select id="qty"></select>
+              </div>
+              <div style="flex:1">
+                <div class="label" id="lbl-turn">المدة</div>
+                <select id="turn"></select>
+              </div>
+            </div>
+
+            <div class="pricebox" style="margin-top:10px">
+              <div class="rowp"><span id="lbl-base">الأساس</span><span id="pBase">AED 0.00</span></div>
+              <div class="rowp"><span id="lbl-opts">الخيارات</span><span id="pOpts">AED 0.00</span></div>
+              <div class="rowp"><span id="lbl-turn2">المدة</span><span id="pTurn">AED 0.00</span></div>
+              <div class="rowp total"><span id="lbl-total">الإجمالي</span><span id="pTotal">AED 0.00</span></div>
+              <div class="eta" id="eta">التسليم المتوقع —</div>
+            </div>
+
+            <div class="cta">
+              <button class="btn primary" id="orderBtn"><i class="fa-solid fa-cart-shopping"></i> <span id="btnAddText">أضف للسلة</span></button>
+              <button class="btn" id="proofBtn"><i class="fa-regular fa-file-lines"></i> <span id="btnProofText">معاينة نهائية</span></button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    // ===== i18n dictionaries =====
+    const i18n = {
+      ar: {
+        brand:'سوق الطباعة', crumbsPrefix:'الرئيسية › الخدمات › ', category:'كروت شخصية',
+        tabs:{desc:'الوصف', specs:'المواصفات', files:'متطلبات الملفات'},
+        previewNote:'المعاينة التالية تقريبية للألوان والملمس. قد تختلف النتيجة على أرض الواقع بسبب CMYK ونوع الورق.',
+        readyIn:'جاهز خلال', quality:'ضمان الجودة',
+        labels:{size:'المقاس', orientation:'الاتجاه', paper:'نوع الورق', finish:'التشطيبات', sides:'الطباعة', qty:'الكمية', turn:'المدة', base:'الأساس', opts:'الخيارات', total:'الإجمالي'},
+        cfgTitle:'تهيئة المنتج وعرض السعر الفوري',
+        dlTemplate:'تنزيل القالب', designGuides:'إرشادات التصميم', expected:'التسليم المتوقع: ', add:'أضف للسلة', proof:'معاينة نهائية',
+        paperNames:{matte350:'مطفي ٣٥٠ جم', silk400:'سيلكي ٤٠٠ جم', recycled300:'مُعاد تدويره ٣٠٠ جم'},
+        sides:{single:'وجه واحد', double:'وجهين'},
+        size85x55:'٨٥×٥٥ مم', size90x50:'٩٠×٥٠ مم', custom:'مخصص',
+        title:(paper)=>`كروت شخصية · ${paper}`,
+        time48:'٤٨ ساعة', time24:'٢٤ ساعة',
+        svgName:'اسمك', svgTitle:'المسمّى الوظيفي', svgPhone:'٠٥٠ ٠٠٠ ٠٠٠٠'
+      },
+      en: {
+        brand:'Print Marketplace', crumbsPrefix:'Home › Products › ', category:'Business Cards',
+        tabs:{desc:'Description', specs:'Specifications', files:'File Setup'},
+        previewNote:'Preview is illustrative. Colors/texture may vary due to CMYK and substrate.',
+        readyIn:'Ready in', quality:'Quality Assurance',
+        labels:{size:'Size', orientation:'Orientation', paper:'Paper / Substrate', finish:'Finish', sides:'Printing', qty:'Quantity', turn:'Turnaround', base:'Base', opts:'Options', total:'Total'},
+        cfgTitle:'Configure & Instant Quote',
+        dlTemplate:'Download Template', designGuides:'Design Guides', expected:'Estimated ready by: ', add:'Add to Cart', proof:'Generate Proof',
+        paperNames:{matte350:'Matte 350gsm', silk400:'Silk 400gsm', recycled300:'Recycled 300gsm'},
+        sides:{single:'Single‑sided', double:'Double‑sided'},
+        size85x55:'85×55mm', size90x50:'90×50mm', custom:'Custom',
+        title:(paper)=>`Business Cards · ${paper}`,
+        time48:'48h', time24:'24h',
+        svgName:'Your Name', svgTitle:'Job Title', svgPhone:'+971 50 000 0000'
+      }
+    };
+
+    // ===== Catalog =====
+    const fmt = n => `AED ${n.toFixed(2)}`;
+    const catalog = {
+      businesscard: {
+        titleAr:'كروت شخصية', titleEn:'Business Cards',
+        sizes:[
+          {id:'85x55', labelAr:'٨٥×٥٥ مم', labelEn:'85×55mm', subAr:'أوروبي', subEn:'EU', icon:'size-card', base:50},
+          {id:'90x50', labelAr:'٩٠×٥٠ مم', labelEn:'90×50mm', subAr:'قياسي', subEn:'Standard', icon:'size-card', base:55},
+          {id:'custom', labelAr:'مخصص', labelEn:'Custom', subAr:'حسب الطلب', subEn:'On‑demand', icon:'ruler', base:60}
+        ],
+        orientations:[
+          {id:'landscape', labelAr:'أفقي', labelEn:'Landscape', icon:'landscape'},
+          {id:'portrait', labelAr:'رأسي', labelEn:'Portrait', icon:'portrait'}
+        ],
+        papers:[
+          {id:'matte350', labelAr:'مطفي ٣٥٠ جم', labelEn:'Matte 350gsm', subAr:'ملمس ناعم', subEn:'Smooth premium', icon:'paper', add:0},
+          {id:'silk400', labelAr:'سيلكي ٤٠٠ جم', labelEn:'Silk 400gsm', subAr:'أثقل', subEn:'Thicker, silky', icon:'paper', add:10},
+          {id:'recycled300', labelAr:'مُعاد تدويره ٣٠٠ جم', labelEn:'Recycled 300gsm', subAr:'صديق للبيئة', subEn:'Eco option', icon:'recycle', add:5}
+        ],
+        finishes:[
+          {id:'none', labelAr:'بدون', labelEn:'None', icon:'none', add:0},
+          {id:'matte', labelAr:'تغليف مطفي', labelEn:'Matte Lamination', icon:'matte', add:12},
+          {id:'gloss', labelAr:'تغليف لامع', labelEn:'Gloss Lamination', icon:'gloss', add:12},
+          {id:'spotuv', labelAr:'سبوت UV', labelEn:'Spot‑UV (front)', icon:'uv', add:25},
+          {id:'foil', labelAr:'طباعة فويل', labelEn:'Foil (front)', icon:'foil', add:35}
+        ],
+        sides:[
+          {id:'single', labelAr:'وجه واحد', labelEn:'Single‑sided', icon:'one', mult:1},
+          {id:'double', labelAr:'وجهين', labelEn:'Double‑sided', icon:'two', mult:1.18}
+        ],
+        qty:[100,250,500,1000,2000],
+        turnaround:[
+          {id:'std48', labelAr:'٤٨ ساعة', labelEn:'48h', add:0, hours:48},
+          {id:'express24', labelAr:'٢٤ ساعة', labelEn:'24h', add:35, hours:24}
+        ],
+        thumbs:5
+      }
+    };
+
+    const state = { lang:'ar', category:'businesscard', size:'85x55', orientation:'landscape', paper:'matte350', finish:'matte', sides:'double', qty:250, turn:'std48'};
+
+    // ===== SVG icons =====
+    const icons = {
+      'size-card': `<svg viewBox='0 0 48 32' width='36' height='24' xmlns='http://www.w3.org/2000/svg'><rect x='1' y='1' width='46' height='30' rx='6' fill='#fff' stroke='#d1d5db'/><rect x='5' y='6' width='20' height='4' rx='2' fill='#94a3b8'/><rect x='5' y='12' width='28' height='4' rx='2' fill='#cbd5e1'/><rect x='5' y='18' width='18' height='4' rx='2' fill='#e5e7eb'/></svg>`,
+      ruler: `<svg viewBox='0 0 48 32' width='36' height='24' xmlns='http://www.w3.org/2000/svg'><rect x='1' y='8' width='46' height='16' rx='4' fill='#fff' stroke='#d1d5db'/><g stroke='#94a3b8'><line x1='8' y1='12' x2='8' y2='20'/><line x1='14' y='14' x2='14' y2='20'/><line x1='20' y1='12' x2='20' y2='20'/><line x1='26' y1='14' x2='26' y2='20'/><line x1='32' y1='12' x2='32' y2='20'/><line x1='38' y1='14' x2='38' y2='20'/></g></svg>`,
+      landscape:`<svg viewBox='0 0 40 40' width='28' height='28' xmlns='http://www.w3.org/2000/svg'><rect x='5' y='12' width='30' height='16' rx='3' fill='#fff' stroke='#d1d5db'/></svg>`,
+      portrait:`<svg viewBox='0 0 40 40' width='28' height='28' xmlns='http://www.w3.org/2000/svg'><rect x='12' y='5' width='16' height='30' rx='3' fill='#fff' stroke='#d1d5db'/></svg>`,
+      paper:`<svg viewBox='0 0 40 40' width='28' height='28' xmlns='http://www.w3.org/2000/svg'><path d='M10 6h16l8 8v20a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z' fill='#fff' stroke='#d1d5db'/><path d='M26 6v8h8' fill='none' stroke='#94a3b8'/></svg>`,
+      recycle:`<svg viewBox='0 0 40 40' width='28' height='28' xmlns='http://www.w3.org/2000/svg'><path d='M20 7l3 5h-6l3-5zm-9 9l5 3-3 5-5-3 3-5zm18 0l3 5-5 3-3-5 5-3z' fill='#94a3b8'/></svg>`,
+      matte:`<svg viewBox='0 0 40 40' width='28' height='28' xmlns='http://www.w3.org/2000/svg'><rect x='6' y='10' width='28' height='20' rx='4' fill='#f3f4f6' stroke='#d1d5db'/></svg>`,
+      gloss:`<svg viewBox='0 0 40 40' width='28' height='28' xmlns='http://www.w3.org/2000/svg'><defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='#93c5fd'/><stop offset='1' stop-color='#a7f3d0'/></linearGradient></defs><rect x='6' y='10' width='28' height='20' rx='4' fill='url(#g)' stroke='#d1d5db' opacity='.6'/></svg>`,
+      uv:`<svg viewBox='0 0 40 40' width='28' height='28' xmlns='http://www.w3.org/2000/svg'><circle cx='20' cy='20' r='10' fill='#60a5fa' opacity='.35'/><path d='M10 20h20' stroke='#93c5fd'/><path d='M20 10v20' stroke='#93c5fd'/></svg>`,
+      foil:`<svg viewBox='0 0 40 40' width='28' height='28' xmlns='http://www.w3.org/2000/svg'><rect x='6' y='10' width='28' height='20' rx='4' fill='#fbbf24' opacity='.4' stroke='#d1d5db'/></svg>`,
+      none:`<svg viewBox='0 0 40 40' width='28' height='28' xmlns='http://www.w3.org/2000/svg'><rect x='6' y='10' width='28' height='20' rx='4' fill='#fff' stroke='#d1d5db'/><line x1='8' y1='12' x2='32' y2='28' stroke='#ef4444'/></svg>`,
+      one:`<svg viewBox='0 0 40 40' width='28' height='28' xmlns='http://www.w3.org/2000/svg'><text x='20' y='24' text-anchor='middle' font-size='16' fill='#64748b' font-family='Inter, Cairo'>1</text></svg>`,
+      two:`<svg viewBox='0 0 40 40' width='28' height='28' xmlns='http://www.w3.org/2000/svg'><text x='20' y='24' text-anchor='middle' font-size='16' fill='#64748b' font-family='Inter, Cairo'>2</text></svg>`
+    };
+
+    const $ = id => document.getElementById(id);
+
+    function makeTiles(hostId, items, selectedId, onPick){
+      const host = $(hostId); host.innerHTML='';
+      items.forEach(it=>{
+        const el = document.createElement('label');
+        el.className = 'tile' + (it.id===selectedId?' active':'');
+        const label = state.lang==='ar' ? it.labelAr : it.labelEn;
+        const sub = state.lang==='ar' ? it.subAr : it.subEn;
+        el.innerHTML = `<input type="radio" name="${hostId}"><div class="icon">${icons[it.icon]||''}</div><div class='ttl'>${label}</div>${sub?`<div class='sub'>${sub}</div>`:''}`;
+        el.addEventListener('click', ()=> onPick(it.id));
+        host.appendChild(el);
+      });
+    }
+    function buildSelect(id, arr, val){
+      const s=$(id); s.innerHTML=''; arr.forEach(v=>{ const o=document.createElement('option'); o.value=v.id||v; o.textContent=(v.labelAr&&state.lang==='ar')?v.labelAr:(v.labelEn||v); s.appendChild(o) }); s.value=val;
+      s.onchange = e=>{ state[id==='qty'?'qty':'turn'] = id==='qty'? +e.target.value : e.target.value; update(); }
+    }
+
+    function compute(){
+      const cat=catalog[state.category];
+      const size=cat.sizes.find(x=>x.id===state.size);
+      const paper=cat.papers.find(x=>x.id===state.paper);
+      const finish=cat.finishes.find(x=>x.id===state.finish);
+      const side=cat.sides.find(x=>x.id===state.sides);
+      const turn=cat.turnaround.find(x=>x.id===state.turn);
+      const base=size.base;
+      const opts=(paper.add||0)+(finish.add||0);
+      const qtyFactor=Math.max(1, Math.log10(state.qty)+0.5);
+      const subtotal=(base+opts)*side.mult*qtyFactor;
+      const total=subtotal+(turn.add||0);
+      return {base, opts, total, hours:turn.hours, finish:finish.id};
+    }
+
+    function renderPrice(){
+      const p=compute();
+      $('pBase').textContent=fmt(p.base);
+      $('pOpts').textContent=fmt(p.opts);
+      $('pTurn').textContent=fmt(p.total - p.base - p.opts);
+      $('pTotal').textContent=fmt(p.total);
+      const eta=new Date(Date.now()+p.hours*3600*1000);
+      const dict=i18n[state.lang];
+      $('eta').textContent=dict.expected + eta.toLocaleString(state.lang==='ar'?'ar-EG':'en-GB');
+    }
+
+    function svgBusinessCard(finish){
+      const overlayOpacity = finish==='gloss'?.28: finish==='matte'?.16: finish==='spotuv'?.08: finish==='foil'?.18: .06;
+      const dict=i18n[state.lang];
+      const align = (state.lang==='ar')?{x:460, anchor:'end'}:{x:60, anchor:'start'};
+      return `
+<svg viewBox="0 0 860 540" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#eef2f7"/>
+  <g transform="translate(170,90)">
+    <rect rx="22" width="520" height="320" fill="#ffffff" stroke="#d1d5db"/>
+    <rect rx="18" x="20" y="20" width="480" height="280" fill="url(#g)" opacity="${overlayOpacity}"/>
+    <text x="${align.x}" y="120" fill="#0f172a" font-size="36" font-weight="700" text-anchor="${align.anchor}" font-family="Inter, Cairo">${dict.svgName}</text>
+    <text x="${align.x}" y="160" fill="#1f2937" font-size="18" text-anchor="${align.anchor}" font-family="Inter, Cairo">${dict.svgTitle}</text>
+    <text x="${align.x}" y="210" fill="#374151" font-size="16" text-anchor="${align.anchor}" font-family="Inter, Cairo">email@company.com • ${dict.svgPhone}</text>
+    <text x="${align.x}" y="240" fill="#4b5563" font-size="14" text-anchor="${align.anchor}" font-family="Inter, Cairo">www.website.com</text>
+  </g>
+</svg>`
+    }
+
+    function renderPreview(){ $('preview').innerHTML = svgBusinessCard(compute().finish); }
+
+    function renderThumbs(n){
+      const host=$('thumbs'); host.innerHTML='';
+      for(let i=0;i<n;i++){ const d=document.createElement('div'); d.className='thumb'; host.appendChild(d);} host.firstChild?.classList.add('active');
+    }
+
+    function applyLang(){
+      const dict=i18n[state.lang];
+      document.documentElement.lang = state.lang==='ar'?'ar':'en';
+      document.documentElement.dir = state.lang==='ar'?'rtl':'ltr';
+      document.body.classList.toggle('lang-en', state.lang==='en');
+
+      // Header
+      $('brand').innerHTML = `<i class="fa-solid fa-print"></i> ${dict.brand}`;
+      $('crumbs').innerHTML = `${dict.crumbsPrefix}<span id="crumb">${dict.category}</span>`;
+      $('langBtn').textContent = state.lang==='ar'? 'English 🇬🇧' : 'العربية 🇸🇦';
+
+      // Tabs
+      $('tab-desc').textContent = dict.tabs.desc;
+      $('tab-specs').textContent = dict.tabs.specs;
+      $('tab-files').textContent = dict.tabs.files;
+
+      // Description & badges
+      $('previewNote').textContent = dict.previewNote;
+      $('readyIn').textContent = dict.readyIn;
+      $('quality').textContent = dict.quality;
+
+      // Labels
+      $('lbl-size').textContent = dict.labels.size;
+      $('lbl-paper').textContent = dict.labels.paper;
+      $('lbl-finish').textContent = dict.labels.finish;
+      $('lbl-sides').textContent = dict.labels.sides;
+      $('lbl-size2').textContent = dict.labels.size;
+      $('lbl-ori').textContent = dict.labels.orientation;
+      $('lbl-paper2').textContent = dict.labels.paper;
+      $('lbl-finish2').textContent = dict.labels.finish;
+      $('lbl-sides2').textContent = dict.labels.sides;
+      $('lbl-qty').textContent = dict.labels.qty;
+      $('lbl-turn').textContent = dict.labels.turn;
+      $('lbl-base').textContent = dict.labels.base;
+      $('lbl-opts').textContent = dict.labels.opts;
+      $('lbl-turn2').textContent = dict.labels.turn;
+      $('lbl-total').textContent = dict.labels.total;
+      $('cfgTitle').textContent = dict.cfgTitle;
+
+      // Buttons & helpers
+      $('dlTemplate').textContent = dict.dlTemplate;
+      $('designGuides').textContent = dict.designGuides;
+      $('btnAddText').textContent = dict.add;
+      $('btnProofText').textContent = dict.proof;
+
+      // Dynamic text (title/specs)
+      const cat=catalog[state.category];
+      const paperName = dict.paperNames[state.paper] || (state.lang==='ar'? cat.papers.find(p=>p.id===state.paper).labelAr : cat.papers.find(p=>p.id===state.paper).labelEn);
+      $('title').textContent = dict.title(paperName);
+      $('spec-size').textContent = state.size==='85x55'? dict.size85x55 : state.size==='90x50' ? dict.size90x50 : dict.custom;
+      $('spec-paper').textContent = paperName;
+      $('spec-finish').textContent = (state.lang==='ar'? cat.finishes.find(f=>f.id===state.finish).labelAr : cat.finishes.find(f=>f.id===state.finish).labelEn);
+      $('spec-sides').textContent = dict.sides[state.sides];
+      $('badge-time').textContent = state.turn==='std48'? dict.time48 : dict.time24;
+    }
+
+    function hydrate(){
+      const cat=catalog[state.category];
+      // tiles
+      makeTiles('sizeTiles', cat.sizes, state.size, id=>{state.size=id; update()});
+      makeTiles('oriTiles', cat.orientations, state.orientation, id=>{state.orientation=id; update()});
+      makeTiles('paperTiles', cat.papers, state.paper, id=>{state.paper=id; update()});
+      makeTiles('finishTiles', cat.finishes, state.finish, id=>{state.finish=id; update()});
+      makeTiles('sideTiles', cat.sides, state.sides, id=>{state.sides=id; update()});
+      // selects
+      buildSelect('qty', cat.qty.map(q=>({id:q,labelEn:q,labelAr:q})), state.qty);
+      buildSelect('turn', cat.turnaround, state.turn);
+      renderThumbs(cat.thumbs||4);
+      applyLang();
+    }
+
+    function update(){
+      hydrate();
+      renderPreview();
+      renderPrice();
+    }
+
+    $('langBtn').addEventListener('click', ()=>{
+      state.lang = state.lang==='ar' ? 'en' : 'ar';
+      // persist
+      try{ localStorage.setItem('lang', state.lang); }catch(e){}
+      update();
+    });
+
+    // Restore saved language
+    try{ const saved = localStorage.getItem('lang'); if(saved==='en'||saved==='ar'){ state.lang=saved; } }catch(e){}
+
+    // Tabs
+    document.addEventListener('click', (e)=>{
+      if(e.target.classList.contains('tab')){
+        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+        e.target.classList.add('active');
+        document.querySelectorAll('.pan').forEach(p=>p.classList.remove('active'));
+        document.getElementById(e.target.dataset.tab).classList.add('active');
+      }
+    });
+
+    // Buttons
+    document.getElementById('orderBtn').addEventListener('click', ()=>{
+      alert((state.lang==='ar'?'تمت إضافة المنتج للسلة: ':'Added to cart: ') + document.getElementById('pTotal').textContent);
+    });
+    document.getElementById('proofBtn').addEventListener('click', ()=>{
+      alert(state.lang==='ar'?'سيتم إنشاء معاينة نهائية رقمية (تجريبي).':'A digital proof will be generated (demo).');
+    });
+
+    update();
+  </script>
+</body>
+</html>

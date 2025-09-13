@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Request Details - PrintHub Egypt Admin</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+    <style>
+        /* Admin Layout Styles */
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #2C3E50 0%, #1a252f 100%);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .sidebar-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .admin-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        .menu-label {
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .menu-item.active {
+            background: rgba(102, 126, 234, 0.2);
+            color: white;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #667eea;
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+
+        /* Main Content */
+        .admin-main {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .admin-topbar {
+            background: white;
+            padding: 20px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: #667eea;
+        }
+
+        .breadcrumb .separator {
+            color: #999;
+        }
+
+        .breadcrumb .current {
+            color: #2C3E50;
+            font-weight: 600;
+        }
+
+        .topbar-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .btn-outline {
+            background: white;
+            border: 2px solid #e0e6ed;
+            color: #666;
+        }
+
+        /* Page Content */
+        .page-content {
+            padding: 30px;
+        }
+
+        /* Status Header */
+        .status-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .status-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-info h1 {
+            font-size: 24px;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+        }
+
+        .status-meta {
+            display: flex;
+            gap: 25px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .status-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .priority-indicator {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .priority-indicator.high {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        /* Card Styles */
+        .detail-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 25px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-bottom: 1px solid #e0e6ed;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2C3E50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #999;
+            font-weight: 600;
+            min-width: 120px;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: #2C3E50;
+            flex: 1;
+        }
+
+        /* Customer Card */
+        .customer-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .customer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .customer-details h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2C3E50;
+            margin: 0 0 5px 0;
+        }
+
+        .customer-details p {
+            font-size: 13px;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Service Details */
+        .service-detail {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .service-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .service-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2C3E50;
+            margin: 0 0 8px 0;
+        }
+
+        .service-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            font-size: 13px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Specifications */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .spec-item {
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .spec-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .spec-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        /* Files Section */
+        .files-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .file-item:hover {
+            background: #e8f4ff;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .file-icon {
+            width: 36px;
+            height: 36px;
+            background: #667eea;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .file-details h5 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #2C3E50;
+            margin: 0 0 2px 0;
+        }
+
+        .file-details p {
+            font-size: 12px;
+            color: #999;
+            margin: 0;
+        }
+
+        /* Vendor Responses */
+        .vendor-responses {
+            display: grid;
+            gap: 15px;
+        }
+
+        .vendor-response {
+            padding: 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .vendor-response:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .vendor-response.selected {
+            border-color: #27AE60;
+            background: #d4f4dd;
+        }
+
+        .vendor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .vendor-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .vendor-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .vendor-details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e0e6ed;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -25px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #e0e6ed;
+        }
+
+        .timeline-item.completed .timeline-dot {
+            background: #27AE60;
+            border-color: #27AE60;
+        }
+
+        .timeline-item.current .timeline-dot {
+            background: #667eea;
+            border-color: #667eea;
+        }
+
+        .timeline-content {
+            padding: 5px 0;
+        }
+
+        .timeline-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 3px;
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Action Buttons */
+        .action-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            margin-top: 25px;
+        }
+
+        .action-buttons-grid {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Notes Section */
+        .notes-section {
+            background: #fffdf5;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .notes-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notes-content {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .admin-main {
+                margin-left: 0;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub">
+                    <h2>PrintHub</h2>
+                    <span class="admin-badge">Admin</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <div class="menu-section">
+                    <div class="menu-label">Main</div>
+                    <a href="dashboard.html" class="menu-item">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="reports.html" class="menu-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">Management</div>
+                    <a href="users.html" class="menu-item">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                    <a href="vendors.html" class="menu-item">
+                        <i class="fas fa-store"></i>
+                        <span>Vendors</span>
+                    </a>
+                    <a href="services.html" class="menu-item">
+                        <i class="fas fa-print"></i>
+                        <span>Services</span>
+                    </a>
+                    <a href="categories.html" class="menu-item">
+                        <i class="fas fa-tags"></i>
+                        <span>Categories</span>
+                    </a>
+                    <a href="orders.html" class="menu-item active">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Orders</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">System</div>
+                    <a href="settings.html" class="menu-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Security</span>
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb-container">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li><a href="dashboard.html" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</a></li>
+                        <li><a href="orders.html" data-en="Orders & Quotes" data-ar="الطلبات والأسعار">Orders & Quotes</a></li>
+                        <li class="active" data-en="Quote Request Details" data-ar="تفاصيل طلب السعر">Quote Request Details</li>
+                    </ol>
+                </div>
+            </nav>
+
+            <!-- Top Bar -->
+            <div class="admin-topbar">
+                <div class="topbar-left">
+                    <h1 class="page-title">Quote Request #QR-2024-0523</h1>
+                    <div class="quote-meta">
+                        <span class="badge badge-warning">Pending Response</span>
+                        <span class="quote-date">Submitted: Dec 15, 2024</span>
+                    </div>
+                </div>
+
+                <div class="topbar-actions">
+                    <button class="btn btn-outline">
+                        <i class="fas fa-print"></i>
+                        Print
+                    </button>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Status Header -->
+                <div class="status-header">
+                    <div class="status-header-content">
+                        <div class="status-info">
+                            <h1>
+                                Quote Request #QR-2024-0523
+                                <span class="status-badge">Awaiting Vendor Assignment</span>
+                            </h1>
+                            <div class="status-meta">
+                                <span><i class="fas fa-calendar"></i> Created: Jan 16, 2024 at 10:30 AM</span>
+                                <span><i class="fas fa-clock"></i> Age: 2 hours</span>
+                                <span><i class="fas fa-user"></i> Customer: Tech Solutions Inc.</span>
+                            </div>
+                        </div>
+                        <div class="priority-indicator high">
+                            <i class="fas fa-exclamation-circle"></i>
+                            High Priority
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="content-grid">
+                    <!-- Left Column -->
+                    <div class="left-column">
+                        <!-- Customer Information -->
+                        <div class="detail-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-user"></i>
+                                    Customer Information
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="customer-card">
+                                    <div class="customer-avatar">TS</div>
+                                    <div class="customer-details">
+                                        <h4>Tech Solutions Inc.</h4>
+                                        <p><i class="fas fa-envelope"></i> ahmed@techsolutions.com</p>
+                                        <p><i class="fas fa-phone"></i> +20 123 456 7890</p>
+                                        <p><i class="fas fa-map-marker-alt"></i> Cairo, Egypt</p>
+                                    </div>
+                                </div>
+                                <div class="info-grid" style="margin-top: 20px;">
+                                    <div class="info-row">
+                                        <span class="info-label">Customer Type</span>
+                                        <span class="info-value">Corporate - Premium</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Total Orders</span>
+                                        <span class="info-value">23 orders (EGP 125,430 lifetime value)</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Member Since</span>
+                                        <span class="info-value">December 2023</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service Details -->
+                        <div class="detail-card" style="margin-top: 20px;">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-print"></i>
+                                    Service Details
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="service-detail">
+                                    <img src="https://via.placeholder.com/80" alt="Business Cards" class="service-image">
+                                    <div style="flex: 1;">
+                                        <h4>Premium Business Cards</h4>
+                                        <div class="service-meta">
+                                            <span class="meta-item"><i class="fas fa-tag"></i> Category: Business Cards & Stationery</span>
+                                            <span class="meta-item"><i class="fas fa-box"></i> Quantity: 1000 pieces</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h4 style="margin: 20px 0 15px; font-size: 14px; color: #2C3E50;">Specifications</h4>
+                                <div class="specs-grid">
+                                    <div class="spec-item">
+                                        <div class="spec-label">Size</div>
+                                        <div class="spec-value">3.5" x 2" (Standard)</div>
+                                    </div>
+                                    <div class="spec-item">
+                                        <div class="spec-label">Paper Type</div>
+                                        <div class="spec-value">350gsm Matte</div>
+                                    </div>
+                                    <div class="spec-item">
+                                        <div class="spec-label">Colors</div>
+                                        <div class="spec-value">Full Color (CMYK)</div>
+                                    </div>
+                                    <div class="spec-item">
+                                        <div class="spec-label">Finishing</div>
+                                        <div class="spec-value">Matte Lamination</div>
+                                    </div>
+                                    <div class="spec-item">
+                                        <div class="spec-label">Sides</div>
+                                        <div class="spec-value">Double Sided</div>
+                                    </div>
+                                    <div class="spec-item">
+                                        <div class="spec-label">Delivery</div>
+                                        <div class="spec-value">Within 5 days</div>
+                                    </div>
+                                </div>
+
+                                <div class="notes-section">
+                                    <h4 class="notes-title">
+                                        <i class="fas fa-info-circle"></i>
+                                        Special Requirements
+                                    </h4>
+                                    <div class="notes-content">
+                                        Need gold foil stamping on the logo. Please ensure color accuracy as this is for our corporate branding. 
+                                        We need samples before final production. The cards should match our brand guidelines exactly.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Attached Files -->
+                        <div class="detail-card" style="margin-top: 20px;">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-paperclip"></i>
+                                    Attached Files
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="files-list">
+                                    <div class="file-item">
+                                        <div class="file-info">
+                                            <div class="file-icon">
+                                                <i class="fas fa-file-pdf"></i>
+                                            </div>
+                                            <div class="file-details">
+                                                <h5>business_card_design.pdf</h5>
+                                                <p>2.4 MB • Uploaded Jan 16, 2024</p>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-outline" style="padding: 8px 16px;">
+                                            <i class="fas fa-download"></i>
+                                            Download
+                                        </button>
+                                    </div>
+                                    <div class="file-item">
+                                        <div class="file-info">
+                                            <div class="file-icon">
+                                                <i class="fas fa-file-image"></i>
+                                            </div>
+                                            <div class="file-details">
+                                                <h5>company_logo.png</h5>
+                                                <p>856 KB • Uploaded Jan 16, 2024</p>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-outline" style="padding: 8px 16px;">
+                                            <i class="fas fa-download"></i>
+                                            Download
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vendor Responses (if any) -->
+                        <div class="detail-card" style="margin-top: 20px;">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-store"></i>
+                                    Vendor Assignment & Responses
+                                </h3>
+                                <button class="btn btn-primary" style="padding: 8px 16px;" onclick="openAssignModal()">
+                                    <i class="fas fa-user-plus"></i>
+                                    Assign Vendors
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div style="text-align: center; padding: 40px 20px; color: #999;">
+                                    <i class="fas fa-user-clock" style="font-size: 48px; margin-bottom: 15px; opacity: 0.5;"></i>
+                                    <p>No vendors assigned yet</p>
+                                    <p style="font-size: 13px;">Assign vendors to receive quote responses</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="right-column">
+                        <!-- Timeline -->
+                        <div class="detail-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-history"></i>
+                                    Activity Timeline
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="timeline">
+                                    <div class="timeline-item completed">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-title">Quote Request Created</div>
+                                            <div class="timeline-date">Jan 16, 2024 at 10:30 AM</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item completed">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-title">Files Uploaded</div>
+                                            <div class="timeline-date">Jan 16, 2024 at 10:31 AM</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item current">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-title">Awaiting Vendor Assignment</div>
+                                            <div class="timeline-date">Current Status</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-title">Quotes Received</div>
+                                            <div class="timeline-date">Pending</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-title">Quote Accepted</div>
+                                            <div class="timeline-date">Pending</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="detail-card" style="margin-top: 20px;">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-bolt"></i>
+                                    Quick Actions
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="action-buttons-grid">
+                                    <button class="btn btn-success" style="width: 100%;" onclick="autoAssign()">
+                                        <i class="fas fa-magic"></i>
+                                        Auto-Assign Best Match
+                                    </button>
+                                    <button class="btn btn-primary" style="width: 100%;" onclick="openAssignModal()">
+                                        <i class="fas fa-user-plus"></i>
+                                        Manual Assign
+                                    </button>
+                                    <button class="btn btn-outline" style="width: 100%;">
+                                        <i class="fas fa-edit"></i>
+                                        Edit Request
+                                    </button>
+                                    <button class="btn btn-outline" style="width: 100%;">
+                                        <i class="fas fa-envelope"></i>
+                                        Contact Customer
+                                    </button>
+                                    <button class="btn btn-danger" style="width: 100%;">
+                                        <i class="fas fa-times"></i>
+                                        Cancel Request
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Admin Notes -->
+                        <div class="detail-card" style="margin-top: 20px;">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-sticky-note"></i>
+                                    Admin Notes
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <textarea style="width: 100%; padding: 10px; border: 1px solid #e0e6ed; border-radius: 8px; font-size: 13px; resize: vertical;" rows="4" placeholder="Add internal notes about this request..."></textarea>
+                                <button class="btn btn-outline" style="margin-top: 10px;">
+                                    <i class="fas fa-save"></i>
+                                    Save Note
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Modal functions
+        function openAssignModal() {
+            if (window.Modal) {
+                Modal.open('assignVendorModal');
+            } else {
+                alert('Opening vendor assignment modal...');
+            }
+        }
+
+        function autoAssign() {
+            if(confirm('Auto-assign this request to the best matching vendors based on category, location, and availability?')) {
+                const btn = event.target.closest('button');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Assigning...';
+                
+                setTimeout(() => {
+                    if (window.Toast) {
+                        Toast.show('Successfully auto-assigned to 3 matching vendors!', 'success');
+                    } else {
+                        alert('Successfully auto-assigned to 3 matching vendors!');
+                    }
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-magic"></i> Auto-Assign';
+                    
+                    // Update quote status
+                    updateQuoteStatus('assigned');
+                }, 2000);
+            }
+        }
+
+        // Print functionality
+        function printQuote() {
+            window.print();
+        }
+
+        // Export functionality
+        function exportQuote() {
+            const quoteData = {
+                id: 'QR-2024-0523',
+                customer: 'Sarah Ahmed',
+                service: 'Premium Business Cards',
+                status: 'pending'
+            };
+            
+            const dataStr = JSON.stringify(quoteData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'quote-request-QR-2024-0523.json';
+            link.click();
+        }
+
+        // Update quote status
+        function updateQuoteStatus(newStatus) {
+            const statusBadge = document.querySelector('.badge');
+            const statusMap = {
+                'pending': { class: 'badge-warning', text: 'Pending Response' },
+                'assigned': { class: 'badge-info', text: 'Assigned to Vendors' },
+                'responded': { class: 'badge-primary', text: 'Responses Received' },
+                'completed': { class: 'badge-success', text: 'Completed' },
+                'cancelled': { class: 'badge-danger', text: 'Cancelled' }
+            };
+            
+            if (statusBadge && statusMap[newStatus]) {
+                statusBadge.className = `badge ${statusMap[newStatus].class}`;
+                statusBadge.textContent = statusMap[newStatus].text;
+            }
+        }
+
+        // Save admin notes
+        function saveAdminNote() {
+            const noteText = document.querySelector('textarea[placeholder*="admin notes"]');
+            if (noteText && noteText.value.trim()) {
+                if (window.Toast) {
+                    Toast.show('Admin note saved successfully!', 'success');
+                } else {
+                    alert('Admin note saved successfully!');
+                }
+            } else {
+                alert('Please enter a note before saving.');
+            }
+        }
+
+        // Add event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Print button functionality
+            document.querySelectorAll('[onclick*="print"]').forEach(btn => {
+                btn.addEventListener('click', printQuote);
+            });
+            
+            // Export button functionality  
+            document.querySelectorAll('[onclick*="export"]').forEach(btn => {
+                btn.addEventListener('click', exportQuote);
+            });
+            
+            // Save note button functionality
+            document.querySelectorAll('button:contains("Save Note")').forEach(btn => {
+                btn.addEventListener('click', saveAdminNote);
+            });
+        });
+    </script>
+
+    <!-- Additional Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/language.js"></script>
+</body>
+</html>

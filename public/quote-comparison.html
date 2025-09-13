@@ -10,6 +10,11 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
 
     <style>
         /* Reset and Base Styles */
@@ -664,6 +669,17 @@
         </div>
     </section>
 
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li><a href="quote-request.html" data-en="Quote Request" data-ar="طلب عرض سعر">Quote Request</a></li>
+                <li class="active" data-en="Compare Quotes" data-ar="مقارنة الأسعار">Compare Quotes</li>
+            </ol>
+        </div>
+    </nav>
+
     <!-- Main Content -->
     <section class="container">
         <!-- Project Summary -->
@@ -1201,6 +1217,140 @@
                 }
             });
         });
+
+        // Add interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers for quote cards
+            document.querySelectorAll('.quote-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    selectQuote(this);
+                });
+            });
+
+            // Add functionality to action buttons
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                if (btn.textContent.includes('Select')) {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        selectQuote(this.closest('.quote-card'));
+                    });
+                }
+            });
+
+            // Add functionality to contact vendor buttons
+            document.querySelectorAll('.btn-outline').forEach(btn => {
+                if (btn.textContent.includes('Contact')) {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        contactVendor(this);
+                    });
+                }
+            });
+        });
+
+        // Select quote functionality
+        function selectQuote(quoteCard) {
+            // Remove previous selections
+            document.querySelectorAll('.quote-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Select this quote
+            quoteCard.classList.add('selected');
+            
+            // Get quote details
+            const vendorName = quoteCard.querySelector('h3').textContent;
+            const price = quoteCard.querySelector('.price').textContent;
+            
+            if (confirm(`Do you want to proceed with ${vendorName}'s quote for ${price}?`)) {
+                // Simulate proceeding to checkout
+                if (window.Toast) {
+                    Toast.show(`Selected ${vendorName}'s quote. Redirecting to checkout...`, 'success');
+                } else {
+                    alert(`Selected ${vendorName}'s quote. Redirecting to checkout...`);
+                }
+                
+                setTimeout(() => {
+                    window.location.href = '../customer/orders.html';
+                }, 1500);
+            }
+        }
+
+        // Contact vendor functionality
+        function contactVendor(btn) {
+            const quoteCard = btn.closest('.quote-card');
+            const vendorName = quoteCard.querySelector('h3').textContent;
+            
+            if (window.Modal) {
+                // If modal system exists, open contact modal
+                Modal.open('contactVendorModal');
+            } else {
+                // Fallback to simple prompt
+                const message = prompt(`Send a message to ${vendorName}:`);
+                if (message) {
+                    if (window.Toast) {
+                        Toast.show(`Message sent to ${vendorName}!`, 'success');
+                    } else {
+                        alert(`Message sent to ${vendorName}!`);
+                    }
+                }
+            }
+        }
+
+        // Share comparison functionality
+        function shareComparison() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Quote Comparison - PrintHub Egypt',
+                    text: 'Check out my printing quote comparison',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback: copy to clipboard
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    if (window.Toast) {
+                        Toast.show('Comparison link copied to clipboard!', 'success');
+                    } else {
+                        alert('Comparison link copied to clipboard!');
+                    }
+                });
+            }
+        }
+
+        // Print comparison functionality
+        function printComparison() {
+            window.print();
+        }
+
+        // Save comparison functionality
+        function saveComparison() {
+            const comparisonData = {
+                project: 'Business Cards',
+                quotes: []
+            };
+            
+            document.querySelectorAll('.quote-card').forEach(card => {
+                const quote = {
+                    vendor: card.querySelector('h3').textContent,
+                    price: card.querySelector('.price').textContent,
+                    rating: card.querySelector('.rating').textContent,
+                    delivery: card.querySelector('.delivery-time').textContent
+                };
+                comparisonData.quotes.push(quote);
+            });
+            
+            localStorage.setItem('savedComparison', JSON.stringify(comparisonData));
+            
+            if (window.Toast) {
+                Toast.show('Comparison saved to your account!', 'success');
+            } else {
+                alert('Comparison saved successfully!');
+            }
+        }
     </script>
+
+    <!-- Additional Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/language.js"></script>
 </body>
 </html>

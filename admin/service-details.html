@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Details - Admin Panel | PrintHub Egypt</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+    
+    <style>
+        /* Admin Dashboard Specific Styles */
+        body {
+            background: #f0f2f5;
+        }
+
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #2C3E50 0%, #1a252f 100%);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .admin-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        .menu-label {
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .menu-item.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+
+        .menu-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            margin-left: auto;
+        }
+
+        .admin-main {
+            margin-left: 260px;
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        .admin-header {
+            background: white;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e8e9ea;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .admin-content {
+            padding: 30px;
+        }
+
+        /* Service Details Specific Styles */
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .service-info {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+        }
+
+        .service-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 4px solid #e8e9ea;
+        }
+
+        .service-details {
+            flex: 1;
+        }
+
+        .service-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .service-category {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .service-meta {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .price-range {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .price-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .price-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #27ae60;
+        }
+
+        .service-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #27ae60;
+        }
+
+        .status-text {
+            color: #27ae60;
+            font-weight: 600;
+        }
+
+        .service-actions {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .details-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #f8f9fa;
+            background: #fafbfc;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-body {
+            padding: 25px;
+        }
+
+        .specs-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .spec-value {
+            color: #7f8c8d;
+        }
+
+        .vendor-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .vendor-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .vendor-info {
+            flex: 1;
+        }
+
+        .vendor-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 3px;
+        }
+
+        .vendor-rating {
+            color: #f39c12;
+            font-size: 14px;
+        }
+
+        .pricing-tiers {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .tier-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tier-card:hover {
+            border-color: #3498db;
+        }
+
+        .tier-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .tier-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+
+        .tier-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tier-features li {
+            padding: 5px 0;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .tier-features li i {
+            color: #27ae60;
+            margin-right: 8px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            height: fit-content;
+        }
+
+        .chart-body {
+            padding: 25px;
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .orders-table th,
+        .orders-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #f8f9fa;
+            font-size: 14px;
+        }
+
+        .orders-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .order-status {
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #219a52;
+        }
+
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #e67e22;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #e8e9ea;
+            color: #7f8c8d;
+        }
+
+        .btn-outline:hover {
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e8e9ea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e8e9ea;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .sample-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .sample-image {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #e8e9ea;
+        }
+
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .service-header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .service-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .service-meta {
+                justify-content: center;
+            }
+            
+            .service-actions {
+                justify-content: center;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-print" style="font-size: 24px; color: #3498db;"></i>
+                    <h2>PrintHub</h2>
+                    <span class="admin-badge">Admin</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu" aria-label="Admin Navigation">
+                <div class="menu-section">
+                    <div class="menu-label">Main</div>
+                    <a href="dashboard.html" class="menu-item">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="reports.html" class="menu-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">Management</div>
+                    <a href="users.html" class="menu-item">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                        <span class="menu-badge">12</span>
+                    </a>
+                    <a href="vendors.html" class="menu-item">
+                        <i class="fas fa-store"></i>
+                        <span>Vendors</span>
+                        <span class="menu-badge">3</span>
+                    </a>
+                    <a href="services.html" class="menu-item active">
+                        <i class="fas fa-print"></i>
+                        <span>Services</span>
+                        <span class="menu-badge">25</span>
+                    </a>
+                    <a href="categories.html" class="menu-item">
+                        <i class="fas fa-tags"></i>
+                        <span>Categories</span>
+                        <span class="menu-badge">8</span>
+                    </a>
+                    <a href="orders.html" class="menu-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Orders</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">System</div>
+                    <a href="settings.html" class="menu-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Security</span>
+                    </a>
+                    <a href="../public/index.html" class="menu-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <nav class="breadcrumb-container" aria-label="Breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="dashboard.html" class="breadcrumb-link">
+                                <i class="fas fa-home"></i>
+                                <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="services.html" class="breadcrumb-link">
+                                <i class="fas fa-print"></i>
+                                <span data-en="Services" data-ar="الخدمات">Services</span>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            <i class="fas fa-id-card"></i>
+                            <span data-en="Service Details" data-ar="تفاصيل الخدمة">Service Details</span>
+                        </li>
+                    </ol>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <i class="fas fa-globe"></i>
+                        <span id="langText">عربي</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="admin-content">
+                <!-- Service Header -->
+                <div class="service-header">
+                    <div class="service-info">
+                        <img src="../assets/images/samples/business-cards-1.jpg" alt="Business Cards" class="service-image">
+                        <div class="service-details">
+                            <h1 class="service-name">Professional Business Cards</h1>
+                            <div class="service-category">Business Printing</div>
+                            <div class="service-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Created: Aug 15, 2025</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-store"></i>
+                                    <span>3 Vendors Offering</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span>89 Total Orders</span>
+                                </div>
+                            </div>
+                            <div class="price-range">
+                                <div class="price-label">Price Range</div>
+                                <div class="price-value">EGP 50 - 500</div>
+                            </div>
+                            <div class="service-status">
+                                <div class="status-indicator"></div>
+                                <span class="status-text">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-actions">
+                        <button class="btn btn-primary" onclick="editService()">
+                            <i class="fas fa-edit"></i>
+                            <span data-en="Edit Service" data-ar="تحرير الخدمة">Edit Service</span>
+                        </button>
+                        <button class="btn btn-warning" onclick="toggleServiceStatus()">
+                            <i class="fas fa-pause"></i>
+                            <span data-en="Deactivate" data-ar="إلغاء التفعيل">Deactivate</span>
+                        </button>
+                        <button class="btn btn-success" onclick="promoteService()">
+                            <i class="fas fa-star"></i>
+                            <span data-en="Promote" data-ar="ترويج">Promote</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="content-grid">
+                    <!-- Service Specifications -->
+                    <div class="details-section">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <i class="fas fa-cogs"></i>
+                                <span data-en="Service Specifications" data-ar="مواصفات الخدمة">Service Specifications</span>
+                            </h2>
+                        </div>
+                        <div class="section-body">
+                            <ul class="specs-list">
+                                <li class="spec-item">
+                                    <span class="spec-label">Paper Type</span>
+                                    <span class="spec-value">Premium Cardstock, Matte, Glossy</span>
+                                </li>
+                                <li class="spec-item">
+                                    <span class="spec-label">Size Options</span>
+                                    <span class="spec-value">Standard (9x5cm), Mini (8.5x4.5cm)</span>
+                                </li>
+                                <li class="spec-item">
+                                    <span class="spec-label">Printing Options</span>
+                                    <span class="spec-value">Single-sided, Double-sided</span>
+                                </li>
+                                <li class="spec-item">
+                                    <span class="spec-label">Color Options</span>
+                                    <span class="spec-value">Full Color, Black & White</span>
+                                </li>
+                                <li class="spec-item">
+                                    <span class="spec-label">Finish Options</span>
+                                    <span class="spec-value">UV Coating, Embossing, Foil Stamping</span>
+                                </li>
+                                <li class="spec-item">
+                                    <span class="spec-label">Minimum Quantity</span>
+                                    <span class="spec-value">100 pieces</span>
+                                </li>
+                                <li class="spec-item">
+                                    <span class="spec-label">Turnaround Time</span>
+                                    <span class="spec-value">2-5 business days</span>
+                                </li>
+                            </ul>
+
+                            <div class="sample-images">
+                                <img src="../assets/images/samples/business-cards-1.jpg" alt="Sample 1" class="sample-image">
+                                <img src="../assets/images/samples/business-cards-1.jpg" alt="Sample 2" class="sample-image">
+                                <img src="../assets/images/samples/business-cards-1.jpg" alt="Sample 3" class="sample-image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vendors & Pricing -->
+                    <div style="display: flex; flex-direction: column; gap: 30px;">
+                        <!-- Vendors Offering -->
+                        <div class="details-section">
+                            <div class="section-header">
+                                <h2 class="section-title">
+                                    <i class="fas fa-store"></i>
+                                    <span data-en="Vendors Offering" data-ar="الموردين المقدمين">Vendors Offering</span>
+                                </h2>
+                            </div>
+                            <div class="section-body">
+                                <div class="vendor-card">
+                                    <img src="../assets/images/vendors/Vendor-Placeholder.png" alt="PrintMax Solutions" class="vendor-avatar">
+                                    <div class="vendor-info">
+                                        <div class="vendor-name">PrintMax Solutions</div>
+                                        <div class="vendor-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <span>4.8 (124 reviews)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="vendor-card">
+                                    <img src="../assets/images/vendors/Vendor-Placeholder.png" alt="Cairo Printing Co" class="vendor-avatar">
+                                    <div class="vendor-info">
+                                        <div class="vendor-name">Cairo Printing Co</div>
+                                        <div class="vendor-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <span>4.2 (87 reviews)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="vendor-card">
+                                    <img src="../assets/images/vendors/Vendor-Placeholder.png" alt="Digital Print Hub" class="vendor-avatar">
+                                    <div class="vendor-info">
+                                        <div class="vendor-name">Digital Print Hub</div>
+                                        <div class="vendor-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <span>4.9 (156 reviews)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pricing Tiers -->
+                        <div class="details-section">
+                            <div class="section-header">
+                                <h2 class="section-title">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span data-en="Pricing Tiers" data-ar="مستويات الأسعار">Pricing Tiers</span>
+                                </h2>
+                            </div>
+                            <div class="section-body">
+                                <div class="pricing-tiers">
+                                    <div class="tier-card">
+                                        <div class="tier-name">Basic (100-500 cards)</div>
+                                        <div class="tier-price">EGP 50 - 150</div>
+                                        <ul class="tier-features">
+                                            <li><i class="fas fa-check"></i> Standard cardstock</li>
+                                            <li><i class="fas fa-check"></i> Single-sided printing</li>
+                                            <li><i class="fas fa-check"></i> Basic design support</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="tier-card">
+                                        <div class="tier-name">Premium (500-1000 cards)</div>
+                                        <div class="tier-price">EGP 200 - 350</div>
+                                        <ul class="tier-features">
+                                            <li><i class="fas fa-check"></i> Premium cardstock</li>
+                                            <li><i class="fas fa-check"></i> Double-sided printing</li>
+                                            <li><i class="fas fa-check"></i> UV coating finish</li>
+                                            <li><i class="fas fa-check"></i> Professional design</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="tier-card">
+                                        <div class="tier-name">Luxury (1000+ cards)</div>
+                                        <div class="tier-price">EGP 400 - 500</div>
+                                        <ul class="tier-features">
+                                            <li><i class="fas fa-check"></i> Luxury cardstock</li>
+                                            <li><i class="fas fa-check"></i> Embossing/Foil stamping</li>
+                                            <li><i class="fas fa-check"></i> Custom die-cutting</li>
+                                            <li><i class="fas fa-check"></i> Dedicated designer</li>
+                                            <li><i class="fas fa-check"></i> Rush delivery</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Chart -->
+                <div class="chart-container">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-chart-line"></i>
+                            <span data-en="Service Performance (Last 6 Months)" data-ar="أداء الخدمة (آخر 6 شهور)">Service Performance (Last 6 Months)</span>
+                        </h2>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="performanceChart" style="max-height: 300px;"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="details-section" style="margin-top: 30px;">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span data-en="Recent Orders" data-ar="الطلبات الحديثة">Recent Orders</span>
+                        </h2>
+                    </div>
+                    <div class="section-body">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Vendor</th>
+                                    <th>Quantity</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#ORD-1234</td>
+                                    <td>Ahmed Taalab</td>
+                                    <td>PrintMax Solutions</td>
+                                    <td>500 cards</td>
+                                    <td>EGP 250</td>
+                                    <td><span class="order-status status-active">Completed</span></td>
+                                    <td>Sep 13, 2025</td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-1238</td>
+                                    <td>Sara Mohamed</td>
+                                    <td>Cairo Printing Co</td>
+                                    <td>1000 cards</td>
+                                    <td>EGP 350</td>
+                                    <td><span class="order-status status-pending">Processing</span></td>
+                                    <td>Sep 12, 2025</td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-1239</td>
+                                    <td>Omar Hassan</td>
+                                    <td>Digital Print Hub</td>
+                                    <td>250 cards</td>
+                                    <td>EGP 150</td>
+                                    <td><span class="order-status status-inactive">Pending</span></td>
+                                    <td>Sep 11, 2025</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Service Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Service Details</h3>
+                <button type="button" onclick="hideEditModal()" style="background: none; border: none; font-size: 20px; color: #7f8c8d; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editServiceForm">
+                    <div class="form-group">
+                        <label for="serviceName" class="form-label">Service Name</label>
+                        <input type="text" id="serviceName" class="form-control" value="Professional Business Cards">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="serviceCategory" class="form-label">Category</label>
+                            <select id="serviceCategory" class="form-control">
+                                <option value="business-printing" selected>Business Printing</option>
+                                <option value="marketing-materials">Marketing Materials</option>
+                                <option value="signage">Signage</option>
+                                <option value="packaging">Packaging</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceStatus" class="form-label">Status</label>
+                            <select id="serviceStatus" class="form-control">
+                                <option value="active" selected>Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="pending">Pending Review</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="minPrice" class="form-label">Min Price (EGP)</label>
+                            <input type="number" id="minPrice" class="form-control" value="50">
+                        </div>
+                        <div class="form-group">
+                            <label for="maxPrice" class="form-label">Max Price (EGP)</label>
+                            <input type="number" id="maxPrice" class="form-control" value="500">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="serviceDescription" class="form-label">Description</label>
+                        <textarea id="serviceDescription" class="form-control" rows="4">High-quality professional business cards with various paper options and finishing touches.</textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                        <button type="button" class="btn btn-outline" onclick="hideEditModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/language.js"></script>
+    
+    <script>
+        // Language toggle functionality
+        function toggleLanguage() {
+            const langText = document.getElementById('langText');
+            const isArabic = langText.textContent === 'عربي';
+            
+            langText.textContent = isArabic ? 'English' : 'عربي';
+            document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
+            document.documentElement.lang = isArabic ? 'ar' : 'en';
+            
+            if (typeof changeLanguage === 'function') {
+                changeLanguage(isArabic ? 'ar' : 'en');
+            }
+        }
+
+        // Initialize Performance Chart
+        let performanceChart;
+
+        function initializeChart() {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            performanceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Apr 2025', 'May 2025', 'Jun 2025', 'Jul 2025', 'Aug 2025', 'Sep 2025'],
+                    datasets: [
+                        {
+                            label: 'Orders',
+                            data: [12, 19, 15, 25, 22, 18],
+                            borderColor: '#3498db',
+                            backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Revenue (EGP)',
+                            data: [2400, 3800, 3000, 5000, 4400, 3600],
+                            borderColor: '#27ae60',
+                            backgroundColor: 'rgba(39, 174, 96, 0.1)',
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Month'
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Orders'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Revenue (EGP)'
+                            },
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                        }
+                    }
+                }
+            });
+        }
+
+        // Service Management Functions
+        function editService() {
+            document.getElementById('editModal').classList.add('show');
+        }
+
+        function hideEditModal() {
+            document.getElementById('editModal').classList.remove('show');
+        }
+
+        function toggleServiceStatus() {
+            const statusIndicator = document.querySelector('.status-indicator');
+            const statusText = document.querySelector('.status-text');
+            const button = event.target.closest('button');
+            
+            if (statusText.textContent === 'Active') {
+                statusIndicator.style.background = '#e74c3c';
+                statusText.textContent = 'Inactive';
+                statusText.style.color = '#e74c3c';
+                button.innerHTML = '<i class="fas fa-play"></i><span>Activate</span>';
+                button.className = 'btn btn-success';
+                showToast('Service has been deactivated', 'warning');
+            } else {
+                statusIndicator.style.background = '#27ae60';
+                statusText.textContent = 'Active';
+                statusText.style.color = '#27ae60';
+                button.innerHTML = '<i class="fas fa-pause"></i><span>Deactivate</span>';
+                button.className = 'btn btn-warning';
+                showToast('Service has been activated', 'success');
+            }
+        }
+
+        function promoteService() {
+            showToast('Service has been promoted and will appear in featured listings', 'success');
+        }
+
+        // Form submission handler
+        document.getElementById('editServiceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const serviceName = document.getElementById('serviceName').value;
+            const minPrice = document.getElementById('minPrice').value;
+            const maxPrice = document.getElementById('maxPrice').value;
+            
+            // Update page content
+            document.querySelector('.service-name').textContent = serviceName;
+            document.querySelector('.price-value').textContent = `EGP ${minPrice} - ${maxPrice}`;
+            
+            hideEditModal();
+            showToast('Service details updated successfully', 'success');
+        });
+
+        // Toast notification function
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            
+            let iconClass = 'info-circle';
+            if (type === 'success') iconClass = 'check-circle';
+            else if (type === 'error') iconClass = 'exclamation-circle';
+            else if (type === 'warning') iconClass = 'exclamation-triangle';
+            
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <i class="fas fa-${iconClass}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 100);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 3000);
+        }
+
+        // Initialize chart when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeChart();
+        });
+    </script>
+
+    <style>
+        /* Toast Styles */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast-success {
+            background: #27ae60;
+        }
+
+        .toast-error {
+            background: #e74c3c;
+        }
+
+        .toast-info {
+            background: #3498db;
+        }
+
+        .toast-warning {
+            background: #f39c12;
+        }
+
+        .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</body>
+</html>

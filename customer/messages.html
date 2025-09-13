@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messages - Egypt Printing Marketplace</title>
+    <title>Messages - PrintHub Egypt</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -16,38 +16,410 @@
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="stylesheet" href="../assets/css/rtl.css">
+
+    <style>
+        /* Customer Layout Styles */
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .customer-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Customer Sidebar */
+        .customer-sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #27AE60 0%, #1e8449 100%);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .sidebar-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .customer-badge {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .sidebar-user {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .user-details h4 {
+            margin: 0 0 4px 0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .user-details p {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-section {
+            margin-bottom: 25px;
+        }
+
+        .menu-label {
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .menu-item.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: white;
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+
+        .menu-item .badge {
+            background: #e74c3c;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 10px;
+            margin-left: auto;
+        }
+
+        /* Main Content */
+        .customer-main {
+            flex: 1;
+            margin-left: 260px;
+            padding: 25px;
+            min-height: 100vh;
+        }
+
+        .main-header {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2C3E50;
+            margin: 0 0 5px 0;
+        }
+
+        .header-title p {
+            color: #7f8c8d;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .notification-btn {
+            position: relative;
+            background: #f8f9fa;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #666;
+        }
+
+        .notification-btn:hover {
+            background: #e9ecef;
+            color: #27AE60;
+        }
+
+        .header-notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8f9fa;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .user-profile-btn:hover {
+            background: #e9ecef;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .customer-sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .customer-sidebar.mobile-active {
+                transform: translateX(0);
+            }
+
+            .customer-main {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .main-header {
+                padding: 15px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
+    <div class="customer-layout">
+        <!-- Customer Sidebar -->
+        <aside class="customer-sidebar" id="customerSidebar">
+            <!-- Sidebar Header -->
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
                     <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                    <h2>PrintHub</h2>
+                    <span class="customer-badge">Customer</span>
+                </div>
+            </div>
+
+            <!-- User Info -->
+            <div class="sidebar-user">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Ahmed Mohamed</h4>
+                        <p>Premium Member</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="sidebar-menu">
+                <div class="menu-section">
+                    <div class="menu-label">Overview</div>
+                    <a href="dashboard.html" class="menu-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="../public/quote-request.html" class="menu-item">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>New Quote Request</span>
+                    </a>
                 </div>
 
-                <nav class="main-nav" aria-label="Main navigation">
-                    <a href="../public/index.html" data-en="Home" data-ar="الرئيسية">Home</a>
-                    <a href="../public/services.html" data-en="Services" data-ar="الخدمات">Services</a>
-                    <a href="../public/vendors.html" data-en="Vendors" data-ar="الموردون">Vendors</a>
-                    <a href="../public/about.html" data-en="About" data-ar="حول">About</a>
-                </nav>
+                <div class="menu-section">
+                    <div class="menu-label">Orders & Quotes</div>
+                    <a href="quotes.html" class="menu-item">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>My Quotes</span>
+                        <span class="badge">8</span>
+                    </a>
+                    <a href="orders.html" class="menu-item">
+                        <i class="fas fa-box"></i>
+                        <span>My Orders</span>
+                        <span class="badge">2</span>
+                    </a>
+                    <a href="../public/quote-comparison.html" class="menu-item">
+                        <i class="fas fa-balance-scale"></i>
+                        <span>Compare Quotes</span>
+                    </a>
+                </div>
 
+                <div class="menu-section">
+                    <div class="menu-label">Communication</div>
+                    <a href="messages.html" class="menu-item active">
+                        <i class="fas fa-envelope"></i>
+                        <span>Messages</span>
+                        <span class="badge">3</span>
+                    </a>
+                    <a href="reviews.html" class="menu-item">
+                        <i class="fas fa-star"></i>
+                        <span>Reviews & Ratings</span>
+                        <span class="badge">2</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">Account</div>
+                    <a href="profile.html" class="menu-item">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Profile Settings</span>
+                    </a>
+                    <a href="settings.html" class="menu-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Account Settings</span>
+                    </a>
+                    <a href="../public/services.html" class="menu-item">
+                        <i class="fas fa-search"></i>
+                        <span>Browse Services</span>
+                    </a>
+                    <a href="../public/vendors.html" class="menu-item">
+                        <i class="fas fa-store"></i>
+                        <span>Find Vendors</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">Support</div>
+                    <a href="#" class="menu-item" onclick="openHelpCenter()">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help Center</span>
+                    </a>
+                    <a href="#" class="menu-item" onclick="contactSupport()">
+                        <i class="fas fa-headset"></i>
+                        <span>Contact Support</span>
+                    </a>
+                    <a href="../public/login.html" class="menu-item" onclick="confirmLogout(event)">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="customer-main">
+            <!-- Top Header -->
+            <header class="main-header">
+                <div class="header-title">
+                    <h1>Messages</h1>
+                    <p>Communicate with vendors and support team</p>
+                </div>
                 <div class="header-actions">
-                    <div class="user-menu">
-                        <button class="user-menu-btn">
-                            <i class="fas fa-user-circle"></i>
-                            <span data-en="My Account" data-ar="حسابي">My Account</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="user-dropdown">
-                            <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span></a>
-                            <a href="profile.html"><i class="fas fa-user"></i> <span data-en="Profile" data-ar="الملف الشخصي">Profile</span></a>
-                            <a href="quotes.html"><i class="fas fa-file-invoice"></i> <span data-en="My Quotes" data-ar="عروض الأسعار">My Quotes</span></a>
-                            <a href="orders.html"><i class="fas fa-box"></i> <span data-en="Orders" data-ar="الطلبات">Orders</span></a>
-                            <a href="messages.html" class="active"><i class="fas fa-envelope"></i> <span data-en="Messages" data-ar="الرسائل">Messages</span></a>
-                            <hr>
-                            <a href="../public/login.html"><i class="fas fa-sign-out-alt"></i> <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span></a>
+                    <button class="notification-btn" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="header-notification-badge">3</span>
+                    </button>
+                    <button class="notification-btn" onclick="toggleMobileMenu()" style="display: none;" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button class="user-profile-btn" onclick="goToProfile()">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>Ahmed</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Messages Content -->
                         </div>
                     </div>
                     <button class="language-toggle" onclick="toggleLanguage()">
@@ -104,7 +476,7 @@
 
                     <div class="conversations-list">
                         <!-- Conversation 1 - Active -->
-                        <div class="conversation-item active">
+                        <div class="conversation-item active" onclick="openConversation('fastprint', 'FastPrint Solutions', 'Order #1235')">
                             <div class="conversation-avatar">
                                 <i class="fas fa-store"></i>
                             </div>
@@ -343,6 +715,9 @@
     <script src="../assets/js/components.js"></script>
     <script src="../assets/js/language.js"></script>
     <script>
+        // Enhanced Messages Functionality
+        let currentConversation = null;
+
         // Auto-resize textarea
         const chatInput = document.querySelector('.chat-input');
         if (chatInput) {
@@ -356,12 +731,227 @@
         chatInput?.addEventListener('keypress', function(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
-                // Send message logic here
-                console.log('Send message:', this.value);
-                this.value = '';
-                this.style.height = 'auto';
+                sendMessage();
             }
         });
+
+        // Enhanced message sending
+        function sendMessage() {
+            const input = document.querySelector('.chat-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessageToChat(message, 'sent');
+                input.value = '';
+                input.style.height = 'auto';
+                
+                // Simulate vendor response
+                setTimeout(() => {
+                    simulateVendorResponse();
+                }, 1000 + Math.random() * 2000);
+            }
+        }
+
+        function addMessageToChat(text, type) {
+            const messagesContainer = document.querySelector('.chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const currentTime = new Date().toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit'
+            });
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-${type === 'sent' ? 'user' : 'store'}"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-bubble">${text}</div>
+                    <div class="message-time">${currentTime}</div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            showToast(`Message ${type === 'sent' ? 'sent' : 'received'}`, 'success');
+        }
+
+        function simulateVendorResponse() {
+            const responses = [
+                "Thank you for your message! I'll check on that right away.",
+                "Got it! I'll update you within the next hour.",
+                "Perfect! Let me verify the details and get back to you.",
+                "Thanks for the confirmation. Everything is on track!",
+                "I appreciate your patience. Working on your request now."
+            ];
+            
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            addMessageToChat(randomResponse, 'received');
+        }
+
+        // Open conversation
+        function openConversation(vendorId, vendorName, orderRef) {
+            currentConversation = { vendorId, vendorName, orderRef };
+            
+            // Update chat header
+            document.querySelector('.chat-vendor-details h3').textContent = vendorName;
+            
+            // Update active conversation
+            document.querySelectorAll('.conversation-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.conversation-item').classList.add('active');
+            
+            showToast(`Opened conversation with ${vendorName}`, 'info');
+        }
+
+        // Quick reply functions
+        function toggleQuickReplies() {
+            const quickReplies = document.querySelector('.quick-replies');
+            if (quickReplies.style.display === 'none') {
+                quickReplies.style.display = 'block';
+            } else {
+                quickReplies.style.display = 'none';
+            }
+        }
+
+        function insertQuickReply(text) {
+            const input = document.querySelector('.chat-input');
+            input.value = text;
+            input.focus();
+            document.querySelector('.quick-replies').style.display = 'none';
+        }
+
+        // File attachment
+        function handleFileAttachment() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*,application/pdf,.doc,.docx';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    showToast(`Uploading ${file.name}...`, 'info');
+                    
+                    // Simulate upload
+                    setTimeout(() => {
+                        addFileMessage(file.name, file.size);
+                        showToast(`${file.name} uploaded successfully`, 'success');
+                    }, 2000);
+                }
+            };
+            input.click();
+        }
+
+        function addFileMessage(fileName, fileSize) {
+            const messagesContainer = document.querySelector('.chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message sent';
+            
+            const currentTime = new Date().toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit'
+            });
+            
+            const fileSizeKB = Math.round(fileSize / 1024);
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-bubble">
+                        <div class="message-attachment">
+                            <div class="attachment-icon">
+                                <i class="fas fa-file"></i>
+                            </div>
+                            <div class="attachment-details">
+                                <div class="attachment-name">${fileName}</div>
+                                <div class="attachment-size">${fileSizeKB} KB</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="message-time">${currentTime}</div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Search conversations
+        function searchConversations() {
+            const searchInput = document.querySelector('.search-box input');
+            const searchTerm = searchInput.value.toLowerCase();
+            const conversations = document.querySelectorAll('.conversation-item');
+            
+            conversations.forEach(conversation => {
+                const vendorName = conversation.querySelector('.conversation-name').textContent.toLowerCase();
+                const preview = conversation.querySelector('.conversation-preview').textContent.toLowerCase();
+                
+                if (vendorName.includes(searchTerm) || preview.includes(searchTerm)) {
+                    conversation.style.display = '';
+                } else {
+                    conversation.style.display = 'none';
+                }
+            });
+        }
+
+        // Filter conversations
+        function filterConversations(filter) {
+            const conversations = document.querySelectorAll('.conversation-item');
+            const filterButtons = document.querySelectorAll('.filter-tab');
+            
+            // Update active filter button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            conversations.forEach(conversation => {
+                const isUnread = conversation.classList.contains('unread');
+                
+                if (filter === 'all' || (filter === 'unread' && isUnread)) {
+                    conversation.style.display = '';
+                } else {
+                    conversation.style.display = 'none';
+                }
+            });
+        }
+
+        // Toast notification system
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            const colors = {
+                success: '#27ae60',
+                error: '#e74c3c', 
+                warning: '#f39c12',
+                info: '#3498db'
+            };
+            
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 600;
+                z-index: 10000;
+                background: ${colors[type]};
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            `;
+            
+            toast.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 3000);
+        }
 
         // Handle conversation selection
         document.querySelectorAll('.conversation-item').forEach(item => {
@@ -382,6 +972,62 @@
                 }
             });
         });
+
+        // Add search functionality
+        document.querySelector('.search-box input')?.addEventListener('input', searchConversations);
+
+        // Add attachment handler
+        document.querySelector('[title="Attach File"]')?.addEventListener('click', handleFileAttachment);
+
+        // Customer sidebar functions
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('customerSidebar');
+            sidebar.classList.toggle('mobile-active');
+        }
+
+        function toggleNotifications() {
+            showToast('Opening notifications panel...', 'info');
+        }
+
+        function goToProfile() {
+            window.location.href = 'profile.html';
+        }
+
+        function openHelpCenter() {
+            showToast('Opening help center...', 'info');
+        }
+
+        function contactSupport() {
+            showToast('Connecting to support...', 'info');
+        }
+
+        function confirmLogout(e) {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                showToast('Logging out...', 'info');
+                setTimeout(() => {
+                    window.location.href = '../public/login.html';
+                }, 1500);
+            }
+        }
+
+        // Mobile responsiveness
+        function checkMobile() {
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            if (window.innerWidth <= 768) {
+                mobileBtn.style.display = 'block';
+            } else {
+                mobileBtn.style.display = 'none';
+                document.getElementById('customerSidebar').classList.remove('mobile-active');
+            }
+        }
+
+        // Initialize on load
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
     </script>
+            </div>
+        </main>
+    </div>
 </body>
 </html>

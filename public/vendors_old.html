@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- SEO Meta Tags -->
+    <title>Printing Vendors - PrintHub Egypt</title>
+    <meta name="description" content="Browse and connect with verified printing professionals across Egypt. Find the best vendors for your printing needs.">
+    <meta name="keywords" content="printing vendors egypt, printing companies cairo, طباعة مصر, شركات طباعة">
+    <meta name="author" content="PrintHub Egypt">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Cairo', sans-serif;
+            background-color: #f8f9fa;
+            color: #2C3E50;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #3B82F6;
+            font-size: 1.5rem;
+            font-weight: 700;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #6B7280;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #3B82F6;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #3B82F6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-outline {
+            background: white;
+            color: #6B7280;
+            border: 1px solid #E5E7EB;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+        }
+
+        /* Search Bar */
+        .search-section {
+            background: white;
+            padding: 2rem 0;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-select {
+            padding: 0.75rem 1rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        /* Sidebar Filters */
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+        }
+
+        .filter-section {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .filter-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1F2937;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+        }
+
+        .filter-option input {
+            margin-right: 0.5rem;
+        }
+
+        .filter-option label {
+            cursor: pointer;
+            color: #4B5563;
+        }
+
+        .rating-filter {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+        }
+
+        .stars {
+            color: #F59E0B;
+            margin-right: 0.5rem;
+        }
+
+        /* Vendor Grid */
+        .vendors-container {
+            flex: 1;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .results-count {
+            color: #6B7280;
+        }
+
+        .sort-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .vendors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Vendor Card */
+        .vendor-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .vendor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .vendor-header {
+            position: relative;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem;
+        }
+
+        .vendor-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #10B981;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .vendor-logo {
+            position: absolute;
+            bottom: -30px;
+            left: 1.5rem;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-size: 2rem;
+            color: #6B7280;
+        }
+
+        .vendor-body {
+            padding: 2.5rem 1.5rem 1.5rem;
+        }
+
+        .vendor-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .vendor-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6B7280;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .vendor-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating-stars {
+            color: #F59E0B;
+        }
+
+        .rating-text {
+            color: #4B5563;
+            font-size: 0.875rem;
+        }
+
+        .vendor-services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-tag {
+            background: #F3F4F6;
+            color: #4B5563;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+        }
+
+        .vendor-stats {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #6B7280;
+        }
+
+        .vendor-footer {
+            padding: 1rem 1.5rem;
+            background: #F9FAFB;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .vendor-action {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #E5E7EB;
+            background: white;
+            border-radius: 0.5rem;
+            text-align: center;
+            color: #4B5563;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+        }
+
+        .vendor-action:hover {
+            background: #3B82F6;
+            color: white;
+            border-color: #3B82F6;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .page-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #E5E7EB;
+            background: white;
+            border-radius: 0.5rem;
+            color: #4B5563;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .page-btn:hover {
+            background: #F3F4F6;
+        }
+
+        .page-btn.active {
+            background: #3B82F6;
+            color: white;
+            border-color: #3B82F6;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1F2937;
+            color: #9CA3AF;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .vendors-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-container">
+                <!-- Logo -->
+                <a href="index.html" class="navbar-brand">
+                    <i class="fas fa-print"></i>
+                    <span>PrintHub Egypt</span>
+                </a>
+
+                <!-- Mobile Menu Toggle -->
+                <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <!-- Navigation Menu -->
+                <ul class="navbar-menu">
+                    <li class="navbar-item">
+                        <a href="services.html" class="navbar-link" data-translate="services">Services</a>
+                        <div class="navbar-dropdown">
+                            <a href="services.html?category=business-cards">Business Cards</a>
+                            <a href="services.html?category=brochures">Brochures</a>
+                            <a href="services.html?category=banners">Banners</a>
+                            <a href="services.html?category=packaging">Packaging</a>
+                            <a href="services.html">View All</a>
+                        </div>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="vendors.html" class="navbar-link active" data-translate="vendors">Vendors</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="about.html" class="navbar-link" data-translate="about">About</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="quote-request.html" class="navbar-link">Get Quote</a>
+                    </li>
+                </ul>
+
+                <!-- Right Side Menu -->
+                <div class="navbar-actions d-flex align-items-center gap-3">
+                    <!-- Language Switcher -->
+                    <div class="language-switcher">
+                        <span class="language-option active" data-lang="en" onclick="switchLanguage('en')">EN</span>
+                        <span class="language-option" data-lang="ar" onclick="switchLanguage('ar')">عربي</span>
+                    </div>
+
+                    <!-- Auth Links (shown when not logged in) -->
+                    <div class="auth-links d-flex gap-2">
+                        <a href="login.html" class="btn btn-outline btn-sm" data-translate="signIn">Sign In</a>
+                        <a href="register.html" class="btn btn-primary btn-sm" data-translate="signUp">Sign Up</a>
+                    </div>
+
+                    <!-- User Menu (shown when logged in) - Hidden by default -->
+                    <div class="user-menu d-none align-items-center gap-3">
+                        <a href="../customer/dashboard.html" class="navbar-link">
+                            <i class="fas fa-user-circle"></i>
+                            <span data-translate="dashboard">Dashboard</span>
+                        </a>
+                        <a href="quote-comparison.html" class="navbar-link position-relative">
+                            <i class="fas fa-balance-scale"></i>
+                            <span data-translate="compare">Compare</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Printing Vendors</h1>
+            <p>Browse and connect with verified printing professionals across Egypt</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search vendors by name or service...">
+                <select class="search-select">
+                    <option value="">All Locations</option>
+                    <option value="cairo">Cairo</option>
+                    <option value="giza">Giza</option>
+                    <option value="alexandria">Alexandria</option>
+                    <option value="luxor">Luxor</option>
+                </select>
+                <button class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li class="active" data-en="Vendors" data-ar="المورديين">Vendors</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="container">
+        <div class="main-content">
+            <!-- Sidebar Filters -->
+            <aside class="sidebar">
+                <div class="filter-section">
+                    <h3 class="filter-title">Service Categories</h3>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat1">
+                        <label for="cat1">Business Cards (45)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat2">
+                        <label for="cat2">Brochures & Flyers (38)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat3">
+                        <label for="cat3">Banners & Signage (32)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat4">
+                        <label for="cat4">Packaging (28)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat5">
+                        <label for="cat5">Apparel Printing (22)</label>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3 class="filter-title">Location</h3>
+                    <div class="filter-option">
+                        <input type="checkbox" id="loc1">
+                        <label for="loc1">Cairo (85)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="loc2">
+                        <label for="loc2">Giza (62)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="loc3">
+                        <label for="loc3">Alexandria (41)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="loc4">
+                        <label for="loc4">Other Cities (28)</label>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3 class="filter-title">Rating</h3>
+                    <div class="rating-filter">
+                        <span class="stars">★★★★★</span>
+                        <span>5 Stars (42)</span>
+                    </div>
+                    <div class="rating-filter">
+                        <span class="stars">★★★★☆</span>
+                        <span>4+ Stars (78)</span>
+                    </div>
+                    <div class="rating-filter">
+                        <span class="stars">★★★☆☆</span>
+                        <span>3+ Stars (125)</span>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3 class="filter-title">Response Time</h3>
+                    <div class="filter-option">
+                        <input type="checkbox" id="time1">
+                        <label for="time1">Within 1 hour (32)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="time2">
+                        <label for="time2">Within 24 hours (98)</label>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Vendors Grid -->
+            <div class="vendors-container">
+                <div class="results-header">
+                    <span class="results-count">Showing 216 vendors</span>
+                    <select class="sort-select">
+                        <option>Sort by: Relevance</option>
+                        <option>Sort by: Rating</option>
+                        <option>Sort by: Response Time</option>
+                        <option>Sort by: Orders Completed</option>
+                    </select>
+                </div>
+
+                <div class="vendors-grid">
+                    <!-- Vendor Card 1 -->
+                    <div class="vendor-card" onclick="window.location.href='vendor-profile.html'">
+                        <div class="vendor-header">
+                            <span class="vendor-badge">FEATURED</span>
+                            <div class="vendor-logo">
+                                <i class="fas fa-building"></i>
+                            </div>
+                        </div>
+                        <div class="vendor-body">
+                            <h3 class="vendor-name">Nile Printing Press</h3>
+                            <div class="vendor-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Cairo, Egypt</span>
+                            </div>
+                            <div class="vendor-rating">
+                                <span class="rating-stars">★★★★★</span>
+                                <span class="rating-text">4.8 (234 reviews)</span>
+                            </div>
+                            <div class="vendor-services">
+                                <span class="service-tag">Business Cards</span>
+                                <span class="service-tag">Brochures</span>
+                                <span class="service-tag">Packaging</span>
+                            </div>
+                            <div class="vendor-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">1,250</div>
+                                    <div class="stat-label">Orders</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">< 2h</div>
+                                    <div class="stat-label">Response</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">98%</div>
+                                    <div class="stat-label">On-time</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vendor-footer">
+                            <a href="vendor-profile.html" class="vendor-action">
+                                <i class="fas fa-eye"></i> View Profile
+                            </a>
+                            <a href="quote-request.html" class="vendor-action">
+                                <i class="fas fa-file-alt"></i> Get Quote
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Card 2 -->
+                    <div class="vendor-card">
+                        <div class="vendor-header">
+                            <span class="vendor-badge">VERIFIED</span>
+                            <div class="vendor-logo">
+                                <i class="fas fa-print"></i>
+                            </div>
+                        </div>
+                        <div class="vendor-body">
+                            <h3 class="vendor-name">Cairo Graphics</h3>
+                            <div class="vendor-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Giza, Egypt</span>
+                            </div>
+                            <div class="vendor-rating">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="rating-text">4.5 (189 reviews)</span>
+                            </div>
+                            <div class="vendor-services">
+                                <span class="service-tag">Banners</span>
+                                <span class="service-tag">Signage</span>
+                                <span class="service-tag">Posters</span>
+                            </div>
+                            <div class="vendor-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">890</div>
+                                    <div class="stat-label">Orders</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">< 4h</div>
+                                    <div class="stat-label">Response</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">95%</div>
+                                    <div class="stat-label">On-time</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vendor-footer">
+                            <a href="vendor-profile.html" class="vendor-action">
+                                <i class="fas fa-eye"></i> View Profile
+                            </a>
+                            <a href="quote-request.html" class="vendor-action">
+                                <i class="fas fa-file-alt"></i> Get Quote
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Card 3 -->
+                    <div class="vendor-card">
+                        <div class="vendor-header">
+                            <div class="vendor-logo">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                        </div>
+                        <div class="vendor-body">
+                            <h3 class="vendor-name">Digital Print Egypt</h3>
+                            <div class="vendor-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Alexandria, Egypt</span>
+                            </div>
+                            <div class="vendor-rating">
+                                <span class="rating-stars">★★★★★</span>
+                                <span class="rating-text">4.9 (342 reviews)</span>
+                            </div>
+                            <div class="vendor-services">
+                                <span class="service-tag">Digital Printing</span>
+                                <span class="service-tag">Large Format</span>
+                            </div>
+                            <div class="vendor-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">2,100</div>
+                                    <div class="stat-label">Orders</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">< 1h</div>
+                                    <div class="stat-label">Response</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">99%</div>
+                                    <div class="stat-label">On-time</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vendor-footer">
+                            <a href="vendor-profile.html" class="vendor-action">
+                                <i class="fas fa-eye"></i> View Profile
+                            </a>
+                            <a href="quote-request.html" class="vendor-action">
+                                <i class="fas fa-file-alt"></i> Get Quote
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Card 4 -->
+                    <div class="vendor-card">
+                        <div class="vendor-header">
+                            <div class="vendor-logo">
+                                <i class="fas fa-box"></i>
+                            </div>
+                        </div>
+                        <div class="vendor-body">
+                            <h3 class="vendor-name">Premium Pack Solutions</h3>
+                            <div class="vendor-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Cairo, Egypt</span>
+                            </div>
+                            <div class="vendor-rating">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="rating-text">4.6 (156 reviews)</span>
+                            </div>
+                            <div class="vendor-services">
+                                <span class="service-tag">Packaging</span>
+                                <span class="service-tag">Labels</span>
+                                <span class="service-tag">Boxes</span>
+                            </div>
+                            <div class="vendor-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">678</div>
+                                    <div class="stat-label">Orders</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">< 3h</div>
+                                    <div class="stat-label">Response</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">96%</div>
+                                    <div class="stat-label">On-time</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vendor-footer">
+                            <a href="vendor-profile.html" class="vendor-action">
+                                <i class="fas fa-eye"></i> View Profile
+                            </a>
+                            <a href="quote-request.html" class="vendor-action">
+                                <i class="fas fa-file-alt"></i> Get Quote
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Card 5 -->
+                    <div class="vendor-card">
+                        <div class="vendor-header">
+                            <span class="vendor-badge">NEW</span>
+                            <div class="vendor-logo">
+                                <i class="fas fa-tshirt"></i>
+                            </div>
+                        </div>
+                        <div class="vendor-body">
+                            <h3 class="vendor-name">Fashion Print Co.</h3>
+                            <div class="vendor-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Cairo, Egypt</span>
+                            </div>
+                            <div class="vendor-rating">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="rating-text">4.3 (45 reviews)</span>
+                            </div>
+                            <div class="vendor-services">
+                                <span class="service-tag">T-Shirt Printing</span>
+                                <span class="service-tag">Apparel</span>
+                            </div>
+                            <div class="vendor-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">234</div>
+                                    <div class="stat-label">Orders</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">< 6h</div>
+                                    <div class="stat-label">Response</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">94%</div>
+                                    <div class="stat-label">On-time</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vendor-footer">
+                            <a href="vendor-profile.html" class="vendor-action">
+                                <i class="fas fa-eye"></i> View Profile
+                            </a>
+                            <a href="quote-request.html" class="vendor-action">
+                                <i class="fas fa-file-alt"></i> Get Quote
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Card 6 -->
+                    <div class="vendor-card">
+                        <div class="vendor-header">
+                            <div class="vendor-logo">
+                                <i class="fas fa-stamp"></i>
+                            </div>
+                        </div>
+                        <div class="vendor-body">
+                            <h3 class="vendor-name">Quick Print Services</h3>
+                            <div class="vendor-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Giza, Egypt</span>
+                            </div>
+                            <div class="vendor-rating">
+                                <span class="rating-stars">★★★★★</span>
+                                <span class="rating-text">4.7 (298 reviews)</span>
+                            </div>
+                            <div class="vendor-services">
+                                <span class="service-tag">Express Printing</span>
+                                <span class="service-tag">Same Day</span>
+                            </div>
+                            <div class="vendor-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">1,567</div>
+                                    <div class="stat-label">Orders</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">< 30m</div>
+                                    <div class="stat-label">Response</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">97%</div>
+                                    <div class="stat-label">On-time</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vendor-footer">
+                            <a href="vendor-profile.html" class="vendor-action">
+                                <i class="fas fa-eye"></i> View Profile
+                            </a>
+                            <a href="quote-request.html" class="vendor-action">
+                                <i class="fas fa-file-alt"></i> Get Quote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="page-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <button class="page-btn">5</button>
+                    <button class="page-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 PrintHub Egypt. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/language.js"></script>
+    
+    <script>
+        // Navigation functionality
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.navbar-menu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            menu.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+        
+        function switchLanguage(lang) {
+            const options = document.querySelectorAll('.language-option');
+            options.forEach(option => option.classList.remove('active'));
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+            
+            // Apply language change
+            if (typeof changeLanguage === 'function') {
+                changeLanguage(lang);
+            }
+        }
+        
+        // Legacy function for compatibility
+        function toggleLanguage() {
+            const currentLang = document.querySelector('.language-option.active').dataset.lang;
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            switchLanguage(newLang);
+        }
+    </script>
+</body>
+</html>

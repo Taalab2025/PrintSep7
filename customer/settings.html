@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - PrintHub Egypt</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+
+    <style>
+        /* Customer Layout Styles */
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .customer-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Customer Sidebar */
+        .customer-sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #27AE60 0%, #1e8449 100%);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .sidebar-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .customer-badge {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .sidebar-user {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .user-details h4 {
+            margin: 0 0 4px 0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .user-details p {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-section {
+            margin-bottom: 25px;
+        }
+
+        .menu-label {
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .menu-item.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: white;
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+
+        .menu-item .badge {
+            background: #e74c3c;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 10px;
+            margin-left: auto;
+        }
+
+        /* Main Content */
+        .customer-main {
+            flex: 1;
+            margin-left: 260px;
+            padding: 25px;
+            min-height: 100vh;
+        }
+
+        .main-header {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2C3E50;
+            margin: 0 0 5px 0;
+        }
+
+        .header-title p {
+            color: #7f8c8d;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .notification-btn {
+            position: relative;
+            background: #f8f9fa;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #666;
+        }
+
+        .notification-btn:hover {
+            background: #e9ecef;
+            color: #27AE60;
+        }
+
+        .header-notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8f9fa;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .user-profile-btn:hover {
+            background: #e9ecef;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .customer-sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .customer-sidebar.mobile-active {
+                transform: translateX(0);
+            }
+
+            .customer-main {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .main-header {
+                padding: 15px 20px;
+            }
+        }
+
+        /* Settings Specific Styles */
+        .settings-container {
+            display: grid;
+            gap: 25px;
+        }
+
+        .settings-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .section-title h3 {
+            margin: 0;
+            color: #2C3E50;
+            font-size: 18px;
+        }
+
+        .section-title i {
+            color: #27AE60;
+            font-size: 20px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-title {
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 5px;
+        }
+
+        .setting-description {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .setting-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 25px;
+            background: #ccc;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: #27AE60;
+        }
+
+        .toggle-switch::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 21px;
+            height: 21px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active::before {
+            transform: translateX(25px);
+        }
+
+        /* Select Dropdown */
+        .setting-select {
+            padding: 8px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: white;
+            color: #2C3E50;
+            font-size: 14px;
+            min-width: 150px;
+        }
+
+        .setting-select:focus {
+            border-color: #27AE60;
+            outline: none;
+        }
+
+        /* Button */
+        .setting-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #27AE60;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #219a52;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-outline {
+            background: white;
+            color: #27AE60;
+            border: 2px solid #27AE60;
+        }
+
+        .btn-outline:hover {
+            background: #27AE60;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        /* Form Input */
+        .setting-input {
+            padding: 10px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: white;
+            color: #2C3E50;
+            font-size: 14px;
+            min-width: 200px;
+        }
+
+        .setting-input:focus {
+            border-color: #27AE60;
+            outline: none;
+        }
+
+        /* Subscription Badge */
+        .subscription-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-premium {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+        }
+
+        .badge-basic {
+            background: #e9ecef;
+            color: #666;
+        }
+
+        /* Security Level */
+        .security-level {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .security-bar {
+            width: 100px;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .security-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            border-radius: 4px;
+            width: var(--security-percentage);
+            background: var(--security-color);
+        }
+
+        .security-strong {
+            --security-percentage: 90%;
+            --security-color: #27AE60;
+        }
+
+        .security-medium {
+            --security-percentage: 60%;
+            --security-color: #f39c12;
+        }
+
+        .security-weak {
+            --security-percentage: 30%;
+            --security-color: #e74c3c;
+        }
+
+        .security-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--security-color);
+        }
+
+        .danger-zone {
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .danger-zone h4 {
+            color: #e74c3c;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="customer-layout">
+        <!-- Customer Sidebar -->
+        <aside class="customer-sidebar" id="customerSidebar">
+            <!-- Sidebar Header -->
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                    <h2>PrintHub</h2>
+                    <span class="customer-badge">Customer</span>
+                </div>
+            </div>
+
+            <!-- User Info -->
+            <div class="sidebar-user">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Ahmed Mohamed</h4>
+                        <p>Premium Member</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="sidebar-menu" aria-label="Customer Navigation">
+                <div class="menu-section">
+                    <div class="menu-label">Overview</div>
+                    <a href="dashboard.html" class="menu-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="../public/quote-request.html" class="menu-item">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>New Quote Request</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">Orders & Quotes</div>
+                    <a href="quotes.html" class="menu-item">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>My Quotes</span>
+                        <span class="badge">8</span>
+                    </a>
+                    <a href="orders.html" class="menu-item">
+                        <i class="fas fa-box"></i>
+                        <span>My Orders</span>
+                        <span class="badge">2</span>
+                    </a>
+                    <a href="../public/quote-comparison.html" class="menu-item">
+                        <i class="fas fa-balance-scale"></i>
+                        <span>Compare Quotes</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">Communication</div>
+                    <a href="messages.html" class="menu-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>Messages</span>
+                        <span class="badge">3</span>
+                    </a>
+                    <a href="reviews.html" class="menu-item">
+                        <i class="fas fa-star"></i>
+                        <span>Reviews & Ratings</span>
+                        <span class="badge">2</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">Account</div>
+                    <a href="profile.html" class="menu-item">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Profile Settings</span>
+                    </a>
+                    <a href="settings.html" class="menu-item active">
+                        <i class="fas fa-cog"></i>
+                        <span>Account Settings</span>
+                    </a>
+                    <a href="../public/services.html" class="menu-item">
+                        <i class="fas fa-search"></i>
+                        <span>Browse Services</span>
+                    </a>
+                    <a href="../public/vendors.html" class="menu-item">
+                        <i class="fas fa-store"></i>
+                        <span>Find Vendors</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">Support</div>
+                    <button class="menu-item" onclick="openHelpCenter()" style="width: 100%; border: none; background: none; text-align: left;">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help Center</span>
+                    </button>
+                    <button class="menu-item" onclick="contactSupport()" style="width: 100%; border: none; background: none; text-align: left;">
+                        <i class="fas fa-headset"></i>
+                        <span>Contact Support</span>
+                    </button>
+                    <a href="../public/login.html" class="menu-item" onclick="confirmLogout(event)">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="customer-main">
+            <!-- Top Header -->
+            <header class="main-header">
+                <div class="header-title">
+                    <h1>Account Settings</h1>
+                    <p>Manage your preferences and account configuration</p>
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn" onclick="toggleNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="header-notification-badge">3</span>
+                    </button>
+                    <button class="notification-btn" onclick="toggleMobileMenu()" style="display: none;" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button class="user-profile-btn" onclick="goToProfile()">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>Ahmed</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Settings Content -->
+            <div class="settings-container">
+                <!-- Notifications Settings -->
+                <div class="settings-section">
+                    <div class="section-title">
+                        <i class="fas fa-bell"></i>
+                        <h3>Notification Preferences</h3>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Email Notifications</div>
+                            <div class="setting-description">Receive email updates about orders, quotes, and messages</div>
+                        </div>
+                        <div class="setting-control">
+                            <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">SMS Notifications</div>
+                            <div class="setting-description">Get SMS alerts for urgent order updates</div>
+                        </div>
+                        <div class="setting-control">
+                            <div class="toggle-switch" onclick="toggleSetting(this)"></div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Quote Expiry Reminders</div>
+                            <div class="setting-description">Receive reminders before your quotes expire</div>
+                        </div>
+                        <div class="setting-control">
+                            <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Marketing Communications</div>
+                            <div class="setting-description">Receive newsletters and promotional offers</div>
+                        </div>
+                        <div class="setting-control">
+                            <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account & Privacy -->
+                <div class="settings-section">
+                    <div class="section-title">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Account & Privacy</h3>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Profile Visibility</div>
+                            <div class="setting-description">Control who can see your profile information</div>
+                        </div>
+                        <div class="setting-control">
+                            <select class="setting-select" onchange="updatePrivacy(this)">
+                                <option value="public">Public</option>
+                                <option value="vendors" selected>Vendors Only</option>
+                                <option value="private">Private</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Password Security</div>
+                            <div class="setting-description">Your password strength and last change</div>
+                        </div>
+                        <div class="setting-control">
+                            <div class="security-level">
+                                <div class="security-bar security-strong"></div>
+                                <span class="security-text">Strong</span>
+                            </div>
+                            <button class="setting-btn btn-outline" onclick="changePassword()">
+                                <i class="fas fa-key"></i> Change
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Two-Factor Authentication</div>
+                            <div class="setting-description">Add extra security with 2FA verification</div>
+                        </div>
+                        <div class="setting-control">
+                            <button class="setting-btn btn-primary" onclick="setup2FA()">
+                                <i class="fas fa-mobile-alt"></i> Enable 2FA
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Login Sessions</div>
+                            <div class="setting-description">Manage active sessions and devices</div>
+                        </div>
+                        <div class="setting-control">
+                            <button class="setting-btn btn-secondary" onclick="manageSessions()">
+                                <i class="fas fa-devices"></i> Manage
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subscription & Billing -->
+                <div class="settings-section">
+                    <div class="section-title">
+                        <i class="fas fa-credit-card"></i>
+                        <h3>Subscription & Billing</h3>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Current Plan</div>
+                            <div class="setting-description">Premium membership with advanced features</div>
+                        </div>
+                        <div class="setting-control">
+                            <span class="subscription-badge badge-premium">Premium</span>
+                            <button class="setting-btn btn-outline" onclick="managePlan()">
+                                <i class="fas fa-crown"></i> Manage Plan
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Payment Method</div>
+                            <div class="setting-description">Visa ending in 1234 • Expires 12/25</div>
+                        </div>
+                        <div class="setting-control">
+                            <button class="setting-btn btn-outline" onclick="updatePayment()">
+                                <i class="fas fa-edit"></i> Update
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Billing History</div>
+                            <div class="setting-description">View invoices and payment history</div>
+                        </div>
+                        <div class="setting-control">
+                            <button class="setting-btn btn-secondary" onclick="viewBilling()">
+                                <i class="fas fa-file-invoice"></i> View History
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preferences -->
+                <div class="settings-section">
+                    <div class="section-title">
+                        <i class="fas fa-cog"></i>
+                        <h3>Preferences</h3>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Language</div>
+                            <div class="setting-description">Choose your preferred language</div>
+                        </div>
+                        <div class="setting-control">
+                            <select class="setting-select" onchange="changeLanguage(this)">
+                                <option value="en" selected>English</option>
+                                <option value="ar">العربية</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Time Zone</div>
+                            <div class="setting-description">Set your local time zone</div>
+                        </div>
+                        <div class="setting-control">
+                            <select class="setting-select" onchange="changeTimezone(this)">
+                                <option value="Africa/Cairo" selected>Cairo (GMT+2)</option>
+                                <option value="UTC">UTC (GMT+0)</option>
+                                <option value="Europe/London">London (GMT+0)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Currency</div>
+                            <div class="setting-description">Display prices in your preferred currency</div>
+                        </div>
+                        <div class="setting-control">
+                            <select class="setting-select" onchange="changeCurrency(this)">
+                                <option value="EGP" selected>Egyptian Pound (EGP)</option>
+                                <option value="USD">US Dollar (USD)</option>
+                                <option value="EUR">Euro (EUR)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Auto-Save Quotes</div>
+                            <div class="setting-description">Automatically save quote requests as drafts</div>
+                        </div>
+                        <div class="setting-control">
+                            <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data & Export -->
+                <div class="settings-section">
+                    <div class="section-title">
+                        <i class="fas fa-download"></i>
+                        <h3>Data & Export</h3>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Export My Data</div>
+                            <div class="setting-description">Download all your account data and history</div>
+                        </div>
+                        <div class="setting-control">
+                            <button class="setting-btn btn-outline" onclick="exportData()">
+                                <i class="fas fa-download"></i> Export Data
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <div class="setting-title">Order Reports</div>
+                            <div class="setting-description">Generate detailed reports of your orders</div>
+                        </div>
+                        <div class="setting-control">
+                            <button class="setting-btn btn-secondary" onclick="generateReports()">
+                                <i class="fas fa-chart-bar"></i> Generate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="settings-section">
+                    <div class="section-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Account Management</h3>
+                    </div>
+                    
+                    <div class="danger-zone">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Danger Zone</h4>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Deactivate Account</div>
+                                <div class="setting-description">Temporarily disable your account while preserving data</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="setting-btn btn-secondary" onclick="deactivateAccount()">
+                                    <i class="fas fa-pause"></i> Deactivate
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-title">Delete Account</div>
+                                <div class="setting-description">Permanently delete your account and all data (irreversible)</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="setting-btn btn-danger" onclick="deleteAccount()">
+                                    <i class="fas fa-trash"></i> Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/language.js"></script>
+    <script>
+        // Settings Functions
+        function toggleSetting(toggle) {
+            toggle.classList.toggle('active');
+            const isActive = toggle.classList.contains('active');
+            const setting = toggle.closest('.setting-item').querySelector('.setting-title').textContent;
+            showToast(`${setting} ${isActive ? 'enabled' : 'disabled'}`, 'success');
+        }
+
+        function updatePrivacy(select) {
+            const value = select.value;
+            const labels = {
+                'public': 'Public',
+                'vendors': 'Vendors Only',
+                'private': 'Private'
+            };
+            showToast(`Profile visibility set to ${labels[value]}`, 'success');
+        }
+
+        function changePassword() {
+            showToast('Opening password change form...', 'info');
+        }
+
+        function setup2FA() {
+            showToast('Opening 2FA setup wizard...', 'info');
+        }
+
+        function manageSessions() {
+            showToast('Loading active sessions...', 'info');
+        }
+
+        function managePlan() {
+            showToast('Opening subscription management...', 'info');
+        }
+
+        function updatePayment() {
+            showToast('Opening payment method editor...', 'info');
+        }
+
+        function viewBilling() {
+            showToast('Loading billing history...', 'info');
+        }
+
+        function changeLanguage(select) {
+            const lang = select.value;
+            const languages = { 'en': 'English', 'ar': 'Arabic' };
+            showToast(`Language changed to ${languages[lang]}`, 'success');
+        }
+
+        function changeTimezone(select) {
+            const timezone = select.value;
+            showToast(`Timezone updated to ${timezone}`, 'success');
+        }
+
+        function changeCurrency(select) {
+            const currency = select.value;
+            showToast(`Currency changed to ${currency}`, 'success');
+        }
+
+        function exportData() {
+            showToast('Preparing data export... This may take a few minutes.', 'info');
+        }
+
+        function generateReports() {
+            showToast('Generating order reports...', 'info');
+        }
+
+        function deactivateAccount() {
+            if (confirm('Are you sure you want to deactivate your account? You can reactivate it later by logging in.')) {
+                showToast('Account deactivation initiated...', 'warning');
+            }
+        }
+
+        function deleteAccount() {
+            const confirmation = prompt('This action is irreversible. Type "DELETE" to confirm account deletion:');
+            if (confirmation === 'DELETE') {
+                showToast('Account deletion initiated. You have 7 days to cancel this action.', 'error');
+            } else if (confirmation !== null) {
+                showToast('Account deletion cancelled - confirmation text did not match.', 'info');
+            }
+        }
+
+        // Customer sidebar functions
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('customerSidebar');
+            sidebar.classList.toggle('mobile-active');
+        }
+
+        function toggleNotifications() {
+            showToast('Opening notifications panel...', 'info');
+        }
+
+        function goToProfile() {
+            window.location.href = 'profile.html';
+        }
+
+        function openHelpCenter() {
+            showToast('Opening help center...', 'info');
+        }
+
+        function contactSupport() {
+            showToast('Connecting to support...', 'info');
+            window.location.href = 'messages.html?support=true';
+        }
+
+        function confirmLogout(e) {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                showToast('Logging out...', 'info');
+                setTimeout(() => {
+                    window.location.href = '../public/login.html';
+                }, 1500);
+            }
+        }
+
+        // Toast notification system
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            const colors = {
+                success: '#27ae60',
+                error: '#e74c3c', 
+                warning: '#f39c12',
+                info: '#3498db'
+            };
+            
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 600;
+                z-index: 10000;
+                background: ${colors[type]};
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            `;
+            
+            toast.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 4000);
+        }
+
+        // Mobile responsiveness
+        function checkMobile() {
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            if (window.innerWidth <= 768) {
+                mobileBtn.style.display = 'block';
+            } else {
+                mobileBtn.style.display = 'none';
+                document.getElementById('customerSidebar').classList.remove('mobile-active');
+            }
+        }
+
+        // Initialize settings
+        document.addEventListener('DOMContentLoaded', function() {
+            checkMobile();
+            window.addEventListener('resize', checkMobile);
+            console.log('Customer Settings page initialized');
+        });
+    </script>
+</body>
+</html>

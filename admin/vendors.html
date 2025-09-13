@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendors Management - PrintHub Egypt Admin</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Admin Layout Styles */
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar - Same as Dashboard */
+        .admin-sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #2C3E50 0%, #1a252f 100%);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .sidebar-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .admin-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: auto;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        .menu-label {
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .menu-item.active {
+            background: rgba(102, 126, 234, 0.2);
+            color: white;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #667eea;
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+
+        .menu-item span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .menu-badge {
+            margin-left: auto;
+            background: #E74C3C;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .admin-main {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .admin-topbar {
+            background: white;
+            padding: 20px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notification-btn {
+            position: relative;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 8px;
+            height: 8px;
+            background: #E74C3C;
+            border-radius: 50%;
+        }
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Page Content - Optimized Spacing */
+        .page-content {
+            padding: 25px;
+        }
+
+        /* Page Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .page-header-left h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2C3E50;
+            margin: 0 0 5px 0;
+        }
+
+        .page-subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-outline {
+            background: white;
+            border: 2px solid #e0e6ed;
+            color: #666;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+
+        /* Stats Cards - Compact Layout */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .stat-card:nth-child(1)::before { background: linear-gradient(90deg, #667eea, #764ba2); }
+        .stat-card:nth-child(2)::before { background: linear-gradient(90deg, #43e97b, #38f9d7); }
+        .stat-card:nth-child(3)::before { background: linear-gradient(90deg, #fa709a, #fee140); }
+        .stat-card:nth-child(4)::before { background: linear-gradient(90deg, #f093fb, #f5576c); }
+        .stat-card:nth-child(5)::before { background: linear-gradient(90deg, #4facfe, #00f2fe); }
+        .stat-card:nth-child(6)::before { background: linear-gradient(90deg, #ffc107, #ff9800); }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .stat-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-card:nth-child(1) .stat-icon { background: rgba(102, 126, 234, 0.1); color: #667eea; }
+        .stat-card:nth-child(2) .stat-icon { background: rgba(67, 233, 123, 0.1); color: #43e97b; }
+        .stat-card:nth-child(3) .stat-icon { background: rgba(250, 112, 154, 0.1); color: #fa709a; }
+        .stat-card:nth-child(4) .stat-icon { background: rgba(240, 147, 251, 0.1); color: #f093fb; }
+        .stat-card:nth-child(5) .stat-icon { background: rgba(79, 172, 254, 0.1); color: #4facfe; }
+        .stat-card:nth-child(6) .stat-icon { background: rgba(255, 193, 7, 0.1); color: #ffc107; }
+
+        .stat-title {
+            font-size: 13px;
+            color: #999;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2C3E50;
+            margin-bottom: 8px;
+        }
+
+        .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .stat-change.positive { background: #d4f4dd; color: #27AE60; }
+        .stat-change.negative { background: #fde2e2; color: #E74C3C; }
+
+        /* Filters */
+        .filters-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .filters-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 12px 8px 40px;
+            border: 1px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            min-width: 150px;
+        }
+
+        /* Vendors Grid - Optimized Layout */
+        .vendors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .vendor-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .vendor-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: rgba(52, 152, 219, 0.2);
+        }
+
+        .vendor-header {
+            position: relative;
+            padding: 20px 20px 15px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .vendor-status {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .vendor-status.active {
+            background: rgba(255, 255, 255, 0.9);
+            color: #27AE60;
+        }
+
+        .vendor-status.pending {
+            background: rgba(255, 255, 255, 0.9);
+            color: #f39c12;
+        }
+
+        .vendor-status.suspended {
+            background: rgba(255, 255, 255, 0.9);
+            color: #E74C3C;
+        }
+
+        .vendor-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .vendor-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: white;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vendor-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .vendor-info h3 {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+        }
+
+        .vendor-info p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .vendor-body {
+            padding: 18px 20px 20px 20px;
+        }
+
+        .vendor-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .vendor-stat {
+            text-align: center;
+        }
+
+        .vendor-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2C3E50;
+        }
+
+        .vendor-stat-label {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .vendor-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .vendor-detail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .vendor-detail i {
+            width: 20px;
+            color: #999;
+        }
+
+        .vendor-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .vendor-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .vendor-btn.primary {
+            background: #3498db;
+            color: white;
+            box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
+        }
+
+        .vendor-btn.primary:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+
+        .vendor-btn.outline {
+            background: white;
+            border: 1.5px solid #e0e6ed;
+            color: #666;
+        }
+
+        .vendor-btn.outline:hover {
+            border-color: #3498db;
+            color: #3498db;
+            background: rgba(52, 152, 219, 0.05);
+        }
+
+        /* Pending Approvals Alert - Compact */
+        .alert-banner {
+            background: linear-gradient(135deg, #fff9e6 0%, #fffdf5 100%);
+            border-left: 4px solid #ffc107;
+            padding: 12px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(255, 193, 7, 0.1);
+        }
+
+        .alert-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .alert-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 193, 7, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffc107;
+        }
+
+        .alert-text h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2C3E50;
+            margin: 0 0 3px 0;
+        }
+
+        .alert-text p {
+            font-size: 13px;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Performance Chart */
+        .chart-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        /* Responsive - Enhanced */
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .admin-sidebar.active {
+                transform: translateX(0);
+            }
+
+            .admin-main {
+                margin-left: 0;
+            }
+
+            .page-content {
+                padding: 15px;
+            }
+
+            .vendors-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub">
+                    <h2>PrintHub</h2>
+                    <span class="admin-badge">Admin</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <div class="menu-section">
+                    <div class="menu-label">Main</div>
+                    <a href="dashboard.html" class="menu-item">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="reports.html" class="menu-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">Management</div>
+                    <a href="users.html" class="menu-item">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                    <a href="vendors.html" class="menu-item active">
+                        <i class="fas fa-store"></i>
+                        <span>Vendors</span>
+                        <span class="menu-badge">3</span>
+                    </a>
+                    <a href="services.html" class="menu-item">
+                        <i class="fas fa-print"></i>
+                        <span>Services</span>
+                    </a>
+                    <a href="categories.html" class="menu-item">
+                        <i class="fas fa-tags"></i>
+                        <span>Categories</span>
+                    </a>
+                    <a href="orders.html" class="menu-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Orders</span>
+                    </a>
+                </div>
+
+                <div class="menu-section">
+                    <div class="menu-label">System</div>
+                    <a href="settings.html" class="menu-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Security</span>
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Top Bar -->
+            <div class="admin-topbar">
+                <div class="topbar-left">
+                    <h2 class="page-title">Vendor Management</h2>
+                </div>
+
+                <div class="topbar-right">
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <i class="fas fa-globe"></i>
+                        <span data-en="AR" data-ar="EN">AR</span>
+                    </button>
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <div class="admin-user">
+                        <img src="https://via.placeholder.com/36" alt="Admin" style="width: 36px; height: 36px; border-radius: 50%;">
+                        <div>
+                            <div style="font-size: 14px; font-weight: 600;">Ahmed Hassan</div>
+                            <div style="font-size: 12px; color: #999;">Super Admin</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-header-left">
+                        <h1>Vendors</h1>
+                        <p class="page-subtitle">Manage vendor accounts, approvals, and performance monitoring</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-outline">
+                            <i class="fas fa-download"></i>
+                            Export Report
+                        </button>
+                        <a href="add-new-vendor.html" class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Add New Vendor
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pending Approvals Alert -->
+                <div class="alert-banner">
+                    <div class="alert-content">
+                        <div class="alert-icon">
+                            <i class="fas fa-exclamation"></i>
+                        </div>
+                        <div class="alert-text">
+                            <h4>3 Vendors Pending Approval</h4>
+                            <p>New vendor registrations require your review and approval</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-success">
+                        <i class="fas fa-check"></i>
+                        Review Now
+                    </button>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Total Vendors</div>
+                                <div class="stat-value">186</div>
+                                <span class="stat-change positive">
+                                    <i class="fas fa-arrow-up"></i> 12 this month
+                                </span>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Active Vendors</div>
+                                <div class="stat-value">172</div>
+                                <span class="stat-change positive">
+                                    <i class="fas fa-arrow-up"></i> 92.5%
+                                </span>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Pending Approval</div>
+                                <div class="stat-value">3</div>
+                                <span class="stat-change negative">
+                                    <i class="fas fa-clock"></i> Needs action
+                                </span>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-hourglass-half"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Suspended</div>
+                                <div class="stat-value">11</div>
+                                <span class="stat-change negative">
+                                    <i class="fas fa-arrow-up"></i> 2 this week
+                                </span>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-ban"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Total Revenue</div>
+                                <div class="stat-value">EGP 845K</div>
+                                <span class="stat-change positive">
+                                    <i class="fas fa-arrow-up"></i> 15.3%
+                                </span>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Avg Rating</div>
+                                <div class="stat-value">4.6</div>
+                                <span class="stat-change positive">
+                                    <i class="fas fa-star"></i> Excellent
+                                </span>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-section">
+                    <div class="filters-row">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search vendors by name, email, or location...">
+                        </div>
+                        <select class="filter-select">
+                            <option>All Status</option>
+                            <option>Active</option>
+                            <option>Pending</option>
+                            <option>Suspended</option>
+                        </select>
+                        <select class="filter-select">
+                            <option>All Categories</option>
+                            <option>Business Cards</option>
+                            <option>Banners</option>
+                            <option>Packaging</option>
+                        </select>
+                        <select class="filter-select">
+                            <option>All Locations</option>
+                            <option>Cairo</option>
+                            <option>Giza</option>
+                            <option>Alexandria</option>
+                        </select>
+                        <select class="filter-select">
+                            <option>Sort by</option>
+                            <option>Newest First</option>
+                            <option>Revenue (High to Low)</option>
+                            <option>Rating (High to Low)</option>
+                            <option>Orders (High to Low)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Vendors Grid -->
+                <div class="vendors-grid">
+                    <!-- Vendor Card 1 -->
+                    <div class="vendor-card" data-vendor="premium-print">
+                        <div class="vendor-header">
+                            <span class="vendor-status active">Active</span>
+                            <div class="vendor-profile">
+                                <div class="vendor-logo">
+                                    <img src="../assets/images/vendors/Vendor-Placeholder.png" alt="Premium Print Co">
+                                </div>
+                                <div class="vendor-info">
+                                    <h3>Premium Print Co.</h3>
+                                    <p>Member since Dec 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vendor-body">
+                            <div class="vendor-stats">
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">342</div>
+                                    <div class="vendor-stat-label">Orders</div>
+                                </div>
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">EGP 125K</div>
+                                    <div class="vendor-stat-label">Revenue</div>
+                                </div>
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">4.9⭐</div>
+                                    <div class="vendor-stat-label">Rating</div>
+                                </div>
+                            </div>
+                            <div class="vendor-details">
+                                <div class="vendor-detail">
+                                    <i class="fas fa-envelope"></i>
+                                    info@premiumprint.eg
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-phone"></i>
+                                    +20 123 456 7890
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Cairo, Egypt
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-box"></i>
+                                    24 Active Services
+                                </div>
+                            </div>
+                            <div class="vendor-actions">
+                                <a href="vendor-details.html" class="vendor-btn primary">
+                                    <i class="fas fa-eye"></i>
+                                    View Details
+                                </a>
+                                <button class="vendor-btn outline" onclick="editVendor('premium-print')">
+                                    <i class="fas fa-edit"></i>
+                                    Edit
+                                </button>
+                                <button class="vendor-btn outline" onclick="viewAnalytics('premium-print')">
+                                    <i class="fas fa-chart-line"></i>
+                                    Analytics
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Card 2 -->
+                    <div class="vendor-card" data-vendor="elite-printing">
+                        <div class="vendor-header">
+                            <span class="vendor-status active">Active</span>
+                            <div class="vendor-profile">
+                                <div class="vendor-logo">
+                                    <img src="https://via.placeholder.com/60" alt="Vendor">
+                                </div>
+                                <div class="vendor-info">
+                                    <h3>Elite Printing</h3>
+                                    <p>Member since Nov 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vendor-body">
+                            <div class="vendor-stats">
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">289</div>
+                                    <div class="vendor-stat-label">Orders</div>
+                                </div>
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">EGP 98K</div>
+                                    <div class="vendor-stat-label">Revenue</div>
+                                </div>
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">4.8⭐</div>
+                                    <div class="vendor-stat-label">Rating</div>
+                                </div>
+                            </div>
+                            <div class="vendor-details">
+                                <div class="vendor-detail">
+                                    <i class="fas fa-envelope"></i>
+                                    hello@eliteprinting.eg
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-phone"></i>
+                                    +20 111 222 3333
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Giza, Egypt
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-box"></i>
+                                    18 Active Services
+                                </div>
+                            </div>
+                            <div class="vendor-actions">
+                                <a href="vendor-details.html" class="vendor-btn primary">
+                                    <i class="fas fa-eye"></i>
+                                    View Details
+                                </a>
+                                <button class="vendor-btn outline" onclick="editVendor('elite-printing')">
+                                    <i class="fas fa-edit"></i>
+                                    Edit
+                                </button>
+                                <button class="vendor-btn outline" onclick="viewAnalytics('elite-printing')">
+                                    <i class="fas fa-chart-line"></i>
+                                    Analytics
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Card 3 - Pending -->
+                    <div class="vendor-card" data-vendor="digital-print">
+                        <div class="vendor-header">
+                            <span class="vendor-status pending">Pending</span>
+                            <div class="vendor-profile">
+                                <div class="vendor-logo">
+                                    <img src="https://via.placeholder.com/60" alt="Vendor">
+                                </div>
+                                <div class="vendor-info">
+                                    <h3>Digital Print Solutions</h3>
+                                    <p>Applied 2 days ago</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vendor-body">
+                            <div class="vendor-stats">
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">-</div>
+                                    <div class="vendor-stat-label">Orders</div>
+                                </div>
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">-</div>
+                                    <div class="vendor-stat-label">Revenue</div>
+                                </div>
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">New</div>
+                                    <div class="vendor-stat-label">Status</div>
+                                </div>
+                            </div>
+                            <div class="vendor-details">
+                                <div class="vendor-detail">
+                                    <i class="fas fa-envelope"></i>
+                                    contact@digitalprint.eg
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-phone"></i>
+                                    +20 100 300 5000
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Alexandria, Egypt
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-clock"></i>
+                                    Awaiting Approval
+                                </div>
+                            </div>
+                            <div class="vendor-actions">
+                                <button class="vendor-btn primary" style="background: #27AE60;" onclick="approveVendor('digital-print')">
+                                    <i class="fas fa-check"></i>
+                                    Approve
+                                </button>
+                                <button class="vendor-btn outline" style="color: #E74C3C; border-color: #E74C3C;" onclick="rejectVendor('digital-print')">
+                                    <i class="fas fa-times"></i>
+                                    Reject
+                                </button>
+                                <a href="vendor-details.html" class="vendor-btn outline">
+                                    <i class="fas fa-eye"></i>
+                                    Review
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Card 4 -->
+                    <div class="vendor-card" data-vendor="quick-print">
+                        <div class="vendor-header">
+                            <span class="vendor-status active">Active</span>
+                            <div class="vendor-profile">
+                                <div class="vendor-logo">
+                                    <img src="https://via.placeholder.com/60" alt="Vendor">
+                                </div>
+                                <div class="vendor-info">
+                                    <h3>Quick Print Services</h3>
+                                    <p>Member since Nov 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vendor-body">
+                            <div class="vendor-stats">
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">256</div>
+                                    <div class="vendor-stat-label">Orders</div>
+                                </div>
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">EGP 87K</div>
+                                    <div class="vendor-stat-label">Revenue</div>
+                                </div>
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">4.7⭐</div>
+                                    <div class="vendor-stat-label">Rating</div>
+                                </div>
+                            </div>
+                            <div class="vendor-details">
+                                <div class="vendor-detail">
+                                    <i class="fas fa-envelope"></i>
+                                    support@quickprint.eg
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-phone"></i>
+                                    +20 144 555 6666
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Cairo, Egypt
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-box"></i>
+                                    15 Active Services
+                                </div>
+                            </div>
+                            <div class="vendor-actions">
+                                <a href="vendor-details.html" class="vendor-btn primary">
+                                    <i class="fas fa-eye"></i>
+                                    View Details
+                                </a>
+                                <button class="vendor-btn outline" onclick="editVendor('quick-print')">
+                                    <i class="fas fa-edit"></i>
+                                    Edit
+                                </button>
+                                <button class="vendor-btn outline" onclick="viewAnalytics('quick-print')">
+                                    <i class="fas fa-chart-line"></i>
+                                    Analytics
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Card 5 - Suspended -->
+                    <div class="vendor-card" data-vendor="express-print">
+                        <div class="vendor-header">
+                            <span class="vendor-status suspended">Suspended</span>
+                            <div class="vendor-profile">
+                                <div class="vendor-logo">
+                                    <img src="https://via.placeholder.com/60" alt="Vendor">
+                                </div>
+                                <div class="vendor-info">
+                                    <h3>Express Print Hub</h3>
+                                    <p>Member since Oct 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vendor-body">
+                            <div class="vendor-stats">
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">134</div>
+                                    <div class="vendor-stat-label">Orders</div>
+                                </div>
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">EGP 45K</div>
+                                    <div class="vendor-stat-label">Revenue</div>
+                                </div>
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">3.2⭐</div>
+                                    <div class="vendor-stat-label">Rating</div>
+                                </div>
+                            </div>
+                            <div class="vendor-details">
+                                <div class="vendor-detail">
+                                    <i class="fas fa-envelope"></i>
+                                    info@expressprinthub.eg
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-phone"></i>
+                                    +20 122 777 8888
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Cairo, Egypt
+                                </div>
+                                <div class="vendor-detail" style="color: #E74C3C;">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Quality issues reported
+                                </div>
+                            </div>
+                            <div class="vendor-actions">
+                                <button class="vendor-btn primary" style="background: #27AE60;" onclick="reactivateVendor('express-print')">
+                                    <i class="fas fa-undo"></i>
+                                    Reactivate
+                                </button>
+                                <a href="vendor-details.html" class="vendor-btn outline">
+                                    <i class="fas fa-eye"></i>
+                                    View Issues
+                                </a>
+                                <button class="vendor-btn outline" style="color: #E74C3C; border-color: #E74C3C;" onclick="removeVendor('express-print')">
+                                    <i class="fas fa-trash"></i>
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Card 6 -->
+                    <div class="vendor-card">
+                        <div class="vendor-header">
+                            <span class="vendor-status active">Active</span>
+                            <div class="vendor-profile">
+                                <div class="vendor-logo">
+                                    <img src="https://via.placeholder.com/60" alt="Vendor">
+                                </div>
+                                <div class="vendor-info">
+                                    <h3>Pro Graphics</h3>
+                                    <p>Member since Sep 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vendor-body">
+                            <div class="vendor-stats">
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">198</div>
+                                    <div class="vendor-stat-label">Orders</div>
+                                </div>
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">EGP 76K</div>
+                                    <div class="vendor-stat-label">Revenue</div>
+                                </div>
+                                <div class="vendor-stat">
+                                    <div class="vendor-stat-value">4.8⭐</div>
+                                    <div class="vendor-stat-label">Rating</div>
+                                </div>
+                            </div>
+                            <div class="vendor-details">
+                                <div class="vendor-detail">
+                                    <i class="fas fa-envelope"></i>
+                                    hello@prographics.eg
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-phone"></i>
+                                    +20 100 444 5555
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Giza, Egypt
+                                </div>
+                                <div class="vendor-detail">
+                                    <i class="fas fa-box"></i>
+                                    20 Active Services
+                                </div>
+                            </div>
+                            <div class="vendor-actions">
+                                <button class="vendor-btn primary">
+                                    <i class="fas fa-eye"></i>
+                                    View Details
+                                </button>
+                                <button class="vendor-btn outline">
+                                    <i class="fas fa-edit"></i>
+                                    Edit
+                                </button>
+                                <button class="vendor-btn outline">
+                                    <i class="fas fa-chart-line"></i>
+                                    Analytics
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Chart -->
+                <div class="chart-section" style="margin-top: 20px;">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Vendor Performance Overview</h3>
+                        <select class="filter-select">
+                            <option>Last 30 Days</option>
+                            <option>Last 3 Months</option>
+                            <option>Last Year</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/language.js"></script>
+    <script>
+        // Performance Chart
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        const performanceChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Premium Print', 'Elite Printing', 'Quick Print', 'Pro Graphics', 'Cairo Print', 'Nile Print'],
+                datasets: [
+                    {
+                        label: 'Orders',
+                        data: [342, 289, 256, 198, 176, 145],
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                    },
+                    {
+                        label: 'Revenue (K)',
+                        data: [125, 98, 87, 76, 65, 52],
+                        backgroundColor: 'rgba(67, 233, 123, 0.8)',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Vendor Management Functions
+        function editVendor(vendorId) {
+            showToast(`Redirecting to edit page for vendor: ${vendorId}`, 'info');
+            // Redirect to add-new-vendor.html with pre-filled data
+            window.location.href = `add-new-vendor.html?edit=${vendorId}`;
+        }
+
+        function viewAnalytics(vendorId) {
+            showToast(`Loading analytics for vendor: ${vendorId}`, 'info');
+            // Redirect to analytics page
+            window.location.href = `reports.html?vendor=${vendorId}`;
+        }
+
+        function approveVendor(vendorId) {
+            if (confirm('Are you sure you want to approve this vendor?')) {
+                showToast('Vendor approved successfully!', 'success');
+                // Update UI to show approved status
+                updateVendorStatus(vendorId, 'active');
+            }
+        }
+
+        function rejectVendor(vendorId) {
+            const reason = prompt('Please provide a reason for rejection:');
+            if (reason && reason.trim()) {
+                showToast('Vendor rejected. Notification sent.', 'warning');
+                // Remove from pending list or update status
+                removeVendorCard(vendorId);
+            }
+        }
+
+        function reactivateVendor(vendorId) {
+            if (confirm('Are you sure you want to reactivate this vendor?')) {
+                showToast('Vendor reactivated successfully!', 'success');
+                updateVendorStatus(vendorId, 'active');
+            }
+        }
+
+        function removeVendor(vendorId) {
+            if (confirm('Are you sure you want to permanently remove this vendor? This action cannot be undone.')) {
+                showToast('Vendor removed from system', 'error');
+                removeVendorCard(vendorId);
+            }
+        }
+
+        // Utility Functions
+        function updateVendorStatus(vendorId, newStatus) {
+            // Update the vendor card status in the UI
+            const statusElement = document.querySelector(`[data-vendor="${vendorId}"] .vendor-status`);
+            if (statusElement) {
+                statusElement.className = `vendor-status ${newStatus}`;
+                statusElement.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1);
+            }
+        }
+
+        function removeVendorCard(vendorId) {
+            // Remove the vendor card from the DOM
+            const vendorCard = document.querySelector(`[data-vendor="${vendorId}"]`);
+            if (vendorCard) {
+                vendorCard.style.transition = 'all 0.3s ease';
+                vendorCard.style.transform = 'scale(0)';
+                vendorCard.style.opacity = '0';
+                setTimeout(() => vendorCard.remove(), 300);
+            }
+        }
+
+        // Toast notification function
+        function showToast(message, type = 'info') {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 600;
+                z-index: 10000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            // Set background color based on type
+            const colors = {
+                success: '#27ae60',
+                error: '#e74c3c',
+                warning: '#f39c12',
+                info: '#3498db'
+            };
+            toast.style.backgroundColor = colors[type] || colors.info;
+            
+            // Set icon
+            const icons = {
+                success: 'check-circle',
+                error: 'times-circle',
+                warning: 'exclamation-triangle',
+                info: 'info-circle'
+            };
+            
+            toast.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-${icons[type] || icons.info}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            
+            // Hide toast after 3 seconds
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
