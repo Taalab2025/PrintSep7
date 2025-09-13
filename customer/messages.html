@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - Egypt Printing Marketplace</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                </div>
+
+                <nav class="main-nav" aria-label="Main navigation">
+                    <a href="../public/index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+                    <a href="../public/services.html" data-en="Services" data-ar="الخدمات">Services</a>
+                    <a href="../public/vendors.html" data-en="Vendors" data-ar="الموردون">Vendors</a>
+                    <a href="../public/about.html" data-en="About" data-ar="حول">About</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span data-en="My Account" data-ar="حسابي">My Account</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span></a>
+                            <a href="profile.html"><i class="fas fa-user"></i> <span data-en="Profile" data-ar="الملف الشخصي">Profile</span></a>
+                            <a href="quotes.html"><i class="fas fa-file-invoice"></i> <span data-en="My Quotes" data-ar="عروض الأسعار">My Quotes</span></a>
+                            <a href="orders.html"><i class="fas fa-box"></i> <span data-en="Orders" data-ar="الطلبات">Orders</span></a>
+                            <a href="messages.html" class="active"><i class="fas fa-envelope"></i> <span data-en="Messages" data-ar="الرسائل">Messages</span></a>
+                            <hr>
+                            <a href="../public/login.html"><i class="fas fa-sign-out-alt"></i> <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span></a>
+                        </div>
+                    </div>
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <span data-en="العربية" data-ar="English">العربية</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb-nav">
+                    <li class="breadcrumb-item">
+                        <a href="../public/index.html" data-translate="home">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="dashboard.html" data-translate="dashboard">Customer Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <span data-translate="messages">Messages</span>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="messages-main">
+        <div class="container">
+            <div class="messages-container">
+                <!-- Conversations Panel -->
+                <div class="conversations-panel">
+                    <div class="conversations-header">
+                        <h2 data-en="Messages" data-ar="الرسائل">Messages</h2>
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search conversations..." data-en-placeholder="Search conversations..." data-ar-placeholder="البحث في المحادثات...">
+                        </div>
+                    </div>
+
+                    <div class="filter-tabs">
+                        <button class="filter-tab active">
+                            <span data-en="All" data-ar="الكل">All</span>
+                            <span class="badge">3</span>
+                        </button>
+                        <button class="filter-tab">
+                            <span data-en="Unread" data-ar="غير مقروء">Unread</span>
+                            <span class="badge">1</span>
+                        </button>
+                    </div>
+
+                    <div class="conversations-list">
+                        <!-- Conversation 1 - Active -->
+                        <div class="conversation-item active">
+                            <div class="conversation-avatar">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="conversation-content">
+                                <div class="conversation-header">
+                                    <span class="conversation-name">FastPrint Solutions</span>
+                                    <span class="conversation-time">10:30 AM</span>
+                                </div>
+                                <div class="conversation-preview">Your order is ready for delivery tomorrow</div>
+                                <div class="conversation-meta">
+                                    <span class="conversation-order">Order #1235</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Conversation 2 - Unread -->
+                        <div class="conversation-item unread">
+                            <div class="conversation-avatar">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="conversation-content">
+                                <div class="conversation-header">
+                                    <span class="conversation-name">Quality Prints Co.</span>
+                                    <span class="conversation-time">Yesterday</span>
+                                </div>
+                                <div class="conversation-preview">Thank you for your order! We've started...</div>
+                                <div class="conversation-meta">
+                                    <span class="conversation-order">Order #1234</span>
+                                    <div class="unread-indicator"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Conversation 3 -->
+                        <div class="conversation-item">
+                            <div class="conversation-avatar">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="conversation-content">
+                                <div class="conversation-header">
+                                    <span class="conversation-name">PrintMaster Pro</span>
+                                    <span class="conversation-time">Dec 5</span>
+                                </div>
+                                <div class="conversation-preview">Your flyers have been delivered successfully</div>
+                                <div class="conversation-meta">
+                                    <span class="conversation-order">Order #1233</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Conversation 4 -->
+                        <div class="conversation-item">
+                            <div class="conversation-avatar">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="conversation-content">
+                                <div class="conversation-header">
+                                    <span class="conversation-name">Customer Support</span>
+                                    <span class="conversation-time">Dec 1</span>
+                                </div>
+                                <div class="conversation-preview">Welcome to PrintHub! How can we help you?</div>
+                                <div class="conversation-meta">
+                                    <span class="conversation-order">Support</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Panel -->
+                <div class="chat-panel">
+                    <div class="chat-header">
+                        <div class="chat-vendor-info">
+                            <div class="chat-vendor-avatar">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="chat-vendor-details">
+                                <h3>FastPrint Solutions</h3>
+                                <div class="chat-vendor-status online">
+                                    <i class="fas fa-circle" style="font-size: 0.5rem;"></i>
+                                    <span data-en="Online" data-ar="متصل">Online</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="btn-icon" title="Order Details">
+                                <i class="fas fa-info-circle"></i>
+                            </button>
+                            <button class="btn-icon" title="More Options">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages">
+                        <!-- Date Divider -->
+                        <div class="message-date-divider">
+                            <span>Today</span>
+                        </div>
+
+                        <!-- Message 1 - Received -->
+                        <div class="message received">
+                            <div class="message-avatar">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-bubble">
+                                    Hello Ahmed! I wanted to update you on your business card order #1235.
+                                </div>
+                                <div class="message-time">9:15 AM</div>
+                            </div>
+                        </div>
+
+                        <!-- Message 2 - Received -->
+                        <div class="message received">
+                            <div class="message-avatar">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-bubble">
+                                    We've completed the printing and quality check. Everything looks perfect!
+                                </div>
+                                <div class="message-time">9:16 AM</div>
+                            </div>
+                        </div>
+
+                        <!-- Message 3 - Sent -->
+                        <div class="message sent">
+                            <div class="message-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-bubble">
+                                    That's great news! When can I expect the delivery?
+                                </div>
+                                <div class="message-time">10:25 AM</div>
+                            </div>
+                        </div>
+
+                        <!-- Message 4 - Received with Attachment -->
+                        <div class="message received">
+                            <div class="message-avatar">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-bubble">
+                                    Your order is ready for delivery tomorrow between 10 AM - 2 PM. I'm attaching the delivery receipt for your reference.
+                                    <div class="message-attachment">
+                                        <div class="attachment-icon">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </div>
+                                        <div class="attachment-details">
+                                            <div class="attachment-name">Delivery_Receipt_1235.pdf</div>
+                                            <div class="attachment-size">245 KB</div>
+                                        </div>
+                                        <button class="btn-icon">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="message-time">10:30 AM</div>
+                            </div>
+                        </div>
+
+                        <!-- Message 5 - Sent -->
+                        <div class="message sent">
+                            <div class="message-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-bubble">
+                                    Perfect! I'll be available to receive the order. Thank you for the update!
+                                </div>
+                                <div class="message-time">10:32 AM</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <div class="chat-input-container">
+                            <div class="chat-input-wrapper">
+                                <textarea class="chat-input" placeholder="Type your message..." data-en-placeholder="Type your message..." data-ar-placeholder="اكتب رسالتك..." rows="1"></textarea>
+                                <div class="chat-input-actions">
+                                    <button class="input-action-btn" title="Attach File">
+                                        <i class="fas fa-paperclip"></i>
+                                    </button>
+                                    <button class="input-action-btn" title="Add Emoji">
+                                        <i class="fas fa-smile"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button class="send-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 data-en="About PrintHub" data-ar="عن PrintHub">About PrintHub</h4>
+                    <p data-en="Your trusted printing marketplace in Egypt" data-ar="سوق الطباعة الموثوق به في مصر">Your trusted printing marketplace in Egypt</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+                    <ul>
+                        <li><a href="../public/services.html" data-en="Services" data-ar="الخدمات">Services</a></li>
+                        <li><a href="../public/vendors.html" data-en="Vendors" data-ar="الموردون">Vendors</a></li>
+                        <li><a href="../public/about.html" data-en="About Us" data-ar="من نحن">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Contact" data-ar="اتصل بنا">Contact</h4>
+                    <p><i class="fas fa-envelope"></i> info@printhub.eg</p>
+                    <p><i class="fas fa-phone"></i> +20 100 123 4567</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-en="© 2024 PrintHub Egypt. All rights reserved." data-ar="© 2024 PrintHub مصر. جميع الحقوق محفوظة.">© 2024 PrintHub Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/language.js"></script>
+    <script>
+        // Auto-resize textarea
+        const chatInput = document.querySelector('.chat-input');
+        if (chatInput) {
+            chatInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+            });
+        }
+
+        // Handle Enter key for sending messages
+        chatInput?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                // Send message logic here
+                console.log('Send message:', this.value);
+                this.value = '';
+                this.style.height = 'auto';
+            }
+        });
+
+        // Handle conversation selection
+        document.querySelectorAll('.conversation-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all
+                document.querySelectorAll('.conversation-item').forEach(conv => {
+                    conv.classList.remove('active');
+                });
+                // Add active to clicked
+                this.classList.add('active');
+                // Remove unread if exists
+                this.classList.remove('unread');
+
+                // In mobile, show chat panel
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.conversations-panel').classList.remove('mobile-active');
+                    document.querySelector('.chat-panel').classList.add('mobile-active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reviews - Egypt Printing Marketplace</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+
+    <style>
+        /* Reviews Specific Styles */
+        .reviews-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .review-tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            color: #7f8c8d;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .review-tab.active {
+            color: #27AE60;
+            border-bottom-color: #27AE60;
+        }
+
+        .pending-reviews {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .pending-review-card {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .review-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .review-vendor {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .vendor-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vendor-details h3 {
+            margin-bottom: 0.25rem;
+            color: #2C3E50;
+        }
+
+        .order-info {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        .review-date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .rating-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #f39c12;
+        }
+
+        .rating-value {
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .review-content {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .review-images {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .vendor-response {
+            background: #f8f9fa;
+            border-left: 3px solid #27AE60;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .vendor-response-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #27AE60;
+        }
+
+        .review-form {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .rating-input {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .rating-input .star {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .rating-input .star:hover,
+        .rating-input .star.active {
+            color: #f39c12;
+        }
+
+        .review-criteria {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .criterion {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .criterion-label {
+            font-weight: 500;
+            color: #2C3E50;
+        }
+
+        .criterion-rating {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .criterion-rating .star {
+            font-size: 1.25rem;
+            color: #ddd;
+            cursor: pointer;
+        }
+
+        .criterion-rating .star:hover,
+        .criterion-rating .star.active {
+            color: #f39c12;
+        }
+
+        .image-upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .image-upload-area:hover {
+            border-color: #27AE60;
+            background: #f8fffe;
+        }
+
+        /* RTL Adjustments */
+        html[dir="rtl"] .review-header {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .review-vendor {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .vendor-response {
+            border-left: none;
+            border-right: 3px solid #27AE60;
+        }
+
+        html[dir="rtl"] .criterion {
+            flex-direction: row-reverse;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                </div>
+
+                <nav class="main-nav">
+                    <a href="../public/index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+                    <a href="../public/services.html" data-en="Services" data-ar="الخدمات">Services</a>
+                    <a href="../public/vendors.html" data-en="Vendors" data-ar="الموردون">Vendors</a>
+                    <a href="../public/about.html" data-en="About" data-ar="حول">About</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span data-en="My Account" data-ar="حسابي">My Account</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span></a>
+                            <a href="profile.html"><i class="fas fa-user"></i> <span data-en="Profile" data-ar="الملف الشخصي">Profile</span></a>
+                            <a href="quotes.html"><i class="fas fa-file-invoice"></i> <span data-en="My Quotes" data-ar="عروض الأسعار">My Quotes</span></a>
+                            <a href="orders.html"><i class="fas fa-box"></i> <span data-en="Orders" data-ar="الطلبات">Orders</span></a>
+                            <a href="reviews.html" class="active"><i class="fas fa-star"></i> <span data-en="Reviews" data-ar="التقييمات">Reviews</span></a>
+                            <hr>
+                            <a href="../public/login.html"><i class="fas fa-sign-out-alt"></i> <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span></a>
+                        </div>
+                    </div>
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <span data-en="العربية" data-ar="English">العربية</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="dashboard.html" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</a></li>
+                <li class="active" data-en="My Reviews" data-ar="تقييماتي">My Reviews</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="reviews-main">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 data-en="My Reviews" data-ar="تقييماتي">My Reviews</h1>
+                <p data-en="Share your experience and help others make better decisions" data-ar="شارك تجربتك وساعد الآخرين في اتخاذ قرارات أفضل">Share your experience and help others make better decisions</p>
+            </div>
+
+            <!-- Pending Reviews Alert -->
+            <div class="pending-reviews">
+                <div class="pending-review-card">
+                    <div>
+                        <strong data-en="You have 2 orders waiting for review" data-ar="لديك طلبان في انتظار التقييم">You have 2 orders waiting for review</strong>
+                        <p style="margin-top: 0.5rem; color: #856404;">
+                            <span data-en="Your feedback helps improve service quality" data-ar="ملاحظاتك تساعد في تحسين جودة الخدمة">Your feedback helps improve service quality</span>
+                        </p>
+                    </div>
+                    <button class="btn btn-primary" onclick="showTab('pending')">
+                        <span data-en="Write Reviews" data-ar="كتابة التقييمات">Write Reviews</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Review Tabs -->
+            <div class="reviews-tabs">
+                <button class="review-tab active" onclick="showTab('pending')">
+                    <span data-en="Pending Reviews (2)" data-ar="في انتظار التقييم (2)">Pending Reviews (2)</span>
+                </button>
+                <button class="review-tab" onclick="showTab('submitted')">
+                    <span data-en="My Reviews (8)" data-ar="تقييماتي (8)">My Reviews (8)</span>
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div id="pending-tab" class="tab-content">
+                <!-- Pending Review 1 -->
+                <div class="review-form">
+                    <div class="review-vendor">
+                        <div class="vendor-logo">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <div class="vendor-details">
+                            <h3>Quality Prints Co.</h3>
+                            <div class="order-info">Order #1234 - 10 Roll-up Banners - Delivered Dec 9</div>
+                        </div>
+                    </div>
+
+                    <hr style="margin: 1.5rem 0;">
+
+                    <h4 data-en="Overall Rating" data-ar="التقييم العام" style="margin-bottom: 1rem;">Overall Rating</h4>
+                    <div class="rating-input">
+                        <i class="fas fa-star star" onclick="setRating(1)"></i>
+                        <i class="fas fa-star star" onclick="setRating(2)"></i>
+                        <i class="fas fa-star star" onclick="setRating(3)"></i>
+                        <i class="fas fa-star star" onclick="setRating(4)"></i>
+                        <i class="fas fa-star star" onclick="setRating(5)"></i>
+                    </div>
+
+                    <div class="review-criteria">
+                        <div class="criterion">
+                            <span class="criterion-label" data-en="Print Quality" data-ar="جودة الطباعة">Print Quality</span>
+                            <div class="criterion-rating">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                            </div>
+                        </div>
+                        <div class="criterion">
+                            <span class="criterion-label" data-en="Delivery Time" data-ar="وقت التسليم">Delivery Time</span>
+                            <div class="criterion-rating">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                            </div>
+                        </div>
+                        <div class="criterion">
+                            <span class="criterion-label" data-en="Customer Service" data-ar="خدمة العملاء">Customer Service</span>
+                            <div class="criterion-rating">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                            </div>
+                        </div>
+                        <div class="criterion">
+                            <span class="criterion-label" data-en="Value for Money" data-ar="القيمة مقابل المال">Value for Money</span>
+                            <div class="criterion-rating">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-en="Write Your Review" data-ar="اكتب تقييمك">Write Your Review</label>
+                        <textarea rows="4" placeholder="Share your experience with this vendor..."></textarea>
+                    </div>
+
+                    <div class="image-upload-area">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: #7f8c8d; margin-bottom: 0.5rem;"></i>
+                        <p data-en="Click to upload photos of your order" data-ar="انقر لتحميل صور طلبك">Click to upload photos of your order</p>
+                        <small style="color: #7f8c8d;">Max 5 images, 5MB each</small>
+                    </div>
+
+                    <button class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        <span data-en="Submit Review" data-ar="إرسال التقييم">Submit Review</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Submitted Reviews Tab -->
+            <div id="submitted-tab" class="tab-content" style="display: none;">
+                <!-- Review 1 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-vendor">
+                            <div class="vendor-logo">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="vendor-details">
+                                <h3>PrintMaster Pro</h3>
+                                <div class="order-info">Order #1233 - 1000 Flyers A5</div>
+                            </div>
+                        </div>
+                        <div class="review-date">December 5, 2024</div>
+                    </div>
+
+                    <div class="rating-display">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="rating-value">5.0</span>
+                    </div>
+
+                    <div class="review-content">
+                        <p>Excellent service! The flyers were printed exactly as requested with vibrant colors and crisp text. Delivery was even faster than promised. Highly recommend PrintMaster Pro for any printing needs.</p>
+                    </div>
+
+                    <div class="review-images">
+                        <img src="https://via.placeholder.com/100" alt="Review Image" class="review-image">
+                        <img src="https://via.placeholder.com/100" alt="Review Image" class="review-image">
+                    </div>
+
+                    <div class="vendor-response">
+                        <div class="vendor-response-header">
+                            <i class="fas fa-reply"></i>
+                            <span data-en="Vendor Response" data-ar="رد المورد">Vendor Response</span>
+                        </div>
+                        <p>Thank you for your wonderful review! We're thrilled to hear that you're satisfied with our service. We look forward to serving you again!</p>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-vendor">
+                            <div class="vendor-logo">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="vendor-details">
+                                <h3>Express Print Egypt</h3>
+                                <div class="order-info">Order #1232 - 50 T-Shirts</div>
+                            </div>
+                        </div>
+                        <div class="review-date">December 1, 2024</div>
+                    </div>
+
+                    <div class="rating-display">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span class="rating-value">4.0</span>
+                    </div>
+
+                    <div class="review-content">
+                        <p>Good quality printing on the t-shirts. The colors were accurate and the material quality was nice. Only issue was a slight delay in delivery, but overall satisfied with the service.</p>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-vendor">
+                            <div class="vendor-logo">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="vendor-details">
+                                <h3>Cairo Printing House</h3>
+                                <div class="order-info">Order #1230 - 500 Business Cards</div>
+                            </div>
+                        </div>
+                        <div class="review-date">November 25, 2024</div>
+                    </div>
+
+                    <div class="rating-display">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-value">4.5</span>
+                    </div>
+
+                    <div class="review-content">
+                        <p>Professional business cards with excellent print quality. The matt lamination was perfect. Customer service was very responsive to my questions. Will definitely order again.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 data-en="About PrintHub" data-ar="عن PrintHub">About PrintHub</h4>
+                    <p data-en="Your trusted printing marketplace in Egypt" data-ar="سوق الطباعة الموثوق به في مصر">Your trusted printing marketplace in Egypt</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+                    <ul>
+                        <li><a href="../public/services.html" data-en="Services" data-ar="الخدمات">Services</a></li>
+                        <li><a href="../public/vendors.html" data-en="Vendors" data-ar="الموردون">Vendors</a></li>
+                        <li><a href="../public/about.html" data-en="About Us" data-ar="من نحن">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Contact" data-ar="اتصل بنا">Contact</h4>
+                    <p><i class="fas fa-envelope"></i> info@printhub.eg</p>
+                    <p><i class="fas fa-phone"></i> +20 100 123 4567</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-en="© 2024 PrintHub Egypt. All rights reserved." data-ar="© 2024 PrintHub مصر. جميع الحقوق محفوظة.">© 2024 PrintHub Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/language.js"></script>
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.review-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').style.display = 'block';
+
+            // Add active class to clicked tab
+            event.target.closest('.review-tab').classList.add('active');
+        }
+
+        function setRating(rating) {
+            const stars = document.querySelectorAll('.rating-input .star');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

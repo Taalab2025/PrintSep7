@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Requests - Vendor Portal</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+
+    <style>
+        /* Vendor Quotes Specific */
+        .quotes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .quotes-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2C3E50;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .quotes-filters {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .quotes-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .quote-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .quote-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .quote-card.new {
+            border-left: 4px solid #27AE60;
+        }
+
+        .quote-card.responded {
+            border-left: 4px solid #3498db;
+        }
+
+        .quote-card.expired {
+            border-left: 4px solid #e74c3c;
+            opacity: 0.7;
+        }
+
+        .quote-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #ecf0f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .quote-customer {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .customer-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+        }
+
+        .customer-info h3 {
+            margin-bottom: 0.25rem;
+            color: #2C3E50;
+        }
+
+        .customer-meta {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        .quote-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-new {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-responded {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-expired {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .quote-body {
+            padding: 1.5rem;
+        }
+
+        .quote-service {
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .spec-item i {
+            color: #27AE60;
+        }
+
+        .quote-message {
+            background: #f8f9fa;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .quote-message h4 {
+            margin-bottom: 0.5rem;
+            color: #2C3E50;
+        }
+
+        .quote-attachments {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .attachment-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #2C3E50;
+            transition: all 0.3s ease;
+        }
+
+        .attachment-item:hover {
+            border-color: #27AE60;
+            background: #f8fffe;
+        }
+
+        .quote-actions {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quote-deadline {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #e74c3c;
+            font-size: 0.9rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Response Form Modal */
+        .response-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .response-modal-content {
+            background: white;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #ecf0f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2C3E50;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #27AE60;
+        }
+
+        .price-input {
+            position: relative;
+        }
+
+        .price-input span {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+        }
+
+        .price-input input {
+            padding-left: 3rem;
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #ecf0f1;
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                </div>
+
+                <nav class="main-nav">
+                    <span style="color: #27AE60; font-weight: 600;">Vendor Portal</span>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-store"></i>
+                            <span>PrintPro Solutions</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span></a>
+                            <a href="services.html"><i class="fas fa-print"></i> <span data-en="My Services" data-ar="خدماتي">My Services</span></a>
+                            <a href="quotes.html" class="active"><i class="fas fa-file-invoice"></i> <span data-en="Quote Requests" data-ar="طلبات الأسعار">Quote Requests</span></a>
+                            <a href="orders.html"><i class="fas fa-box"></i> <span data-en="Orders" data-ar="الطلبات">Orders</span></a>
+                            <hr>
+                            <a href="../public/login.html"><i class="fas fa-sign-out-alt"></i> <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span></a>
+                        </div>
+                    </div>
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <span data-en="العربية" data-ar="English">العربية</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="dashboard.html" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</a></li>
+                <li class="active" data-en="Quotes" data-ar="عروض الأسعار">Quotes</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="vendor-quotes-main">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="quotes-header">
+                <div>
+                    <h1 data-en="Quote Requests" data-ar="طلبات عروض الأسعار">Quote Requests</h1>
+                    <p data-en="Respond to customer inquiries and win more business" data-ar="استجب لاستفسارات العملاء واكسب المزيد من الأعمال">Respond to customer inquiries and win more business</p>
+                </div>
+                <div style="text-align: right;">
+                    <p style="color: #7f8c8d; font-size: 0.9rem;">Free Tier Usage</p>
+                    <p style="font-weight: 600; color: #2C3E50;">7/10 responses used</p>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="quotes-stats">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(39, 174, 96, 0.1);">
+                        <i class="fas fa-inbox" style="color: #27AE60;"></i>
+                    </div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-label" data-en="New Requests" data-ar="طلبات جديدة">New Requests</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(52, 152, 219, 0.1);">
+                        <i class="fas fa-reply" style="color: #3498db;"></i>
+                    </div>
+                    <div class="stat-value">15</div>
+                    <div class="stat-label" data-en="Awaiting Response" data-ar="في انتظار الرد">Awaiting Response</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(241, 196, 15, 0.1);">
+                        <i class="fas fa-handshake" style="color: #f1c40f;"></i>
+                    </div>
+                    <div class="stat-value">68%</div>
+                    <div class="stat-label" data-en="Win Rate" data-ar="معدل الفوز">Win Rate</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(155, 89, 182, 0.1);">
+                        <i class="fas fa-clock" style="color: #9b59b6;"></i>
+                    </div>
+                    <div class="stat-value">2.5h</div>
+                    <div class="stat-label" data-en="Avg Response Time" data-ar="متوسط وقت الاستجابة">Avg Response Time</div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="quotes-filters">
+                <div class="filter-group">
+                    <label>Status:</label>
+                    <select class="filter-select">
+                        <option>All Requests</option>
+                        <option>New</option>
+                        <option>Responded</option>
+                        <option>Won</option>
+                        <option>Lost</option>
+                        <option>Expired</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Category:</label>
+                    <select class="filter-select">
+                        <option>All Categories</option>
+                        <option>Business Cards</option>
+                        <option>Banners</option>
+                        <option>Flyers</option>
+                        <option>Packaging</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Sort:</label>
+                    <select class="filter-select">
+                        <option>Newest First</option>
+                        <option>Oldest First</option>
+                        <option>Highest Value</option>
+                        <option>Urgent First</option>
+                    </select>
+                </div>
+
+                <div style="margin-left: auto;">
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quotes List -->
+            <div class="quotes-list">
+                <!-- New Quote Request 1 -->
+                <div class="quote-card new">
+                    <div class="quote-header">
+                        <div class="quote-customer">
+                            <div class="customer-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="customer-info">
+                                <h3>Ahmed Mohamed</h3>
+                                <div class="customer-meta">
+                                    <i class="fas fa-clock"></i> 2 hours ago •
+                                    <i class="fas fa-map-marker-alt"></i> Cairo
+                                </div>
+                            </div>
+                        </div>
+                        <span class="quote-status status-new">New Request</span>
+                    </div>
+
+                    <div class="quote-body">
+                        <div class="quote-service">
+                            <div class="service-title">500 Business Cards - Premium</div>
+                            <div class="service-specs">
+                                <span class="spec-item">
+                                    <i class="fas fa-copy"></i> 500 pieces
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-palette"></i> Full Color
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-layer-group"></i> 350gsm Card
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-star"></i> Matt Lamination
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="quote-message">
+                            <h4>Customer Notes:</h4>
+                            <p>Need high quality business cards with matt finish. Logo files attached. Please provide best price for urgent delivery within 3 days.</p>
+                        </div>
+
+                        <div class="quote-attachments">
+                            <a href="#" class="attachment-item">
+                                <i class="fas fa-file-image"></i>
+                                <span>logo.png</span>
+                            </a>
+                            <a href="#" class="attachment-item">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>design.pdf</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="quote-actions">
+                        <div class="quote-deadline">
+                            <i class="fas fa-hourglass-half"></i>
+                            <span>Expires in 2 days</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-times"></i>
+                                Decline
+                            </button>
+                            <button class="btn btn-primary" onclick="openResponseModal()">
+                                <i class="fas fa-reply"></i>
+                                Send Quote
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Responded Quote 2 -->
+                <div class="quote-card responded">
+                    <div class="quote-header">
+                        <div class="quote-customer">
+                            <div class="customer-avatar">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="customer-info">
+                                <h3>Tech Solutions Ltd.</h3>
+                                <div class="customer-meta">
+                                    <i class="fas fa-clock"></i> 1 day ago •
+                                    <i class="fas fa-map-marker-alt"></i> Giza
+                                </div>
+                            </div>
+                        </div>
+                        <span class="quote-status status-responded">Quote Sent</span>
+                    </div>
+
+                    <div class="quote-body">
+                        <div class="quote-service">
+                            <div class="service-title">10 Roll-up Banners</div>
+                            <div class="service-specs">
+                                <span class="spec-item">
+                                    <i class="fas fa-copy"></i> 10 pieces
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-ruler-combined"></i> 85x200cm
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-palette"></i> Full Color
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-box"></i> With Stand
+                                </span>
+                            </div>
+                        </div>
+
+                        <div style="background: #d1ecf1; border: 1px solid #bee5eb; border-radius: 5px; padding: 1rem; margin-top: 1rem;">
+                            <strong>Your Quote:</strong> EGP 3,200 • Delivery in 5 days
+                            <p style="margin-top: 0.5rem; color: #0c5460;">Awaiting customer response</p>
+                        </div>
+                    </div>
+
+                    <div class="quote-actions">
+                        <div class="quote-deadline">
+                            <i class="fas fa-check-circle" style="color: #27AE60;"></i>
+                            <span style="color: #27AE60;">Quote sent yesterday</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-edit"></i>
+                                Update Quote
+                            </button>
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-comment"></i>
+                                Message Customer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Quote Request 3 -->
+                <div class="quote-card new">
+                    <div class="quote-header">
+                        <div class="quote-customer">
+                            <div class="customer-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="customer-info">
+                                <h3>Sara Ahmed</h3>
+                                <div class="customer-meta">
+                                    <i class="fas fa-clock"></i> 4 hours ago •
+                                    <i class="fas fa-map-marker-alt"></i> Alexandria
+                                </div>
+                            </div>
+                        </div>
+                        <span class="quote-status status-new">New Request</span>
+                    </div>
+
+                    <div class="quote-body">
+                        <div class="quote-service">
+                            <div class="service-title">1000 Flyers A5</div>
+                            <div class="service-specs">
+                                <span class="spec-item">
+                                    <i class="fas fa-copy"></i> 1000 pieces
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-palette"></i> Double Sided
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-layer-group"></i> 150gsm Paper
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="quote-message">
+                            <h4>Customer Notes:</h4>
+                            <p>Looking for promotional flyers for our upcoming event. Need competitive pricing and fast delivery.</p>
+                        </div>
+                    </div>
+
+                    <div class="quote-actions">
+                        <div class="quote-deadline">
+                            <i class="fas fa-hourglass-half"></i>
+                            <span>Expires in 3 days</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-times"></i>
+                                Decline
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-reply"></i>
+                                Send Quote
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" style="margin-top: 2rem;">
+                <button class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Response Modal -->
+    <div id="responseModal" class="response-modal">
+        <div class="response-modal-content">
+            <div class="modal-header">
+                <h2>Send Quote Response</h2>
+                <button onclick="closeResponseModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Quote Price (EGP)</label>
+                    <div class="price-input">
+                        <span>EGP</span>
+                        <input type="number" placeholder="Enter your price">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Delivery Time</label>
+                    <select>
+                        <option>1 day</option>
+                        <option>2 days</option>
+                        <option>3 days</option>
+                        <option>5 days</option>
+                        <option>1 week</option>
+                        <option>2 weeks</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Message to Customer</label>
+                    <textarea rows="4" placeholder="Add any notes or details about your quote..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" style="width: auto; margin-right: 0.5rem;">
+                        Include terms and conditions
+                    </label>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeResponseModal()">Cancel</button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                    Send Quote
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About PrintHub</h4>
+                    <p>Your trusted printing marketplace in Egypt</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Vendor Resources</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Best Practices</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contact Support</h4>
+                    <p><i class="fas fa-envelope"></i> vendor-support@printhub.eg</p>
+                    <p><i class="fas fa-phone"></i> +20 100 123 4567</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2024 PrintHub Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/language.js"></script>
+    <script>
+        function openResponseModal() {
+            document.getElementById('responseModal').style.display = 'flex';
+        }
+
+        function closeResponseModal() {
+            document.getElementById('responseModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

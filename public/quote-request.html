@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Quote - PrintHub Egypt</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Cairo', sans-serif;
+            background-color: #f8f9fa;
+            color: #2C3E50;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #3B82F6;
+            font-size: 1.5rem;
+            font-weight: 700;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #6B7280;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #3B82F6;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #3B82F6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-outline {
+            background: white;
+            color: #6B7280;
+            border: 1px solid #E5E7EB;
+        }
+
+        .btn-outline:hover {
+            background: #F9FAFB;
+        }
+
+        .btn-success {
+            background: #10B981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-lg {
+            padding: 0.875rem 1.75rem;
+            font-size: 1.125rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+        }
+
+        /* Progress Steps */
+        .progress-container {
+            margin: 2rem 0;
+            padding: 0 1rem;
+        }
+
+        .progress-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .progress-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 2px;
+            background: #E5E7EB;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .progress-bar {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            height: 2px;
+            background: #3B82F6;
+            transform: translateY(-50%);
+            transition: width 0.3s;
+            z-index: 2;
+        }
+
+        .step-item {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            padding: 0 0.5rem;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #E5E7EB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #6B7280;
+            transition: all 0.3s;
+        }
+
+        .step-item.active .step-number {
+            background: #3B82F6;
+            color: white;
+            border-color: #3B82F6;
+        }
+
+        .step-label {
+            font-size: 0.875rem;
+            color: #6B7280;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* Card */
+        .card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            padding: 2rem;
+        }
+
+        /* Form Styles */
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.625rem 1rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-control.error {
+            border-color: #EF4444;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        select.form-control {
+            cursor: pointer;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: 768px) {
+            .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Checkbox */
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* File Upload Zone */
+        .file-upload-zone {
+            border: 2px dashed #D1D5DB;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            background: #F9FAFB;
+        }
+
+        .file-upload-zone:hover {
+            border-color: #3B82F6;
+            background: #EFF6FF;
+        }
+
+        .file-upload-zone.dragover {
+            background: #DBEAFE;
+            border-color: #3B82F6;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #9CA3AF;
+            margin-bottom: 1rem;
+        }
+
+        .file-list {
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: #F3F4F6;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .file-name {
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .file-size {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        .remove-file {
+            background: none;
+            border: none;
+            color: #EF4444;
+            cursor: pointer;
+            font-size: 1.25rem;
+        }
+
+        .remove-file:hover {
+            color: #DC2626;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #F0F9FF;
+            border: 1px solid #BFDBFE;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-box h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1E40AF;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+
+        .info-list i {
+            color: #10B981;
+            margin-top: 0.25rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1F2937;
+            color: #9CA3AF;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-gray-500 {
+            color: #6B7280;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .justify-end {
+            justify-content: flex-end;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #374151;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .step-label {
+                font-size: 0.75rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-print"></i>
+                    <span>PrintHub Egypt</span>
+                </a>
+
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="#" class="nav-link active">Get Quote</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+
+                <div class="nav-actions">
+                    <button class="btn btn-outline" onclick="toggleLanguage()">
+                        <i class="fas fa-globe"></i>
+                        <span id="langText">عربي</span>
+                    </button>
+                    <a href="login.html" class="btn btn-primary">Login</a>
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li><a href="services.html" data-en="Services" data-ar="الخدمات">Services</a></li>
+                <li class="active" data-en="Quote Request" data-ar="طلب عرض سعر">Quote Request</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Request a Quote</h1>
+            <p>Get competitive quotes from multiple printing vendors</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Progress Steps -->
+            <div class="progress-container">
+                <div class="progress-wrapper">
+                    <div class="progress-line"></div>
+                    <div class="progress-bar" id="progressBar" style="width: 33%;"></div>
+
+                    <div class="step-item active" data-step="1">
+                        <div class="step-number">1</div>
+                        <span class="step-label">Service Details</span>
+                    </div>
+                    <div class="step-item" data-step="2">
+                        <div class="step-number">2</div>
+                        <span class="step-label">Specifications</span>
+                    </div>
+                    <div class="step-item" data-step="3">
+                        <div class="step-number">3</div>
+                        <span class="step-label">Contact Info</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="card">
+                <form id="quoteRequestForm">
+                    <!-- Step 1: Service Details -->
+                    <div class="form-step active" id="step1">
+                        <h2 class="mb-6">Service Details</h2>
+
+                        <div class="grid grid-cols-2">
+                            <div class="form-group">
+                                <label>Service Category *</label>
+                                <select class="form-control" name="category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="business-cards">Business Cards</option>
+                                    <option value="brochures">Brochures & Flyers</option>
+                                    <option value="banners">Banners & Signage</option>
+                                    <option value="packaging">Packaging & Labels</option>
+                                    <option value="apparel">Apparel Printing</option>
+                                    <option value="promotional">Promotional Items</option>
+                                    <option value="stationery">Office Stationery</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Project Name *</label>
+                                <input type="text" class="form-control" name="project_name" required
+                                       placeholder="e.g., Company Business Cards">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Project Description *</label>
+                            <textarea class="form-control" name="description" rows="4" required
+                                      placeholder="Describe your printing project in detail..."></textarea>
+                        </div>
+
+                        <!-- File Upload Area -->
+                        <div class="form-group">
+                            <label>Upload Design Files</label>
+                            <div class="file-upload-zone" id="fileUploadZone">
+                                <input type="file" id="fileInput" name="files[]" multiple
+                                       accept=".pdf,.jpg,.jpeg,.png,.ai,.psd,.eps" style="display: none;">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <p class="mb-2">Drag & drop your files here or</p>
+                                <button type="button" class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                                    <i class="fas fa-folder-open"></i>
+                                    Browse Files
+                                </button>
+                                <p class="text-sm text-gray-500 mt-2">
+                                    Supported: PDF, JPG, PNG, AI, PSD, EPS (Max 50MB)
+                                </p>
+                            </div>
+                            <div id="fileList" class="file-list hidden"></div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+                                Next Step
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Specifications -->
+                    <div class="form-step" id="step2">
+                        <h2 class="mb-6">Specifications</h2>
+
+                        <div class="grid grid-cols-2">
+                            <div class="form-group">
+                                <label>Quantity *</label>
+                                <input type="number" class="form-control" name="quantity" min="1" required
+                                       placeholder="Enter quantity">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Size/Dimensions *</label>
+                                <input type="text" class="form-control" name="dimensions" required
+                                       placeholder="e.g., A4, 85x55mm, Custom">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Material/Paper Type</label>
+                                <select class="form-control" name="material">
+                                    <option value="">Select Material</option>
+                                    <option value="standard">Standard Paper</option>
+                                    <option value="glossy">Glossy</option>
+                                    <option value="matte">Matte</option>
+                                    <option value="cardstock">Cardstock</option>
+                                    <option value="vinyl">Vinyl</option>
+                                    <option value="fabric">Fabric</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Color Options *</label>
+                                <select class="form-control" name="colors" required>
+                                    <option value="full-color">Full Color (CMYK)</option>
+                                    <option value="black-white">Black & White</option>
+                                    <option value="spot-color">Spot Color</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Finishing Options</label>
+                                <div>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="finishing[]" value="lamination">
+                                        <span>Lamination</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="finishing[]" value="uv-coating">
+                                        <span>UV Coating</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="finishing[]" value="foil-stamping">
+                                        <span>Foil Stamping</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="finishing[]" value="embossing">
+                                        <span>Embossing</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="finishing[]" value="die-cutting">
+                                        <span>Die Cutting</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Required Delivery Date *</label>
+                                <input type="date" class="form-control" name="delivery_date" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Special Requirements</label>
+                            <textarea class="form-control" name="special_requirements" rows="3"
+                                      placeholder="Any special instructions or requirements..."></textarea>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <button type="button" class="btn btn-outline" onclick="previousStep(1)">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(3)">
+                                Next Step
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Contact Information -->
+                    <div class="form-step" id="step3">
+                        <h2 class="mb-6">Contact Information</h2>
+
+                        <div class="grid grid-cols-2">
+                            <div class="form-group">
+                                <label>Full Name *</label>
+                                <input type="text" class="form-control" name="full_name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Company Name</label>
+                                <input type="text" class="form-control" name="company_name">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" class="form-control" name="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" class="form-control" name="phone" required
+                                       placeholder="+20 XXX XXX XXXX">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Delivery Location *</label>
+                                <select class="form-control" name="location" required>
+                                    <option value="">Select Location</option>
+                                    <option value="cairo">Cairo</option>
+                                    <option value="giza">Giza</option>
+                                    <option value="alexandria">Alexandria</option>
+                                    <option value="luxor">Luxor</option>
+                                    <option value="aswan">Aswan</option>
+                                    <option value="sharm">Sharm El Sheikh</option>
+                                    <option value="hurghada">Hurghada</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Preferred Vendors (Optional)</label>
+                                <select class="form-control" name="preferred_vendors[]" multiple>
+                                    <option value="all">All Available Vendors</option>
+                                    <option value="vendor1">Nile Printing Press</option>
+                                    <option value="vendor2">Cairo Graphics</option>
+                                    <option value="vendor3">Digital Print Egypt</option>
+                                    <option value="vendor4">Premium Print Solutions</option>
+                                </select>
+                                <small class="text-gray-500">Hold Ctrl/Cmd to select multiple</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Delivery Address *</label>
+                            <textarea class="form-control" name="address" rows="3" required
+                                      placeholder="Enter complete delivery address..."></textarea>
+                        </div>
+
+                        <!-- Terms and Conditions -->
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="terms" required>
+                                <span>I agree to the Terms & Conditions and Privacy Policy</span>
+                            </label>
+                        </div>
+
+                        <!-- What happens next -->
+                        <div class="info-box">
+                            <h3>What happens next?</h3>
+                            <ul class="info-list">
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Your request will be sent to selected vendors</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>You'll receive quotes within 24-48 hours</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Compare quotes and select the best offer</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <button type="button" class="btn btn-outline" onclick="previousStep(2)">
+                                <i class="fas fa-arrow-left"></i>
+                                Previous
+                            </button>
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-paper-plane"></i>
+                                Submit Quote Request
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 PrintHub Egypt. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Form Step Navigation
+        let currentStep = 1;
+        let uploadedFiles = [];
+
+        function nextStep(step) {
+            if (validateStep(currentStep)) {
+                showStep(step);
+            }
+        }
+
+        function previousStep(step) {
+            showStep(step);
+        }
+
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.form-step').forEach(s => {
+                s.classList.remove('active');
+            });
+
+            // Show current step
+            document.getElementById('step' + step).classList.add('active');
+
+            // Update progress
+            document.querySelectorAll('.step-item').forEach(item => {
+                const itemStep = parseInt(item.dataset.step);
+                if (itemStep <= step) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            // Update progress bar
+            const progress = (step / 3) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            currentStep = step;
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function validateStep(step) {
+            const stepElement = document.getElementById('step' + step);
+            const requiredFields = stepElement.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    field.classList.add('error');
+                    isValid = false;
+                } else {
+                    field.classList.remove('error');
+                }
+            });
+
+            if (!isValid) {
+                alert('Please fill in all required fields');
+            }
+
+            return isValid;
+        }
+
+        // File Upload Handling
+        const fileInput = document.getElementById('fileInput');
+        const fileUploadZone = document.getElementById('fileUploadZone');
+        const fileList = document.getElementById('fileList');
+
+        // Drag and Drop
+        fileUploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUploadZone.classList.add('dragover');
+        });
+
+        fileUploadZone.addEventListener('dragleave', () => {
+            fileUploadZone.classList.remove('dragover');
+        });
+
+        fileUploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUploadZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            for (let file of files) {
+                if (validateFile(file)) {
+                    uploadedFiles.push(file);
+                    displayFile(file);
+                }
+            }
+
+            if (uploadedFiles.length > 0) {
+                fileList.classList.remove('hidden');
+            }
+        }
+
+        function validateFile(file) {
+            const maxSize = 50 * 1024 * 1024; // 50MB
+            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+
+            if (file.size > maxSize) {
+                alert('File size must be less than 50MB');
+                return false;
+            }
+
+            if (!allowedTypes.includes(file.type) &&
+                !file.name.match(/\.(ai|psd|eps)$/i)) {
+                alert('File type not supported');
+                return false;
+            }
+
+            return true;
+        }
+
+        function displayFile(file) {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <div class="file-info">
+                    <i class="fas fa-file-pdf" style="color: #EF4444;"></i>
+                    <div>
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${formatFileSize(file.size)}</div>
+                    </div>
+                </div>
+                <button type="button" class="remove-file" onclick="removeFile('${file.name}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+
+            if (!fileList.querySelector('h4')) {
+                const title = document.createElement('h4');
+                title.textContent = 'Uploaded Files:';
+                title.style.marginBottom = '1rem';
+                fileList.appendChild(title);
+            }
+
+            fileList.appendChild(fileItem);
+        }
+
+        function removeFile(fileName) {
+            uploadedFiles = uploadedFiles.filter(f => f.name !== fileName);
+
+            // Rebuild file display
+            const fileItems = fileList.querySelectorAll('.file-item');
+            fileItems.forEach(item => {
+                if (item.querySelector('.file-name').textContent === fileName) {
+                    item.remove();
+                }
+            });
+
+            if (uploadedFiles.length === 0) {
+                fileList.classList.add('hidden');
+                fileList.innerHTML = '';
+            }
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        // Form Submission
+        document.getElementById('quoteRequestForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!validateStep(3)) {
+                return;
+            }
+
+            const submitBtn = e.target.querySelector('[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            submitBtn.disabled = true;
+
+            // Simulate form submission
+            setTimeout(() => {
+                alert('Your request has been submitted successfully! We will contact you soon.');
+
+                // Reset form
+                document.getElementById('quoteRequestForm').reset();
+                uploadedFiles = [];
+                fileList.innerHTML = '';
+                fileList.classList.add('hidden');
+                showStep(1);
+
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Language toggle (placeholder)
+        function toggleLanguage() {
+            const langText = document.getElementById('langText');
+            langText.textContent = langText.textContent === 'عربي' ? 'English' : 'عربي';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Egypt Printing Marketplace</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+
+    <style>
+        /* Orders Specific Styles */
+        .orders-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .orders-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-box {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .stat-box i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box .value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2C3E50;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-box .label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .orders-table-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .orders-table thead {
+            background: #f8f9fa;
+        }
+
+        .orders-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #2C3E50;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .orders-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .orders-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .order-id {
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .order-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-processing {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-production {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-shipped {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-delivered {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            padding: 0.5rem;
+            background: none;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-icon:hover {
+            background: #27AE60;
+            color: white;
+            border-color: #27AE60;
+        }
+
+        .order-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #ecf0f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ecf0f1;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.4rem;
+            top: 0.25rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #27AE60;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #ecf0f1;
+        }
+
+        .timeline-item.pending::before {
+            background: #7f8c8d;
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .orders-table-container {
+                overflow-x: auto;
+            }
+
+            .orders-table {
+                min-width: 600px;
+            }
+        }
+
+        /* RTL Adjustments */
+        html[dir="rtl"] .orders-table th,
+        html[dir="rtl"] .orders-table td {
+            text-align: right;
+        }
+
+        html[dir="rtl"] .timeline {
+            padding-left: 0;
+            padding-right: 2rem;
+        }
+
+        html[dir="rtl"] .timeline::before {
+            left: auto;
+            right: 0;
+        }
+
+        html[dir="rtl"] .timeline-item::before {
+            left: auto;
+            right: -2.4rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                </div>
+
+                <nav class="main-nav">
+                    <a href="../public/index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+                    <a href="../public/services.html" data-en="Services" data-ar="الخدمات">Services</a>
+                    <a href="../public/vendors.html" data-en="Vendors" data-ar="الموردون">Vendors</a>
+                    <a href="../public/about.html" data-en="About" data-ar="حول">About</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span data-en="My Account" data-ar="حسابي">My Account</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span></a>
+                            <a href="profile.html"><i class="fas fa-user"></i> <span data-en="Profile" data-ar="الملف الشخصي">Profile</span></a>
+                            <a href="quotes.html"><i class="fas fa-file-invoice"></i> <span data-en="My Quotes" data-ar="عروض الأسعار">My Quotes</span></a>
+                            <a href="orders.html" class="active"><i class="fas fa-box"></i> <span data-en="Orders" data-ar="الطلبات">Orders</span></a>
+                            <hr>
+                            <a href="../public/login.html"><i class="fas fa-sign-out-alt"></i> <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span></a>
+                        </div>
+                    </div>
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <span data-en="العربية" data-ar="English">العربية</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="dashboard.html" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</a></li>
+                <li class="active" data-en="My Orders" data-ar="طلباتي">My Orders</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="orders-main">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="orders-header">
+                <div>
+                    <h1 data-en="My Orders" data-ar="طلباتي">My Orders</h1>
+                    <p data-en="Track and manage all your printing orders" data-ar="تتبع وإدارة جميع طلبات الطباعة الخاصة بك">Track and manage all your printing orders</p>
+                </div>
+            </div>
+
+            <!-- Orders Statistics -->
+            <div class="orders-stats">
+                <div class="stat-box">
+                    <i class="fas fa-box" style="color: #3498db;"></i>
+                    <div class="value">15</div>
+                    <div class="label" data-en="Total Orders" data-ar="إجمالي الطلبات">Total Orders</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-clock" style="color: #f39c12;"></i>
+                    <div class="value">2</div>
+                    <div class="label" data-en="In Progress" data-ar="قيد التنفيذ">In Progress</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-truck" style="color: #27AE60;"></i>
+                    <div class="value">1</div>
+                    <div class="label" data-en="Shipped" data-ar="تم الشحن">Shipped</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-check-circle" style="color: #27AE60;"></i>
+                    <div class="value">12</div>
+                    <div class="label" data-en="Completed" data-ar="مكتمل">Completed</div>
+                </div>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="orders-table-container">
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th data-en="Order ID" data-ar="رقم الطلب">Order ID</th>
+                            <th data-en="Date" data-ar="التاريخ">Date</th>
+                            <th data-en="Service" data-ar="الخدمة">Service</th>
+                            <th data-en="Vendor" data-ar="المورد">Vendor</th>
+                            <th data-en="Amount" data-ar="المبلغ">Amount</th>
+                            <th data-en="Status" data-ar="الحالة">Status</th>
+                            <th data-en="Actions" data-ar="الإجراءات">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="order-id">#ORD-2024-1235</td>
+                            <td>Dec 10, 2024</td>
+                            <td>500 Business Cards</td>
+                            <td>FastPrint Solutions</td>
+                            <td style="font-weight: 600;">EGP 850</td>
+                            <td><span class="order-status status-production" data-en="In Production" data-ar="قيد الإنتاج">In Production</span></td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="btn-icon" title="View Details" onclick="showOrderDetails('1235')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Track Order">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Download Invoice">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="order-id">#ORD-2024-1234</td>
+                            <td>Dec 9, 2024</td>
+                            <td>10 Roll-up Banners</td>
+                            <td>Quality Prints Co.</td>
+                            <td style="font-weight: 600;">EGP 3,200</td>
+                            <td><span class="order-status status-shipped" data-en="Shipped" data-ar="تم الشحن">Shipped</span></td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Track Order">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Download Invoice">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="order-id">#ORD-2024-1233</td>
+                            <td>Dec 5, 2024</td>
+                            <td>1000 Flyers A5</td>
+                            <td>PrintMaster Pro</td>
+                            <td style="font-weight: 600;">EGP 1,250</td>
+                            <td><span class="order-status status-delivered" data-en="Delivered" data-ar="تم التسليم">Delivered</span></td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Leave Review">
+                                        <i class="fas fa-star"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Download Invoice">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="order-id">#ORD-2024-1232</td>
+                            <td>Dec 1, 2024</td>
+                            <td>50 T-Shirts</td>
+                            <td>Express Print Egypt</td>
+                            <td style="font-weight: 600;">EGP 2,500</td>
+                            <td><span class="order-status status-delivered" data-en="Delivered" data-ar="تم التسليم">Delivered</span></td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Reorder">
+                                        <i class="fas fa-redo"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Download Invoice">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="order-id">#ORD-2024-1231</td>
+                            <td>Nov 28, 2024</td>
+                            <td>200 Brochures</td>
+                            <td>Cairo Printing House</td>
+                            <td style="font-weight: 600;">EGP 1,800</td>
+                            <td><span class="order-status status-processing" data-en="Processing" data-ar="قيد المعالجة">Processing</span></td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Contact Vendor">
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" style="margin-top: 2rem;">
+                <button class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Order Detail Modal -->
+    <div id="orderDetailModal" class="order-detail-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-en="Order Details" data-ar="تفاصيل الطلب">Order Details</h2>
+                <button onclick="closeOrderDetails()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div>
+                        <h3 style="margin-bottom: 1rem; color: #2C3E50;">Order Information</h3>
+                        <p><strong>Order ID:</strong> #ORD-2024-1235</p>
+                        <p><strong>Date:</strong> December 10, 2024</p>
+                        <p><strong>Total Amount:</strong> <span style="color: #27AE60; font-weight: 600;">EGP 850</span></p>
+                        <p><strong>Payment Method:</strong> Credit Card</p>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 1rem; color: #2C3E50;">Vendor Information</h3>
+                        <p><strong>Vendor:</strong> FastPrint Solutions</p>
+                        <p><strong>Contact:</strong> +20 100 234 5678</p>
+                        <p><strong>Email:</strong> orders@fastprint.eg</p>
+                        <p><strong>Rating:</strong> <span style="color: #f39c12;">★★★★★</span> 4.8</p>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="margin-bottom: 1rem; color: #2C3E50;">Order Items</h3>
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 5px;">
+                        <p><strong>500 Business Cards - Premium</strong></p>
+                        <p>Material: 350gsm Card Stock</p>
+                        <p>Finish: Matt Lamination</p>
+                        <p>Colors: Full Color (CMYK)</p>
+                        <p>Size: Standard (9x5cm)</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="margin-bottom: 1rem; color: #2C3E50;">Order Timeline</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">Dec 10, 2024 - 10:30 AM</div>
+                            <div class="timeline-title">Order Placed</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Dec 10, 2024 - 11:45 AM</div>
+                            <div class="timeline-title">Order Confirmed by Vendor</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Dec 10, 2024 - 2:00 PM</div>
+                            <div class="timeline-title">In Production</div>
+                        </div>
+                        <div class="timeline-item pending">
+                            <div class="timeline-date">Expected: Dec 12, 2024</div>
+                            <div class="timeline-title">Ready for Shipping</div>
+                        </div>
+                        <div class="timeline-item pending">
+                            <div class="timeline-date">Expected: Dec 13, 2024</div>
+                            <div class="timeline-title">Delivered</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 data-en="About PrintHub" data-ar="عن PrintHub">About PrintHub</h4>
+                    <p data-en="Your trusted printing marketplace in Egypt" data-ar="سوق الطباعة الموثوق به في مصر">Your trusted printing marketplace in Egypt</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+                    <ul>
+                        <li><a href="../public/services.html" data-en="Services" data-ar="الخدمات">Services</a></li>
+                        <li><a href="../public/vendors.html" data-en="Vendors" data-ar="الموردون">Vendors</a></li>
+                        <li><a href="../public/about.html" data-en="About Us" data-ar="من نحن">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Contact" data-ar="اتصل بنا">Contact</h4>
+                    <p><i class="fas fa-envelope"></i> info@printhub.eg</p>
+                    <p><i class="fas fa-phone"></i> +20 100 123 4567</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-en="© 2024 PrintHub Egypt. All rights reserved." data-ar="© 2024 PrintHub مصر. جميع الحقوق محفوظة.">© 2024 PrintHub Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/language.js"></script>
+    <script>
+        function showOrderDetails(orderId) {
+            document.getElementById('orderDetailModal').style.display = 'flex';
+        }
+
+        function closeOrderDetails() {
+            document.getElementById('orderDetailModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderDetailModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

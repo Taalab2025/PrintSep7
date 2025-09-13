@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respond to Quote - PrintHub Egypt</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                </div>
+                <nav class="nav-menu">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span>
+                    </a>
+                    <a href="quotes.html" class="nav-link active">
+                        <i class="fas fa-file-invoice"></i>
+                        <span data-en="Quotes" data-ar="عروض الأسعار">Quotes</span>
+                    </a>
+                    <a href="orders.html" class="nav-link">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span data-en="Orders" data-ar="الطلبات">Orders</span>
+                    </a>
+                    <a href="services.html" class="nav-link">
+                        <i class="fas fa-print"></i>
+                        <span data-en="Services" data-ar="الخدمات">Services</span>
+                    </a>
+                </nav>
+                <div class="header-actions">
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <i class="fas fa-globe"></i>
+                        <span data-en="AR" data-ar="EN">AR</span>
+                    </button>
+                    <div class="user-menu">
+                        <img src="https://via.placeholder.com/40" alt="Profile" class="user-avatar">
+                        <span data-en="Premium Print Co." data-ar="شركة الطباعة المتميزة">Premium Print Co.</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb-container">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li><a href="dashboard.html" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</a></li>
+                        <li><a href="quotes.html" data-en="Quotes" data-ar="عروض الأسعار">Quotes</a></li>
+                        <li class="active" data-en="Quote Response" data-ar="رد عرض السعر">Quote Response</li>
+                    </ol>
+                </div>
+            </nav>
+
+            <!-- Page Title -->
+            <div class="page-header">
+                <h1 data-en="Respond to Quote Request" data-ar="الرد على طلب عرض السعر">Respond to Quote Request</h1>
+                <div class="quote-status">
+                    <span class="badge badge-warning" data-en="Pending Response" data-ar="في انتظار الرد">Pending Response</span>
+                    <span class="quote-id">Quote #QR-2024-0156</span>
+                </div>
+            </div>
+
+            <div class="quote-response-layout">
+                <!-- Customer Request Details -->
+                <div class="request-details-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 data-en="Customer Request Details" data-ar="تفاصيل طلب العميل">Customer Request Details</h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- Customer Info -->
+                            <div class="customer-info">
+                                <div class="info-group">
+                                    <label data-en="Customer" data-ar="العميل">Customer</label>
+                                    <p>Tech Solutions Inc.</p>
+                                </div>
+                                <div class="info-group">
+                                    <label data-en="Contact" data-ar="جهة الاتصال">Contact</label>
+                                    <p>Ahmed Hassan - ahmed@techsolutions.com</p>
+                                </div>
+                                <div class="info-group">
+                                    <label data-en="Request Date" data-ar="تاريخ الطلب">Request Date</label>
+                                    <p>January 15, 2024 - 10:30 AM</p>
+                                </div>
+                            </div>
+
+                            <!-- Service Details -->
+                            <div class="service-details">
+                                <h4 data-en="Service Requested" data-ar="الخدمة المطلوبة">Service Requested</h4>
+                                <div class="service-info">
+                                    <img src="https://via.placeholder.com/80" alt="Business Cards" class="service-thumb">
+                                    <div>
+                                        <h5>Premium Business Cards</h5>
+                                        <p class="text-muted">Category: Business Cards & Stationery</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Specifications -->
+                            <div class="specifications">
+                                <h4 data-en="Specifications" data-ar="المواصفات">Specifications</h4>
+                                <div class="specs-grid">
+                                    <div class="spec-item">
+                                        <label data-en="Quantity" data-ar="الكمية">Quantity</label>
+                                        <p>1000 pieces</p>
+                                    </div>
+                                    <div class="spec-item">
+                                        <label data-en="Size" data-ar="الحجم">Size</label>
+                                        <p>Standard (3.5" x 2")</p>
+                                    </div>
+                                    <div class="spec-item">
+                                        <label data-en="Paper Type" data-ar="نوع الورق">Paper Type</label>
+                                        <p>350gsm Matte</p>
+                                    </div>
+                                    <div class="spec-item">
+                                        <label data-en="Colors" data-ar="الألوان">Colors</label>
+                                        <p>Full Color (CMYK)</p>
+                                    </div>
+                                    <div class="spec-item">
+                                        <label data-en="Finishing" data-ar="التشطيب">Finishing</label>
+                                        <p>Matte Lamination</p>
+                                    </div>
+                                    <div class="spec-item">
+                                        <label data-en="Delivery" data-ar="التسليم">Delivery</label>
+                                        <p>Within 5 days</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Special Requirements -->
+                            <div class="special-requirements">
+                                <h4 data-en="Special Requirements" data-ar="المتطلبات الخاصة">Special Requirements</h4>
+                                <p>Need gold foil stamping on the logo. Please ensure color accuracy as this is for our corporate branding. We need samples before final production.</p>
+                            </div>
+
+                            <!-- Attached Files -->
+                            <div class="attached-files">
+                                <h4 data-en="Attached Files" data-ar="الملفات المرفقة">Attached Files</h4>
+                                <div class="file-list">
+                                    <div class="file-item">
+                                        <i class="fas fa-file-pdf"></i>
+                                        <span>business_card_design.pdf</span>
+                                        <a href="#" class="btn-download">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
+                                    <div class="file-item">
+                                        <i class="fas fa-file-image"></i>
+                                        <span>company_logo.png</span>
+                                        <a href="#" class="btn-download">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quote Response Form -->
+                <div class="response-form-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 data-en="Your Quote Response" data-ar="رد عرض السعر الخاص بك">Your Quote Response</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="quoteResponseForm">
+                                <!-- Pricing Section -->
+                                <div class="form-section">
+                                    <h4 data-en="Pricing Details" data-ar="تفاصيل السعر">Pricing Details</h4>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label data-en="Unit Price (EGP)" data-ar="سعر الوحدة (جنيه)">Unit Price (EGP)</label>
+                                            <input type="number" step="0.01" id="unitPrice" placeholder="0.00" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label data-en="Quantity" data-ar="الكمية">Quantity</label>
+                                            <input type="number" value="1000" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label data-en="Setup Fee (EGP)" data-ar="رسوم الإعداد (جنيه)">Setup Fee (EGP)</label>
+                                            <input type="number" step="0.01" id="setupFee" placeholder="0.00">
+                                        </div>
+                                        <div class="form-group">
+                                            <label data-en="Discount (%)" data-ar="الخصم (%)">Discount (%)</label>
+                                            <input type="number" step="0.01" id="discount" placeholder="0" max="100">
+                                        </div>
+                                    </div>
+
+                                    <!-- Price Breakdown -->
+                                    <div class="price-breakdown">
+                                        <div class="price-row">
+                                            <span data-en="Subtotal" data-ar="المجموع الفرعي">Subtotal</span>
+                                            <span class="price">EGP 0.00</span>
+                                        </div>
+                                        <div class="price-row">
+                                            <span data-en="Setup Fee" data-ar="رسوم الإعداد">Setup Fee</span>
+                                            <span class="price">EGP 0.00</span>
+                                        </div>
+                                        <div class="price-row">
+                                            <span data-en="Discount" data-ar="الخصم">Discount</span>
+                                            <span class="price text-success">- EGP 0.00</span>
+                                        </div>
+                                        <div class="price-row total">
+                                            <span data-en="Total Quote" data-ar="إجمالي العرض">Total Quote</span>
+                                            <span class="price">EGP 0.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Delivery Section -->
+                                <div class="form-section">
+                                    <h4 data-en="Delivery Information" data-ar="معلومات التسليم">Delivery Information</h4>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label data-en="Production Time (Days)" data-ar="وقت الإنتاج (أيام)">Production Time (Days)</label>
+                                            <input type="number" id="productionTime" placeholder="e.g., 3" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label data-en="Delivery Method" data-ar="طريقة التسليم">Delivery Method</label>
+                                            <select id="deliveryMethod" required>
+                                                <option value="">Select Method</option>
+                                                <option value="pickup">Customer Pickup</option>
+                                                <option value="standard">Standard Delivery</option>
+                                                <option value="express">Express Delivery</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label data-en="Delivery Cost (EGP)" data-ar="تكلفة التوصيل (جنيه)">Delivery Cost (EGP)</label>
+                                        <input type="number" step="0.01" id="deliveryCost" placeholder="0.00">
+                                    </div>
+                                </div>
+
+                                <!-- Additional Information -->
+                                <div class="form-section">
+                                    <h4 data-en="Additional Information" data-ar="معلومات إضافية">Additional Information</h4>
+
+                                    <div class="form-group">
+                                        <label data-en="Quote Valid Until" data-ar="العرض صالح حتى">Quote Valid Until</label>
+                                        <input type="date" id="validUntil" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label data-en="Message to Customer" data-ar="رسالة للعميل">Message to Customer</label>
+                                        <textarea id="message" rows="4" placeholder="Add any notes, terms, or special conditions..."></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label data-en="Terms & Conditions" data-ar="الشروط والأحكام">Terms & Conditions</label>
+                                        <textarea id="terms" rows="3" placeholder="Payment terms, cancellation policy, etc."></textarea>
+                                    </div>
+
+                                    <!-- Sample Option -->
+                                    <div class="checkbox-group">
+                                        <label class="checkbox">
+                                            <input type="checkbox" id="samplesAvailable">
+                                            <span data-en="Samples available upon request" data-ar="العينات متاحة عند الطلب">Samples available upon request</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Attachments -->
+                                <div class="form-section">
+                                    <h4 data-en="Attachments (Optional)" data-ar="المرفقات (اختياري)">Attachments (Optional)</h4>
+                                    <div class="file-upload-area">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p data-en="Drag files here or click to browse" data-ar="اسحب الملفات هنا أو انقر للاستعراض">Drag files here or click to browse</p>
+                                        <input type="file" multiple accept=".pdf,.jpg,.png,.doc,.docx">
+                                    </div>
+                                </div>
+
+                                <!-- Form Actions -->
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-secondary" onclick="window.location.href='quotes.html'">
+                                        <i class="fas fa-times"></i>
+                                        <span data-en="Cancel" data-ar="إلغاء">Cancel</span>
+                                    </button>
+                                    <button type="button" class="btn btn-outline">
+                                        <i class="fas fa-save"></i>
+                                        <span data-en="Save Draft" data-ar="حفظ المسودة">Save Draft</span>
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-paper-plane"></i>
+                                        <span data-en="Send Quote" data-ar="إرسال العرض">Send Quote</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/language.js"></script>
+    <script>
+        // Calculate pricing in real-time
+        function calculateTotal() {
+            const unitPrice = parseFloat(document.getElementById('unitPrice').value) || 0;
+            const quantity = 1000; // Fixed from request
+            const setupFee = parseFloat(document.getElementById('setupFee').value) || 0;
+            const discount = parseFloat(document.getElementById('discount').value) || 0;
+
+            const subtotal = unitPrice * quantity;
+            const discountAmount = (subtotal + setupFee) * (discount / 100);
+            const total = subtotal + setupFee - discountAmount;
+
+            // Update price breakdown
+            document.querySelectorAll('.price')[0].textContent = `EGP ${subtotal.toFixed(2)}`;
+            document.querySelectorAll('.price')[1].textContent = `EGP ${setupFee.toFixed(2)}`;
+            document.querySelectorAll('.price')[2].textContent = `- EGP ${discountAmount.toFixed(2)}`;
+            document.querySelectorAll('.price')[3].textContent = `EGP ${total.toFixed(2)}`;
+        }
+
+        // Add event listeners for price calculation
+        document.getElementById('unitPrice').addEventListener('input', calculateTotal);
+        document.getElementById('setupFee').addEventListener('input', calculateTotal);
+        document.getElementById('discount').addEventListener('input', calculateTotal);
+
+        // Form submission
+        document.getElementById('quoteResponseForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Quote sent successfully!');
+            window.location.href = 'quotes.html';
+        });
+    </script>
+</body>
+</html>

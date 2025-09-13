@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- SEO Meta Tags -->
+    <title>PrintHub Egypt - Your Gateway to Quality Printing Services | بوابتك للطباعة الجودة</title>
+    <meta name="description" content="Egypt's premier printing marketplace. Compare quotes from multiple vendors for business cards, banners, brochures, and more. Get the best prices instantly.">
+    <meta name="keywords" content="printing services egypt, business cards cairo, طباعة مصر, كروت شخصية, printing marketplace">
+    <meta name="author" content="PrintHub Egypt">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="PrintHub Egypt - Compare Printing Quotes Instantly">
+    <meta property="og:description" content="Find the best printing services in Egypt. Compare prices from multiple vendors.">
+    <meta property="og:image" content="../assets/images/og-image.jpg">
+    <meta property="og:url" content="https://printhub-egypt.com">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-container">
+                <!-- Logo -->
+                <a href="/" class="navbar-brand">
+                    <i class="fas fa-print"></i>
+                    <span>PrintHub Egypt</span>
+                </a>
+
+                <!-- Mobile Menu Toggle -->
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <!-- Navigation Menu -->
+                <ul class="navbar-menu">
+                    <li class="navbar-item">
+                        <a href="/services.html" class="navbar-link" data-translate="services">Services</a>
+                        <div class="navbar-dropdown">
+                            <a href="/services.html?category=business-cards">Business Cards</a>
+                            <a href="/services.html?category=brochures">Brochures</a>
+                            <a href="/services.html?category=banners">Banners</a>
+                            <a href="/services.html?category=packaging">Packaging</a>
+                            <a href="/services.html">View All</a>
+                        </div>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="/vendors.html" class="navbar-link" data-translate="vendors">Vendors</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="/how-it-works.html" class="navbar-link">How It Works</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="/about.html" class="navbar-link" data-translate="about">About</a>
+                    </li>
+                </ul>
+
+                <!-- Right Side Menu -->
+                <div class="navbar-actions d-flex align-items-center gap-3">
+                    <!-- Language Switcher -->
+                    <div class="language-switcher">
+                        <span class="language-option active" data-lang="en">EN</span>
+                        <span class="language-option" data-lang="ar">عربي</span>
+                    </div>
+
+                    <!-- Auth Links (shown when not logged in) -->
+                    <div class="auth-links d-flex gap-2">
+                        <a href="/login.html" class="btn btn-outline btn-sm" data-translate="signIn">Sign In</a>
+                        <a href="/register.html" class="btn btn-primary btn-sm" data-translate="signUp">Sign Up</a>
+                    </div>
+
+                    <!-- User Menu (shown when logged in) - Hidden by default -->
+                    <div class="user-menu d-none align-items-center gap-3">
+                        <a href="/customer/dashboard.html" class="navbar-link">
+                            <i class="fas fa-user-circle"></i>
+                            <span data-translate="dashboard">Dashboard</span>
+                        </a>
+                        <a href="/cart.html" class="navbar-link position-relative">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count badge badge-danger">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title animate-slideIn">
+                    <span data-translate="welcome">Your Gateway to Quality Printing Services</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Compare quotes from Egypt's best printing vendors. Get the best price for business cards, banners, brochures, and more!
+                    <br>
+                    <span class="ar d-none">قارن عروض الأسعار من أفضل موردي الطباعة في مصر. احصل على أفضل سعر للكروت الشخصية واللافتات والبروشورات والمزيد!</span>
+                </p>
+
+                <!-- Search Bar -->
+                <form class="search-form">
+                    <div class="search-bar">
+                        <input type="text" class="search-input form-control" placeholder="What do you need to print today?" data-translate-placeholder="search">
+                        <button type="submit" class="btn btn-secondary search-btn">
+                            <i class="fas fa-search"></i>
+                            <span data-translate="search">Search</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Quick Stats -->
+                <div class="hero-stats d-flex justify-content-center gap-5 mt-5">
+                    <div class="stat-item text-center">
+                        <h3 class="text-white">150+</h3>
+                        <p class="text-white-50">Verified Vendors</p>
+                    </div>
+                    <div class="stat-item text-center">
+                        <h3 class="text-white">5000+</h3>
+                        <p class="text-white-50">Happy Customers</p>
+                    </div>
+                    <div class="stat-item text-center">
+                        <h3 class="text-white">30+</h3>
+                        <p class="text-white-50">Service Categories</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">How It Works</h2>
+            <div class="grid grid-cols-4 lg:grid-cols-2 md:grid-cols-1">
+                <div class="text-center">
+                    <div class="category-icon mb-3">
+                        <i class="fas fa-search text-primary"></i>
+                    </div>
+                    <h4>1. Browse Services</h4>
+                    <p class="text-muted">Explore our wide range of printing services</p>
+                </div>
+                <div class="text-center">
+                    <div class="category-icon mb-3">
+                        <i class="fas fa-file-upload text-primary"></i>
+                    </div>
+                    <h4>2. Submit Request</h4>
+                    <p class="text-muted">Upload your design and specifications</p>
+                </div>
+                <div class="text-center">
+                    <div class="category-icon mb-3">
+                        <i class="fas fa-comments-dollar text-primary"></i>
+                    </div>
+                    <h4>3. Receive Quotes</h4>
+                    <p class="text-muted">Get competitive quotes from multiple vendors</p>
+                </div>
+                <div class="text-center">
+                    <div class="category-icon mb-3">
+                        <i class="fas fa-handshake text-primary"></i>
+                    </div>
+                    <h4>4. Choose & Order</h4>
+                    <p class="text-muted">Select the best offer and place your order</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Categories -->
+    <section class="py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Popular Categories</h2>
+                <a href="/services.html" class="btn btn-outline">View All Categories →</a>
+            </div>
+
+            <div class="grid grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+                <!-- Business Cards -->
+                <div class="category-card" onclick="location.href='/services.html?category=business-cards'">
+                    <div class="category-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h4 class="category-name">Business Cards</h4>
+                    <p class="category-count">كروت شخصية</p>
+                    <p class="text-muted">45 Vendors</p>
+                </div>
+
+                <!-- Brochures -->
+                <div class="category-card" onclick="location.href='/services.html?category=brochures'">
+                    <div class="category-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h4 class="category-name">Brochures</h4>
+                    <p class="category-count">بروشورات</p>
+                    <p class="text-muted">38 Vendors</p>
+                </div>
+
+                <!-- Banners -->
+                <div class="category-card" onclick="location.href='/services.html?category=banners'">
+                    <div class="category-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h4 class="category-name">Banners</h4>
+                    <p class="category-count">لافتات</p>
+                    <p class="text-muted">42 Vendors</p>
+                </div>
+
+                <!-- Packaging -->
+                <div class="category-card" onclick="location.href='/services.html?category=packaging'">
+                    <div class="category-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <h4 class="category-name">Packaging</h4>
+                    <p class="category-count">تغليف</p>
+                    <p class="text-muted">28 Vendors</p>
+                </div>
+
+                <!-- T-Shirts -->
+                <div class="category-card" onclick="location.href='/services.html?category=apparel'">
+                    <div class="category-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h4 class="category-name">Apparel</h4>
+                    <p class="category-count">ملابس</p>
+                    <p class="text-muted">35 Vendors</p>
+                </div>
+
+                <!-- Stickers -->
+                <div class="category-card" onclick="location.href='/services.html?category=stickers'">
+                    <div class="category-icon">
+                        <i class="fas fa-sticky-note"></i>
+                    </div>
+                    <h4 class="category-name">Stickers</h4>
+                    <p class="category-count">ملصقات</p>
+                    <p class="text-muted">31 Vendors</p>
+                </div>
+
+                <!-- Invitations -->
+                <div class="category-card" onclick="location.href='/services.html?category=invitations'">
+                    <div class="category-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h4 class="category-name">Invitations</h4>
+                    <p class="category-count">دعوات</p>
+                    <p class="text-muted">29 Vendors</p>
+                </div>
+
+                <!-- Promotional Items -->
+                <div class="category-card" onclick="location.href='/services.html?category=promotional'">
+                    <div class="category-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h4 class="category-name">Promotional</h4>
+                    <p class="category-count">هدايا دعائية</p>
+                    <p class="text-muted">26 Vendors</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Services -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Featured Services</h2>
+                <a href="/services.html" class="btn btn-outline">View All Services →</a>
+            </div>
+
+            <div class="grid grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+                <!-- Service Card 1 -->
+                <div class="service-card" data-service-id="1" data-category="business-cards" data-vendor="printpro" data-price="250">
+                    <span class="badge">Best Seller</span>
+                    <img src="../assets/images/samples/business-cards-1.jpg" alt="Premium Business Cards" class="card-image" loading="lazy">
+                    <div class="card-body">
+                        <h4>Premium Business Cards</h4>
+                        <p class="text-muted mb-2">500 cards, full color, double-sided</p>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-primary font-weight-bold">EGP 250</span>
+                            <div class="rating">
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star"></i>
+                                <span class="text-muted">(4.5)</span>
+                            </div>
+                        </div>
+                        <div class="vendor-info">
+                            <img src="../assets/images/vendors/Vendor-Placeholder.png" alt="PrintPro" class="vendor-avatar">
+                            <div>
+                                <p class="m-0 font-weight-500">PrintPro Egypt</p>
+                                <p class="m-0 text-muted small">Cairo, Nasr City</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100 mt-3 add-to-cart" data-service-id="1">
+                            <i class="fas fa-shopping-cart"></i> Get Quote
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="service-card" data-service-id="2" data-category="brochures" data-vendor="creative-print" data-price="450">
+                    <img src="../assets/images/samples/Tri-fold-Brochures.jpg" alt="Tri-fold Brochures" class="card-image" loading="lazy">
+                    <div class="card-body">
+                        <h4>Tri-fold Brochures</h4>
+                        <p class="text-muted mb-2">1000 pieces, glossy finish</p>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-primary font-weight-bold">EGP 450</span>
+                            <div class="rating">
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star filled"></i>
+                                <span class="text-muted">(5.0)</span>
+                            </div>
+                        </div>
+                        <div class="vendor-info">
+                            <img src="../assets/images/vendors/Vendor-Placeholder.png" alt="Creative Print" class="vendor-avatar">
+                            <div>
+                                <p class="m-0 font-weight-500">Creative Print</p>
+                                <p class="m-0 text-muted small">Giza, 6th October</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100 mt-3 add-to-cart" data-service-id="2">
+                            <i class="fas fa-shopping-cart"></i> Get Quote
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="service-card" data-service-id="3" data-category="banners" data-vendor="mega-print" data-price="800">
+                    <span class="badge">Fast Delivery</span>
+                    <img src="../assets/images/samples/Vinyl-Banners.jpg" alt="Vinyl Banners" class="card-image" loading="lazy">
+                    <div class="card-body">
+                        <h4>Vinyl Banners</h4>
+                        <p class="text-muted mb-2">2x1 meters, weather resistant</p>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-primary font-weight-bold">EGP 800</span>
+                            <div class="rating">
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star"></i>
+                                <span class="text-muted">(4.3)</span>
+                            </div>
+                        </div>
+                        <div class="vendor-info">
+                            <img src="../assets/images/vendors/Vendor-Placeholder.png" alt="Mega Print" class="vendor-avatar">
+                            <div>
+                                <p class="m-0 font-weight-500">Mega Print Solutions</p>
+                                <p class="m-0 text-muted small">Alexandria</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100 mt-3 add-to-cart" data-service-id="3">
+                            <i class="fas fa-shopping-cart"></i> Get Quote
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="service-card" data-service-id="4" data-category="packaging" data-vendor="box-factory" data-price="1200">
+                    <img src="../assets/images/samples/Custom-Product-Boxes.jpg" alt="Custom Boxes" class="card-image" loading="lazy">
+                    <div class="card-body">
+                        <h4>Custom Product Boxes</h4>
+                        <p class="text-muted mb-2">100 boxes, custom size & print</p>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-primary font-weight-bold">EGP 1,200</span>
+                            <div class="rating">
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star filled"></i>
+                                <i class="fas fa-star star"></i>
+                                <span class="text-muted">(4.7)</span>
+                            </div>
+                        </div>
+                        <div class="vendor-info">
+                            <img src="../assets/images/vendors/Vendor-Placeholder.png" alt="Box Factory" class="vendor-avatar">
+                            <div>
+                                <p class="m-0 font-weight-500">The Box Factory</p>
+                                <p class="m-0 text-muted small">Cairo, Maadi</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100 mt-3 add-to-cart" data-service-id="4">
+                            <i class="fas fa-shopping-cart"></i> Get Quote
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Vendors -->
+    <section class="py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Top Rated Vendors</h2>
+                <a href="/vendors.html" class="btn btn-outline">View All Vendors →</a>
+            </div>
+
+            <div class="grid grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+                <!-- Vendor 1 -->
+                <div class="vendor-card">
+                    <img src="../assets/images/vendors/Vendor-Placeholder.png" alt="PrintPro" class="vendor-logo">
+                    <h4 class="vendor-name">PrintPro Egypt</h4>
+                    <p class="vendor-specialty">Business Cards & Marketing Materials</p>
+                    <div class="rating mb-3">
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <span>(4.8)</span>
+                    </div>
+                    <div class="vendor-stats">
+                        <div class="vendor-stat">
+                            <p class="vendor-stat-value">250+</p>
+                            <p class="vendor-stat-label">Projects</p>
+                        </div>
+                        <div class="vendor-stat">
+                            <p class="vendor-stat-value">98%</p>
+                            <p class="vendor-stat-label">On Time</p>
+                        </div>
+                        <div class="vendor-stat">
+                            <p class="vendor-stat-value">24h</p>
+                            <p class="vendor-stat-label">Response</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline w-100 mt-3" onclick="location.href='/vendor-profile.html?id=1'">
+                        View Profile
+                    </button>
+                </div>
+
+                <!-- Vendor 2 -->
+                <div class="vendor-card">
+                    <img src="../assets/images/vendors/Vendor-Placeholder.png" alt="Creative Print" class="vendor-logo">
+                    <h4 class="vendor-name">Creative Print</h4>
+                    <p class="vendor-specialty">Large Format & Exhibition Materials</p>
+                    <div class="rating mb-3">
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <span>(5.0)</span>
+                    </div>
+                    <div class="vendor-stats">
+                        <div class="vendor-stat">
+                            <p class="vendor-stat-value">180+</p>
+                            <p class="vendor-stat-label">Projects</p>
+                        </div>
+                        <div class="vendor-stat">
+                            <p class="vendor-stat-value">100%</p>
+                            <p class="vendor-stat-label">On Time</p>
+                        </div>
+                        <div class="vendor-stat">
+                            <p class="vendor-stat-value">12h</p>
+                            <p class="vendor-stat-label">Response</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline w-100 mt-3" onclick="location.href='/vendor-profile.html?id=2'">
+                        View Profile
+                    </button>
+                </div>
+
+                <!-- Vendor 3 -->
+                <div class="vendor-card">
+                    <img src="../assets/images/vendors/Vendor-Placeholder.png" alt="Mega Print" class="vendor-logo">
+                    <h4 class="vendor-name">Mega Print Solutions</h4>
+                    <p class="vendor-specialty">Complete Printing Solutions</p>
+                    <div class="rating mb-3">
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star"></i>
+                        <span>(4.6)</span>
+                    </div>
+                    <div class="vendor-stats">
+                        <div class="vendor-stat">
+                            <p class="vendor-stat-value">320+</p>
+                            <p class="vendor-stat-label">Projects</p>
+                        </div>
+                        <div class="vendor-stat">
+                            <p class="vendor-stat-value">95%</p>
+                            <p class="vendor-stat-label">On Time</p>
+                        </div>
+                        <div class="vendor-stat">
+                            <p class="vendor-stat-value">6h</p>
+                            <p class="vendor-stat-label">Response</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline w-100 mt-3" onclick="location.href='/vendor-profile.html?id=3'">
+                        View Profile
+                    </button>
+                </div>
+
+                <!-- Vendor 4 -->
+                <div class="vendor-card">
+                    <img src="../assets/images/vendors/Vendor-Placeholder.png" alt="Box Factory" class="vendor-logo">
+                    <h4 class="vendor-name">The Box Factory</h4>
+                    <p class="vendor-specialty">Packaging & Custom Boxes</p>
+                    <div class="rating mb-3">
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <i class="fas fa-star star filled"></i>
+                        <span>(4.9)</span>
+                    </div>
+                    <div class="vendor-stats">
+                        <div class="vendor-stat">
+                            <p class="vendor-stat-value">150+</p>
+                            <p class="vendor-stat-label">Projects</p>
+                        </div>
+                        <div class="vendor-stat">
+                            <p class="vendor-stat-value">99%</p>
+                            <p class="vendor-stat-label">On Time</p>
+                        </div>
+                        <div class="vendor-stat">
+                            <p class="vendor-stat-value">8h</p>
+                            <p class="vendor-stat-label">Response</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline w-100 mt-3" onclick="location.href='/vendor-profile.html?id=4'">
+                        View Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Why Choose PrintHub Egypt?</h2>
+            <div class="grid grid-cols-3 md:grid-cols-1">
+                <div class="text-center p-4">
+                    <div class="category-icon mb-3">
+                        <i class="fas fa-dollar-sign text-success"></i>
+                    </div>
+                    <h4>Best Prices</h4>
+                    <p class="text-muted">Compare quotes from multiple vendors to get the best deal for your printing needs</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="category-icon mb-3">
+                        <i class="fas fa-shield-alt text-info"></i>
+                    </div>
+                    <h4>Quality Guaranteed</h4>
+                    <p class="text-muted">All vendors are verified and reviewed by real customers to ensure quality service</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="category-icon mb-3">
+                        <i class="fas fa-clock text-warning"></i>
+                    </div>
+                    <h4>Fast Turnaround</h4>
+                    <p class="text-muted">Get quotes within hours and receive your printed materials on time, every time</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">What Our Customers Say</h2>
+            <div class="grid grid-cols-3 md:grid-cols-1">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="rating mb-3">
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                        </div>
+                        <p class="mb-3">"Excellent service! I got 5 quotes within 2 hours and saved 40% compared to my previous printer. The quality was outstanding!"</p>
+                        <div class="d-flex align-items-center">
+                            <img src="../assets/images/users/user1.png" alt="Ahmed Hassan" class="vendor-avatar mr-3">
+                            <div>
+                                <p class="m-0 font-weight-bold">Ahmed Hassan</p>
+                                <p class="m-0 text-muted small">Marketing Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="rating mb-3">
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                        </div>
+                        <p class="mb-3">"منصة رائعة! وفرت علي الكثير من الوقت والمال. الموردون محترفون والجودة ممتازة. أنصح بها بشدة."</p>
+                        <div class="d-flex align-items-center">
+                            <img src="../assets/images/users/user1.png" alt="Sara Mohamed" class="vendor-avatar mr-3">
+                            <div>
+                                <p class="m-0 font-weight-bold">Sara Mohamed</p>
+                                <p class="m-0 text-muted small">Business Owner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="rating mb-3">
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star filled"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
+                        <p class="mb-3">"Very convenient platform! Being able to compare prices from different vendors helped me make an informed decision. Will use again!"</p>
+                        <div class="d-flex align-items-center">
+                            <img src="../assets/images/users/user1.png" alt="Mohamed Ali" class="vendor-avatar mr-3">
+                            <div>
+                                <p class="m-0 font-weight-bold">Mohamed Ali</p>
+                                <p class="m-0 text-muted small">Event Planner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container text-center">
+            <h2 class="mb-4">Ready to Start Your Printing Project?</h2>
+            <p class="mb-4">Join thousands of satisfied customers who save time and money with PrintHub Egypt</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="/register.html" class="btn btn-secondary btn-lg">Get Started Free</a>
+                <a href="/how-it-works.html" class="btn btn-outline btn-lg" style="border-color: white; color: white;">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- About Section -->
+                <div class="footer-section">
+                    <h4>About PrintHub Egypt</h4>
+                    <p>Egypt's leading printing marketplace connecting customers with verified printing vendors. Get competitive quotes and quality printing services.</p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/services.html">Browse Services</a></li>
+                        <li><a href="/vendors.html">Find Vendors</a></li>
+                        <li><a href="/how-it-works.html">How It Works</a></li>
+                        <li><a href="/pricing.html">Pricing</a></li>
+                        <li><a href="/blog.html">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- For Vendors -->
+                <div class="footer-section">
+                    <h4>For Vendors</h4>
+                    <ul class="footer-links">
+                        <li><a href="/vendor/register.html">Join as Vendor</a></li>
+                        <li><a href="/vendor/login.html">Vendor Login</a></li>
+                        <li><a href="/vendor/benefits.html">Vendor Benefits</a></li>
+                        <li><a href="/vendor/success-stories.html">Success Stories</a></li>
+                        <li><a href="/vendor/support.html">Vendor Support</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> +20 123 456 7890</li>
+                        <li><i class="fas fa-envelope"></i> info@printhub-egypt.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Cairo, Egypt</li>
+                        <li><i class="fas fa-clock"></i> Sun-Thu: 9AM-6PM</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 PrintHub Egypt. All Rights Reserved. |
+                    <a href="/terms.html">Terms & Conditions</a> |
+                    <a href="/privacy.html">Privacy Policy</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="/assets/js/main.js"></script>
+
+    <!-- Initialize page-specific functionality -->
+    <script>
+        // Homepage specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate numbers on scroll
+            const observerOptions = {
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateValue(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all stat values
+            document.querySelectorAll('.hero-stats h3').forEach(stat => {
+                observer.observe(stat);
+            });
+
+            function animateValue(element) {
+                const target = parseInt(element.textContent.replace(/\D/g, ''));
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.floor(current) + '+';
+                }, 30);
+            }
+
+            // Featured services carousel (if mobile)
+            if (window.innerWidth < 768) {
+                // Add swipe functionality for mobile
+                let startX = 0;
+                let scrollLeft = 0;
+
+                const servicesContainer = document.querySelector('.grid');
+
+                servicesContainer.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].pageX - servicesContainer.offsetLeft;
+                    scrollLeft = servicesContainer.scrollLeft;
+                });
+
+                servicesContainer.addEventListener('touchmove', (e) => {
+                    const x = e.touches[0].pageX - servicesContainer.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    servicesContainer.scrollLeft = scrollLeft - walk;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- SEO Meta Tags -->
+    <title>Printing Services Catalog - Compare Quotes | PrintHub Egypt</title>
+    <meta name="description" content="Browse our complete catalog of printing services. Compare quotes from multiple vendors for business cards, banners, brochures, packaging and more.">
+    <meta name="keywords" content="printing services catalog, business printing egypt, compare printing prices, خدمات الطباعة">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+    <style>
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        .col-lg-3 {
+            position: relative;
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+
+        .col-lg-9 {
+            position: relative;
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            flex: 0 0 75%;
+            max-width: 75%;
+        }
+
+        /* Fix filter sidebar */
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0,0,0,.125);
+            border-radius: .5rem;
+        }
+
+        .card-header {
+            padding: .75rem 1.25rem;
+            margin-bottom: 0;
+            background-color: rgba(0,0,0,.03);
+            border-bottom: 1px solid rgba(0,0,0,.125);
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+            padding: 1.25rem;
+        }
+
+        /* Service grid fix */
+        #services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .col-lg-3, .col-lg-9 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+
+            #services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            #services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    /* Breadcrumb styling */
+    .breadcrumb {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0.75rem 0;
+        margin-bottom: 0;
+        list-style: none;
+        background-color: transparent;
+    }
+
+    .breadcrumb-item {
+        display: inline-block;
+    }
+
+    .breadcrumb-item + .breadcrumb-item {
+        padding-left: 0.5rem;
+    }
+
+    .breadcrumb-item + .breadcrumb-item::before {
+        display: inline-block;
+        padding-right: 0.5rem;
+        color: #6c757d;
+        content: "/";
+    }
+
+    .breadcrumb-item.active {
+        color: #6c757d;
+    }
+
+    .breadcrumb-item a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .breadcrumb-item a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    /* Hide the default numbers */
+    ol.breadcrumb {
+        counter-reset: none;
+    }
+
+    ol.breadcrumb li {
+        list-style-type: none;
+    }
+
+    ol.breadcrumb li::before {
+        content: none;
+    }
+    </style>
+</head>
+<body>
+    <!-- Navigation (Same as homepage) -->
+    <nav class="navbar" aria-label="Main navigation">
+        <div class="container">
+            <div class="navbar-container">
+                <a href="/" class="navbar-brand">
+                    <i class="fas fa-print"></i>
+                    <span>PrintHub Egypt</span>
+                </a>
+
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <ul class="navbar-menu">
+                    <li class="navbar-item">
+                        <a href="/services.html" class="navbar-link active">Services</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="/vendors.html" class="navbar-link">Vendors</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="/how-it-works.html" class="navbar-link">How It Works</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="/about.html" class="navbar-link">About</a>
+                    </li>
+                </ul>
+
+                <div class="navbar-actions d-flex align-items-center gap-3">
+                    <div class="language-switcher">
+                        <span class="language-option active" data-lang="en">EN</span>
+                        <span class="language-option" data-lang="ar">عربي</span>
+                    </div>
+
+                    <div class="auth-links d-flex gap-2">
+                        <a href="/login.html" class="btn btn-outline btn-sm">Sign In</a>
+                        <a href="/register.html" class="btn btn-primary btn-sm">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header with Search -->
+    <section class="bg-primary text-white py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="h3 mb-2">Printing Services Catalog</h1>
+                    <p class="mb-0 opacity-90">Browse and compare quotes from verified vendors</p>
+                </div>
+                <div class="col-md-6">
+                    <form class="search-form">
+                        <div class="search-bar">
+                            <input type="text" class="search-input form-control" placeholder="Search services..." value="">
+                            <button type="submit" class="btn btn-secondary search-btn">
+                                <i class="fas fa-search"></i>
+                                <span>Search</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li class="active" data-en="Services" data-ar="الخدمات">Services</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <section class="py-4">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar Filters -->
+                <div class="col-lg-3">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-filter"></i> Filters
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Category Filter -->
+                            <div class="filter-group mb-4">
+                                <h6 class="mb-3">Category</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="business-cards" id="cat-business-cards" data-filter-type="category">
+                                    <label class="form-check-label" for="cat-business-cards">
+                                        Business Cards <span class="text-muted">(125)</span>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="brochures" id="cat-brochures" data-filter-type="category">
+                                    <label class="form-check-label" for="cat-brochures">
+                                        Brochures <span class="text-muted">(87)</span>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="banners" id="cat-banners" data-filter-type="category">
+                                    <label class="form-check-label" for="cat-banners">
+                                        Banners <span class="text-muted">(64)</span>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="packaging" id="cat-packaging" data-filter-type="category">
+                                    <label class="form-check-label" for="cat-packaging">
+                                        Packaging <span class="text-muted">(43)</span>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="apparel" id="cat-apparel" data-filter-type="category">
+                                    <label class="form-check-label" for="cat-apparel">
+                                        Apparel <span class="text-muted">(56)</span>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="stickers" id="cat-stickers" data-filter-type="category">
+                                    <label class="form-check-label" for="cat-stickers">
+                                        Stickers <span class="text-muted">(78)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Price Range Filter -->
+                            <div class="filter-group mb-4">
+                                <h6 class="mb-3">Price Range (EGP)</h6>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="number" class="form-control form-control-sm" id="min-price" placeholder="Min" min="0">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="number" class="form-control form-control-sm" id="max-price" placeholder="Max" min="0">
+                                    </div>
+                                </div>
+                                <button class="btn btn-sm btn-outline btn-block mt-2" onclick="PrintHub.applyFilters()">
+                                    Apply Price Filter
+                                </button>
+                            </div>
+
+                            <!-- Delivery Time Filter -->
+                            <div class="filter-group mb-4">
+                                <h6 class="mb-3">Delivery Time</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="24h" id="delivery-24h" data-filter-type="delivery">
+                                    <label class="form-check-label" for="delivery-24h">
+                                        Within 24 hours
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="48h" id="delivery-48h" data-filter-type="delivery">
+                                    <label class="form-check-label" for="delivery-48h">
+                                        Within 48 hours
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="3days" id="delivery-3days" data-filter-type="delivery">
+                                    <label class="form-check-label" for="delivery-3days">
+                                        Within 3 days
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="week" id="delivery-week" data-filter-type="delivery">
+                                    <label class="form-check-label" for="delivery-week">
+                                        Within a week
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Rating Filter -->
+                            <div class="filter-group mb-4">
+                                <h6 class="mb-3">Vendor Rating</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="4+" id="rating-4" data-filter-type="rating">
+                                    <label class="form-check-label" for="rating-4">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        & Up
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="3+" id="rating-3" data-filter-type="rating">
+                                    <label class="form-check-label" for="rating-3">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        & Up
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Location Filter -->
+                            <div class="filter-group">
+                                <h6 class="mb-3">Location</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="cairo" id="loc-cairo" data-filter-type="location">
+                                    <label class="form-check-label" for="loc-cairo">
+                                        Cairo <span class="text-muted">(145)</span>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="giza" id="loc-giza" data-filter-type="location">
+                                    <label class="form-check-label" for="loc-giza">
+                                        Giza <span class="text-muted">(87)</span>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input filter-checkbox" type="checkbox" value="alexandria" id="loc-alex" data-filter-type="location">
+                                    <label class="form-check-label" for="loc-alex">
+                                        Alexandria <span class="text-muted">(43)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Clear Filters -->
+                            <button class="btn btn-outline btn-block mt-4" onclick="location.reload()">
+                                <i class="fas fa-times"></i> Clear All Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Ad Space -->
+                    <div class="card bg-primary text-white">
+                        <div class="card-body text-center">
+                            <h5>Are you a vendor?</h5>
+                            <p>Join PrintHub Egypt and reach thousands of customers</p>
+                            <a href="/vendor/register.html" class="btn btn-secondary btn-block">
+                                Join Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Services Grid -->
+                <div class="col-lg-9">
+                    <!-- Results Header -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h5 class="mb-0 results-count">453 services found</h5>
+                            <p class="text-muted mb-0">Showing all printing services</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <!-- View Toggle -->
+                            <div class="btn-group">
+                                <button class="btn btn-outline active" data-view="grid">
+                                    <i class="fas fa-th"></i>
+                                </button>
+                                <button class="btn btn-outline" data-view="list">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+
+                            <!-- Sort Dropdown -->
+                            <select class="form-control" style="width: 200px;">
+                                <option value="relevance">Sort by: Relevance</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Highest Rated</option>
+                                <option value="delivery">Fastest Delivery</option>
+                                <option value="newest">Newest First</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- No Results Message (hidden by default) -->
+                    <div class="no-results text-center py-5" style="display: none;">
+                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                        <h4>No services found</h4>
+                        <p class="text-muted">Try adjusting your filters or search terms</p>
+                        <button class="btn btn-primary" onclick="location.reload()">
+                            Clear Filters
+                        </button>
+                    </div>
+
+                    <!-- Services Grid -->
+                    <div class="grid grid-cols-3 md:grid-cols-2" id="services-grid">
+                        <!-- Service Card 1 - Business Cards -->
+                        <div class="service-card" data-service-id="1" data-category="business-cards" data-vendor="printpro" data-price="250" data-rating="4.5" data-location="cairo">
+                            <span class="badge">Best Seller</span>
+                            <img src="../assets/images/samples/business-cards-1.jpg" alt="Premium Business Cards" class="card-image">
+                            <div class="card-body">
+                                <h4>Premium Business Cards</h4>
+                                <p class="text-muted mb-2">500 cards, full color, double-sided</p>
+                                <div class="mb-2">
+                                    <span class="badge badge-success">24h Delivery</span>
+                                    <span class="badge badge-info">Free Design</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-primary font-weight-bold">EGP 250</span>
+                                    <div class="rating">
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star-half-alt star filled"></i>
+                                        <span class="text-muted">(4.5)</span>
+                                    </div>
+                                </div>
+                                <div class="vendor-info">
+                                    <img src="../assets/images/vendors/printpro-logo.jpg" alt="PrintPro" class="vendor-avatar">
+                                    <div>
+                                        <p class="m-0 font-weight-500">PrintPro Egypt</p>
+                                        <p class="m-0 text-muted small">Cairo, Nasr City</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary w-100 mt-3" onclick="location.href='/service-detail.html?id=1'">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Service Card 2 - Brochures -->
+                        <div class="service-card" data-service-id="2" data-category="brochures" data-vendor="creative-print" data-price="450" data-rating="5.0" data-location="giza">
+                            <img src="../assets/images/samples/brochure-1.jpg" alt="Tri-fold Brochures" class="card-image">
+                            <div class="card-body">
+                                <h4>Tri-fold Brochures</h4>
+                                <p class="text-muted mb-2">1000 pieces, glossy finish</p>
+                                <div class="mb-2">
+                                    <span class="badge badge-success">48h Delivery</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-primary font-weight-bold">EGP 450</span>
+                                    <div class="rating">
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <span class="text-muted">(5.0)</span>
+                                    </div>
+                                </div>
+                                <div class="vendor-info">
+                                    <img src="../assets/images/vendors/creative-logo.jpg" alt="Creative Print" class="vendor-avatar">
+                                    <div>
+                                        <p class="m-0 font-weight-500">Creative Print</p>
+                                        <p class="m-0 text-muted small">Giza, 6th October</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary w-100 mt-3" onclick="location.href='/service-detail.html?id=2'">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Service Card 3 - Banners -->
+                        <div class="service-card" data-service-id="3" data-category="banners" data-vendor="mega-print" data-price="800" data-rating="4.3" data-location="alexandria">
+                            <span class="badge">Fast Delivery</span>
+                            <img src="../assets/images/samples/Vinyl-Banners.jpg" alt="Vinyl Banners" class="card-image">
+                            <div class="card-body">
+                                <h4>Vinyl Banners</h4>
+                                <p class="text-muted mb-2">2x1 meters, weather resistant</p>
+                                <div class="mb-2">
+                                    <span class="badge badge-success">Same Day</span>
+                                    <span class="badge badge-warning">Rush Available</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-primary font-weight-bold">EGP 800</span>
+                                    <div class="rating">
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <span class="text-muted">(4.3)</span>
+                                    </div>
+                                </div>
+                                <div class="vendor-info">
+                                    <img src="../assets/images/vendors/mega-logo.jpg" alt="Mega Print" class="vendor-avatar">
+                                    <div>
+                                        <p class="m-0 font-weight-500">Mega Print Solutions</p>
+                                        <p class="m-0 text-muted small">Alexandria</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary w-100 mt-3" onclick="location.href='/service-detail.html?id=3'">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Service Card 4 - Packaging -->
+                        <div class="service-card" data-service-id="4" data-category="packaging" data-vendor="box-factory" data-price="1200" data-rating="4.7" data-location="cairo">
+                            <img src="../assets/images/samples/Custom-Product-Boxes.jpg" alt="Custom Boxes" class="card-image">
+                            <div class="card-body">
+                                <h4>Custom Product Boxes</h4>
+                                <p class="text-muted mb-2">100 boxes, custom size & print</p>
+                                <div class="mb-2">
+                                    <span class="badge badge-info">Eco-Friendly</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-primary font-weight-bold">EGP 1,200</span>
+                                    <div class="rating">
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <span class="text-muted">(4.7)</span>
+                                    </div>
+                                </div>
+                                <div class="vendor-info">
+                                    <img src="../assets/images/vendors/box-logo.jpg" alt="Box Factory" class="vendor-avatar">
+                                    <div>
+                                        <p class="m-0 font-weight-500">The Box Factory</p>
+                                        <p class="m-0 text-muted small">Cairo, Maadi</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary w-100 mt-3" onclick="location.href='/service-detail.html?id=4'">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Service Card 5 - T-Shirts -->
+                        <div class="service-card" data-service-id="5" data-category="apparel" data-vendor="fashion-print" data-price="1500" data-rating="4.8" data-location="cairo">
+                            <span class="badge">Premium Quality</span>
+                            <img src="../assets/images/samples/Custom-Product-Boxes.jpg" alt="Custom T-Shirts" class="card-image">
+                            <div class="card-body">
+                                <h4>Custom T-Shirts</h4>
+                                <p class="text-muted mb-2">50 pieces, screen printing</p>
+                                <div class="mb-2">
+                                    <span class="badge badge-info">100% Cotton</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-primary font-weight-bold">EGP 1,500</span>
+                                    <div class="rating">
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <span class="text-muted">(4.8)</span>
+                                    </div>
+                                </div>
+                                <div class="vendor-info">
+                                    <img src="../assets/images/vendors/fashion-logo.jpg" alt="Fashion Print" class="vendor-avatar">
+                                    <div>
+                                        <p class="m-0 font-weight-500">Fashion Print Co.</p>
+                                        <p class="m-0 text-muted small">Cairo, Heliopolis</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary w-100 mt-3" onclick="location.href='/service-detail.html?id=5'">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Service Card 6 - Stickers -->
+                        <div class="service-card" data-service-id="6" data-category="stickers" data-vendor="sticky-world" data-price="180" data-rating="4.6" data-location="giza">
+                            <img src="../assets/images/samples/Custom-Product-Boxes.jpg" alt="Die-cut Stickers" class="card-image">
+                            <div class="card-body">
+                                <h4>Die-cut Stickers</h4>
+                                <p class="text-muted mb-2">500 pieces, waterproof vinyl</p>
+                                <div class="mb-2">
+                                    <span class="badge badge-success">24h Delivery</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-primary font-weight-bold">EGP 180</span>
+                                    <div class="rating">
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <span class="text-muted">(4.6)</span>
+                                    </div>
+                                </div>
+                                <div class="vendor-info">
+                                    <img src="../assets/images/vendors/sticky-logo.jpg" alt="Sticky World" class="vendor-avatar">
+                                    <div>
+                                        <p class="m-0 font-weight-500">Sticky World</p>
+                                        <p class="m-0 text-muted small">Giza, Dokki</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary w-100 mt-3" onclick="location.href='/service-detail.html?id=6'">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Service Card 7 - Flyers -->
+                        <div class="service-card" data-service-id="7" data-category="marketing" data-vendor="printpro" data-price="320" data-rating="4.4" data-location="cairo">
+                            <img src="../assets/images/samples/Tri-fold-Brochures.jpg" alt="A5 Flyers" class="card-image">
+                            <div class="card-body">
+                                <h4>A5 Flyers</h4>
+                                <p class="text-muted mb-2">1000 pieces, double-sided</p>
+                                <div class="mb-2">
+                                    <span class="badge badge-success">48h Delivery</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-primary font-weight-bold">EGP 320</span>
+                                    <div class="rating">
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <span class="text-muted">(4.4)</span>
+                                    </div>
+                                </div>
+                                <div class="vendor-info">
+                                    <img src="../assets/images/vendors/printpro-logo.jpg" alt="PrintPro" class="vendor-avatar">
+                                    <div>
+                                        <p class="m-0 font-weight-500">PrintPro Egypt</p>
+                                        <p class="m-0 text-muted small">Cairo, Nasr City</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary w-100 mt-3" onclick="location.href='/service-detail.html?id=7'">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Service Card 8 - Posters -->
+                        <div class="service-card" data-service-id="8" data-category="marketing" data-vendor="mega-print" data-price="550" data-rating="4.5" data-location="alexandria">
+                            <span class="badge">Popular</span>
+                            <img src="../assets/images/samples/Tri-fold-Brochures.jpg" alt="A2 Posters" class="card-image">
+                            <div class="card-body">
+                                <h4>A2 Posters</h4>
+                                <p class="text-muted mb-2">100 pieces, matte finish</p>
+                                <div class="mb-2">
+                                    <span class="badge badge-info">Premium Paper</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-primary font-weight-bold">EGP 550</span>
+                                    <div class="rating">
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star-half-alt star filled"></i>
+                                        <span class="text-muted">(4.5)</span>
+                                    </div>
+                                </div>
+                                <div class="vendor-info">
+                                    <img src="../assets/images/vendors/mega-logo.jpg" alt="Mega Print" class="vendor-avatar">
+                                    <div>
+                                        <p class="m-0 font-weight-500">Mega Print Solutions</p>
+                                        <p class="m-0 text-muted small">Alexandria</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary w-100 mt-3" onclick="location.href='/service-detail.html?id=8'">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Service Card 9 - Notebooks -->
+                        <div class="service-card" data-service-id="9" data-category="stationery" data-vendor="notebook-house" data-price="750" data-rating="4.9" data-location="cairo">
+                            <img src="../assets/images/samples/Tri-fold-Brochures.jpg" alt="Custom Notebooks" class="card-image">
+                            <div class="card-body">
+                                <h4>Custom Notebooks</h4>
+                                <p class="text-muted mb-2">100 pieces, A5 size, spiral bound</p>
+                                <div class="mb-2">
+                                    <span class="badge badge-info">Logo Embossing</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-primary font-weight-bold">EGP 750</span>
+                                    <div class="rating">
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <i class="fas fa-star star filled"></i>
+                                        <span class="text-muted">(4.9)</span>
+                                    </div>
+                                </div>
+                                <div class="vendor-info">
+                                    <img src="../assets/images/vendors/notebook-logo.jpg" alt="Notebook House" class="vendor-avatar">
+                                    <div>
+                                        <p class="m-0 font-weight-500">Notebook House</p>
+                                        <p class="m-0 text-muted small">Cairo, Downtown</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary w-100 mt-3" onclick="location.href='/service-detail.html?id=9'">
+                                    <i class="fas fa-eye"></i> View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination mt-5">
+                        <a href="#" class="page-link disabled">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                        <a href="#" class="page-link active">1</a>
+                        <a href="#" class="page-link">2</a>
+                        <a href="#" class="page-link">3</a>
+                        <a href="#" class="page-link">4</a>
+                        <a href="#" class="page-link">5</a>
+                        <span class="page-link">...</span>
+                        <a href="#" class="page-link">15</a>
+                        <a href="#" class="page-link">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-4 bg-primary text-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h3 class="mb-2">Can't find what you're looking for?</h3>
+                    <p class="mb-0 opacity-90">Submit a custom request and we'll match you with the perfect vendor</p>
+                </div>
+                <div class="col-md-4 text-md-right">
+                    <a href="/quote-request.html" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-plus-circle"></i> Submit Custom Request
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Same as homepage) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About PrintHub Egypt</h4>
+                    <p>Egypt's leading printing marketplace connecting customers with verified printing vendors.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/services.html">Browse Services</a></li>
+                        <li><a href="/vendors.html">Find Vendors</a></li>
+                        <li><a href="/how-it-works.html">How It Works</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>For Vendors</h4>
+                    <ul class="footer-links">
+                        <li><a href="/vendor/register.html">Join as Vendor</a></li>
+                        <li><a href="/vendor/login.html">Vendor Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> +20 123 456 7890</li>
+                        <li><i class="fas fa-envelope"></i> info@printhub-egypt.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 PrintHub Egypt. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Page-specific JavaScript for services catalog
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            const search = urlParams.get('search');
+
+            // Apply category filter if present
+            if (category) {
+                const categoryCheckbox = document.querySelector(`#cat-${category}`);
+                if (categoryCheckbox) {
+                    categoryCheckbox.checked = true;
+                    PrintHub.applyFilters();
+                }
+            }
+
+            // Apply search if present
+            if (search) {
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.value = search;
+                    // Filter services based on search
+                    filterBySearch(search);
+                }
+            }
+
+            // View toggle functionality
+            document.querySelectorAll('[data-view]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const view = this.getAttribute('data-view');
+                    const grid = document.getElementById('services-grid');
+
+                    // Update active button
+                    document.querySelectorAll('[data-view]').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Change grid layout
+                    if (view === 'list') {
+                        grid.classList.remove('grid-cols-3');
+                        grid.classList.add('grid-cols-1');
+                        // Adjust card layout for list view
+                        document.querySelectorAll('.service-card').forEach(card => {
+                            card.style.display = 'flex';
+                            card.style.flexDirection = 'row';
+                        });
+                    } else {
+                        grid.classList.remove('grid-cols-1');
+                        grid.classList.add('grid-cols-3');
+                        // Reset card layout for grid view
+                        document.querySelectorAll('.service-card').forEach(card => {
+                            card.style.display = '';
+                            card.style.flexDirection = '';
+                        });
+                    }
+                });
+            });
+
+            // Sort functionality
+            document.querySelector('select').addEventListener('change', function() {
+                const sortBy = this.value;
+                sortServices(sortBy);
+            });
+
+            function filterBySearch(searchTerm) {
+                const services = document.querySelectorAll('.service-card');
+                let visibleCount = 0;
+
+                services.forEach(service => {
+                    const title = service.querySelector('h4').textContent.toLowerCase();
+                    const description = service.querySelector('.text-muted').textContent.toLowerCase();
+                    const vendor = service.querySelector('.vendor-info p').textContent.toLowerCase();
+
+                    if (title.includes(searchTerm.toLowerCase()) ||
+                        description.includes(searchTerm.toLowerCase()) ||
+                        vendor.includes(searchTerm.toLowerCase())) {
+                        service.style.display = '';
+                        visibleCount++;
+                    } else {
+                        service.style.display = 'none';
+                    }
+                });
+
+                updateResultsCount(visibleCount);
+            }
+
+            function sortServices(sortBy) {
+                const grid = document.getElementById('services-grid');
+                const services = Array.from(grid.querySelectorAll('.service-card'));
+
+                services.sort((a, b) => {
+                    switch(sortBy) {
+                        case 'price-low':
+                            return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                        case 'price-high':
+                            return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+                        case 'rating':
+                            return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
+                        case 'newest':
+                            return parseFloat(b.dataset.serviceId) - parseFloat(a.dataset.serviceId);
+                        default:
+                            return 0;
+                    }
+                });
+
+                // Re-append sorted services
+                services.forEach(service => grid.appendChild(service));
+            }
+
+            function updateResultsCount(count) {
+                const resultsCount = document.querySelector('.results-count');
+                if (resultsCount) {
+                    resultsCount.textContent = `${count} services found`;
+                }
+
+                const noResults = document.querySelector('.no-results');
+                if (noResults) {
+                    noResults.style.display = count === 0 ? 'block' : 'none';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

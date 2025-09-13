@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Analytics - PrintHub Egypt</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/vendor.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                </div>
+                <nav class="nav-menu">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span>
+                    </a>
+                    <a href="quotes.html" class="nav-link">
+                        <i class="fas fa-file-invoice"></i>
+                        <span data-en="Quotes" data-ar="عروض الأسعار">Quotes</span>
+                    </a>
+                    <a href="orders.html" class="nav-link">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span data-en="Orders" data-ar="الطلبات">Orders</span>
+                    </a>
+                    <a href="analytics.html" class="nav-link active">
+                        <i class="fas fa-chart-line"></i>
+                        <span data-en="Analytics" data-ar="التحليلات">Analytics</span>
+                    </a>
+                </nav>
+                <div class="header-actions">
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <i class="fas fa-globe"></i>
+                        <span data-en="AR" data-ar="EN">AR</span>
+                    </button>
+                    <div class="user-menu">
+                        <img src="https://via.placeholder.com/40" alt="Profile" class="user-avatar">
+                        <span data-en="Premium Print Co." data-ar="شركة الطباعة المتميزة">Premium Print Co.</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="dashboard.html" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</a></li>
+                <li class="active" data-en="Analytics" data-ar="التحليلات">Analytics</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container analytics-container">
+            <!-- Analytics Header -->
+            <div class="analytics-header">
+                <h1 data-en="Business Analytics" data-ar="تحليلات الأعمال">Business Analytics</h1>
+                <div class="date-filter">
+                    <select id="dateRange">
+                        <option value="7" data-en="Last 7 Days" data-ar="آخر 7 أيام">Last 7 Days</option>
+                        <option value="30" selected data-en="Last 30 Days" data-ar="آخر 30 يومًا">Last 30 Days</option>
+                        <option value="90" data-en="Last 3 Months" data-ar="آخر 3 أشهر">Last 3 Months</option>
+                        <option value="365" data-en="Last Year" data-ar="السنة الماضية">Last Year</option>
+                    </select>
+                    <button class="export-btn">
+                        <i class="fas fa-download"></i>
+                        <span data-en="Export Report" data-ar="تصدير التقرير">Export Report</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="metrics-row">
+                <div class="metric-card revenue">
+                    <div class="metric-header">
+                        <div>
+                            <div class="metric-title" data-en="Total Revenue" data-ar="إجمالي الإيرادات">Total Revenue</div>
+                            <div class="metric-value">EGP 125,430</div>
+                            <div class="metric-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>15.3%</span>
+                            </div>
+                        </div>
+                        <div class="metric-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card orders">
+                    <div class="metric-header">
+                        <div>
+                            <div class="metric-title" data-en="Total Orders" data-ar="إجمالي الطلبات">Total Orders</div>
+                            <div class="metric-value">342</div>
+                            <div class="metric-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>8.7%</span>
+                            </div>
+                        </div>
+                        <div class="metric-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card conversion">
+                    <div class="metric-header">
+                        <div>
+                            <div class="metric-title" data-en="Conversion Rate" data-ar="معدل التحويل">Conversion Rate</div>
+                            <div class="metric-value">68.5%</div>
+                            <div class="metric-change negative">
+                                <i class="fas fa-arrow-down"></i>
+                                <span>2.1%</span>
+                            </div>
+                        </div>
+                        <div class="metric-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card rating">
+                    <div class="metric-header">
+                        <div>
+                            <div class="metric-title" data-en="Average Rating" data-ar="متوسط التقييم">Average Rating</div>
+                            <div class="metric-value">4.8</div>
+                            <div class="metric-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>0.2</span>
+                            </div>
+                        </div>
+                        <div class="metric-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-row">
+                <!-- Revenue Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title" data-en="Revenue Overview" data-ar="نظرة عامة على الإيرادات">Revenue Overview</h3>
+                        <div class="chart-tabs">
+                            <button class="chart-tab active" onclick="updateRevenueChart('line')">Line</button>
+                            <button class="chart-tab" onclick="updateRevenueChart('bar')">Bar</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Category Distribution -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title" data-en="Orders by Category" data-ar="الطلبات حسب الفئة">Orders by Category</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conversion Funnel -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title" data-en="Quote Conversion Funnel" data-ar="قمع تحويل عروض الأسعار">Quote Conversion Funnel</h3>
+                </div>
+                <div class="funnel-chart">
+                    <div class="funnel-step">
+                        <div class="funnel-bar" style="width: 100%;">
+                            <span class="funnel-label" data-en="Quote Requests" data-ar="طلبات الأسعار">Quote Requests</span>
+                            <span class="funnel-value">486</span>
+                        </div>
+                    </div>
+                    <div class="funnel-step">
+                        <div class="funnel-bar" style="width: 85%;">
+                            <span class="funnel-label" data-en="Quotes Sent" data-ar="العروض المرسلة">Quotes Sent</span>
+                            <span class="funnel-value">413</span>
+                        </div>
+                    </div>
+                    <div class="funnel-step">
+                        <div class="funnel-bar" style="width: 70%;">
+                            <span class="funnel-label" data-en="Quotes Accepted" data-ar="العروض المقبولة">Quotes Accepted</span>
+                            <span class="funnel-value">342</span>
+                        </div>
+                    </div>
+                    <div class="funnel-step">
+                        <div class="funnel-bar" style="width: 60%;">
+                            <span class="funnel-label" data-en="Orders Completed" data-ar="الطلبات المكتملة">Orders Completed</span>
+                            <span class="funnel-value">291</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Tables -->
+            <div class="table-card">
+                <div class="table-header">
+                    <h3 class="chart-title" data-en="Top Performing Services" data-ar="الخدمات الأكثر أداءً">Top Performing Services</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th data-en="Service" data-ar="الخدمة">Service</th>
+                            <th data-en="Orders" data-ar="الطلبات">Orders</th>
+                            <th data-en="Revenue" data-ar="الإيرادات">Revenue</th>
+                            <th data-en="Rating" data-ar="التقييم">Rating</th>
+                            <th data-en="Trend" data-ar="الاتجاه">Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="service-cell">
+                                    <img src="https://via.placeholder.com/40" alt="Service">
+                                    <span>Premium Business Cards</span>
+                                </div>
+                            </td>
+                            <td>89</td>
+                            <td>EGP 35,600</td>
+                            <td>4.9 ⭐</td>
+                            <td><span class="trend-badge up">↑ 12%</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-cell">
+                                    <img src="https://via.placeholder.com/40" alt="Service">
+                                    <span>Roll-up Banners</span>
+                                </div>
+                            </td>
+                            <td>67</td>
+                            <td>EGP 28,140</td>
+                            <td>4.7 ⭐</td>
+                            <td><span class="trend-badge up">↑ 8%</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="service-cell">
+                                    <img src="https://via.placeholder.com/40" alt="Service">
+                                    <span>Flyers & Brochures</span>
+                                </div>
+                            </td>
+                            <td>56</td>
+                            <td>EGP 22,400</td>
+                            <td>4.8 ⭐</td>
+                            <td><span class="trend-badge down">↓ 3%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Customer Insights -->
+            <div class="chart-card" style="margin-top: 20px;">
+                <div class="chart-header">
+                    <h3 class="chart-title" data-en="Customer Insights" data-ar="رؤى العملاء">Customer Insights</h3>
+                </div>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="insight-title" data-en="Total Customers" data-ar="إجمالي العملاء">Total Customers</div>
+                        <div class="insight-value">156</div>
+                        <div class="insight-detail" data-en="23 new this month" data-ar="23 جديد هذا الشهر">23 new this month</div>
+                    </div>
+
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <i class="fas fa-redo"></i>
+                        </div>
+                        <div class="insight-title" data-en="Repeat Rate" data-ar="معدل التكرار">Repeat Rate</div>
+                        <div class="insight-value">42%</div>
+                        <div class="insight-detail" data-en="Above industry average" data-ar="فوق متوسط الصناعة">Above industry average</div>
+                    </div>
+
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="insight-title" data-en="Avg. Response Time" data-ar="متوسط وقت الاستجابة">Avg. Response Time</div>
+                        <div class="insight-value">2.3 hrs</div>
+                        <div class="insight-detail" data-en="Excellent performance" data-ar="أداء ممتاز">Excellent performance</div>
+                    </div>
+
+                    <div class="insight-card">
+                        <div class="insight-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="insight-title" data-en="Avg. Order Value" data-ar="متوسط قيمة الطلب">Avg. Order Value</div>
+                        <div class="insight-value">EGP 367</div>
+                        <div class="insight-detail" data-en="Up 12% from last month" data-ar="زيادة 12% عن الشهر الماضي">Up 12% from last month</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/language.js"></script>
+    <script>
+        // Initialize Charts
+        let revenueChart;
+        let categoryChart;
+
+        // Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        const revenueData = {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [{
+                label: 'Revenue',
+                data: [28000, 32000, 30000, 35430],
+                borderColor: '#667eea',
+                backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        };
+
+        revenueChart = new Chart(revenueCtx, {
+            type: 'line',
+            data: revenueData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'EGP ' + context.parsed.y.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0,0,0,0.05)'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return 'EGP ' + value.toLocaleString();
+                            },
+                            maxTicksLimit: 6
+                        }
+                    }
+                },
+                elements: {
+                    point: {
+                        radius: 4,
+                        hoverRadius: 6
+                    }
+                }
+            }
+        });
+
+        // Category Chart
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        categoryChart = new Chart(categoryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Business Cards', 'Banners', 'Flyers', 'Packaging', 'Others'],
+                datasets: [{
+                    data: [30, 25, 20, 15, 10],
+                    backgroundColor: [
+                        '#667eea',
+                        '#764ba2',
+                        '#f093fb',
+                        '#f5576c',
+                        '#ffc107'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#fff',
+                    hoverBorderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 12,
+                            font: {
+                                size: 11
+                            },
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Update Revenue Chart Type
+        function updateRevenueChart(type) {
+            // Update active tab
+            document.querySelectorAll('.chart-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update chart
+            revenueChart.config.type = type;
+            revenueChart.update();
+        }
+
+        // Date Range Change
+        document.getElementById('dateRange').addEventListener('change', function() {
+            // Here you would typically fetch new data based on the selected range
+            console.log('Date range changed to:', this.value, 'days');
+            
+            // Simulate data update
+            updateChartData(this.value);
+        });
+
+        // Update chart data based on date range
+        function updateChartData(days) {
+            // This would typically make an API call
+            // For now, we'll just update with sample data
+            const newData = generateSampleData(days);
+            
+            revenueChart.data.datasets[0].data = newData.revenue;
+            revenueChart.data.labels = newData.labels;
+            revenueChart.update('resize');
+        }
+
+        // Generate sample data
+        function generateSampleData(days) {
+            const data = { revenue: [], labels: [] };
+            
+            if (days <= 7) {
+                data.labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                data.revenue = [5000, 6200, 4800, 7100, 8300, 6800, 5900];
+            } else if (days <= 30) {
+                data.labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+                data.revenue = [28000, 32000, 30000, 35430];
+            } else if (days <= 90) {
+                data.labels = ['Month 1', 'Month 2', 'Month 3'];
+                data.revenue = [125000, 142000, 138000];
+            } else {
+                data.labels = ['Q1', 'Q2', 'Q3', 'Q4'];
+                data.revenue = [420000, 485000, 461000, 523000];
+            }
+            
+            return data;
+        }
+
+        // Initialize responsive behavior
+        window.addEventListener('resize', function() {
+            revenueChart.resize();
+            categoryChart.resize();
+        });
+
+        // Export functionality
+        document.querySelector('.export-btn')?.addEventListener('click', function() {
+            // This would typically generate and download a report
+            console.log('Exporting analytics report...');
+            
+            // Show toast notification
+            if (window.Toast) {
+                Toast.show('Report export started', 'success');
+            }
+        });
+    </script>
+
+    <!-- Additional Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/language.js"></script>
+</body>
+</html>

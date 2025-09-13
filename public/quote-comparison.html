@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Quotes - PrintHub Egypt</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Cairo', sans-serif;
+            background-color: #f8f9fa;
+            color: #2C3E50;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #3B82F6;
+            font-size: 1.5rem;
+            font-weight: 700;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #6B7280;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #3B82F6;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #3B82F6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-outline {
+            background: white;
+            color: #6B7280;
+            border: 1px solid #E5E7EB;
+        }
+
+        .btn-success {
+            background: #10B981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: white;
+            border-bottom: 1px solid #E5E7EB;
+            padding: 2rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .header-left h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1F2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .request-info {
+            color: #6B7280;
+            font-size: 0.875rem;
+        }
+
+        .header-right {
+            text-align: right;
+        }
+
+        .quote-count {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #3B82F6;
+        }
+
+        .quote-label {
+            color: #6B7280;
+            font-size: 0.875rem;
+        }
+
+        /* Project Summary */
+        .project-summary {
+            background: linear-gradient(135deg, #EBF5FF 0%, #F0F9FF 100%);
+            border: 1px solid #BFDBFE;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .summary-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3B82F6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .summary-text {
+            flex: 1;
+        }
+
+        .summary-label {
+            font-size: 0.75rem;
+            color: #6B7280;
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        /* Comparison Controls */
+        .comparison-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .view-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #E5E7EB;
+            background: white;
+            border-radius: 0.5rem;
+            color: #6B7280;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-btn.active {
+            background: #3B82F6;
+            color: white;
+            border-color: #3B82F6;
+        }
+
+        .sort-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #F9FAFB;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 2px solid #E5E7EB;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Vendor Column */
+        .vendor-cell {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .vendor-logo {
+            width: 48px;
+            height: 48px;
+            background: #F3F4F6;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B7280;
+        }
+
+        .vendor-info {
+            flex: 1;
+        }
+
+        .vendor-name {
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .vendor-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .stars {
+            color: #F59E0B;
+        }
+
+        .rating-text {
+            color: #6B7280;
+        }
+
+        /* Price Column */
+        .price-cell {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1F2937;
+        }
+
+        .price-label {
+            font-size: 0.875rem;
+            color: #6B7280;
+            font-weight: 400;
+        }
+
+        .best-price {
+            color: #10B981;
+            position: relative;
+        }
+
+        .price-badge {
+            position: absolute;
+            top: -8px;
+            right: -40px;
+            background: #10B981;
+            color: white;
+            padding: 0.125rem 0.5rem;
+            border-radius: 1rem;
+            font-size: 0.625rem;
+            font-weight: 600;
+        }
+
+        /* Delivery Column */
+        .delivery-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .delivery-icon {
+            color: #3B82F6;
+        }
+
+        .delivery-time {
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .fastest-delivery {
+            color: #3B82F6;
+        }
+
+        /* Features Column */
+        .features-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .feature-tag {
+            background: #F3F4F6;
+            color: #4B5563;
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+        }
+
+        /* Message Column */
+        .message-text {
+            color: #4B5563;
+            font-size: 0.875rem;
+            line-height: 1.4;
+            max-width: 300px;
+        }
+
+        /* Action Column */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        /* Comparison Cards (Mobile View) */
+        .comparison-cards {
+            display: none;
+        }
+
+        .quote-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            position: relative;
+        }
+
+        .quote-card.best-value {
+            border: 2px solid #10B981;
+        }
+
+        .best-value-badge {
+            position: absolute;
+            top: -12px;
+            right: 1rem;
+            background: #10B981;
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .card-vendor {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-price {
+            text-align: right;
+        }
+
+        .card-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem 0;
+            border-top: 1px solid #E5E7EB;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-icon {
+            color: #6B7280;
+        }
+
+        .detail-text {
+            font-size: 0.875rem;
+            color: #4B5563;
+        }
+
+        .card-message {
+            background: #F9FAFB;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .card-actions .btn {
+            flex: 1;
+        }
+
+        /* Additional Analysis Cards */
+        .analysis-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .analysis-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        }
+
+        .analysis-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1F2937;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Summary Footer */
+        .summary-footer {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        }
+
+        .summary-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1F2937;
+        }
+
+        .recommendation {
+            background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+            border: 1px solid #86EFAC;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .recommendation-icon {
+            width: 48px;
+            height: 48px;
+            background: #10B981;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .recommendation-text {
+            flex: 1;
+        }
+
+        .recommendation-vendor {
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .recommendation-reason {
+            font-size: 0.875rem;
+            color: #4B5563;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1F2937;
+            color: #9CA3AF;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .comparison-table {
+                display: none;
+            }
+
+            .comparison-cards {
+                display: block;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .comparison-controls {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .view-options {
+                width: 100%;
+            }
+
+            .view-btn {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-print"></i>
+                    <span>PrintHub Egypt</span>
+                </a>
+
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="vendors.html" class="nav-link">Vendors</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+
+                <div class="nav-actions">
+                    <button class="btn btn-outline" onclick="toggleLanguage()">
+                        <i class="fas fa-globe"></i>
+                        <span id="langText">عربي</span>
+                    </button>
+                    <a href="login.html" class="btn btn-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1>Compare Quotes</h1>
+                    <div class="request-info">
+                        Request #QR-2024-1234 • Business Cards • Submitted 2 hours ago
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="quote-count">5</div>
+                    <div class="quote-label">Quotes Received</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="container">
+        <!-- Project Summary -->
+        <div class="project-summary">
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="summary-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="summary-text">
+                        <div class="summary-label">Product</div>
+                        <div class="summary-value">Business Cards</div>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div class="summary-text">
+                        <div class="summary-label">Quantity</div>
+                        <div class="summary-value">1,000 pieces</div>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon">
+                        <i class="fas fa-ruler"></i>
+                    </div>
+                    <div class="summary-text">
+                        <div class="summary-label">Size</div>
+                        <div class="summary-value">85mm x 55mm</div>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="summary-text">
+                        <div class="summary-label">Printing</div>
+                        <div class="summary-value">Full Color, Both Sides</div>
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div class="summary-text">
+                        <div class="summary-label">Delivery</div>
+                        <div class="summary-value">Within 5 days</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Controls -->
+        <div class="comparison-controls">
+            <div class="view-options">
+                <button class="view-btn active" onclick="setView('table')">
+                    <i class="fas fa-table"></i> Table View
+                </button>
+                <button class="view-btn" onclick="setView('cards')">
+                    <i class="fas fa-th"></i> Card View
+                </button>
+            </div>
+            <select class="sort-select">
+                <option>Sort by: Best Value</option>
+                <option>Sort by: Lowest Price</option>
+                <option>Sort by: Fastest Delivery</option>
+                <option>Sort by: Highest Rating</option>
+            </select>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison-table">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Vendor</th>
+                            <th>Price</th>
+                            <th>Delivery</th>
+                            <th>Features</th>
+                            <th>Message</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Quote Row 1 - Best Price -->
+                        <tr>
+                            <td>
+                                <div class="vendor-cell">
+                                    <div class="vendor-logo">
+                                        <i class="fas fa-building"></i>
+                                    </div>
+                                    <div class="vendor-info">
+                                        <div class="vendor-name">Quick Print Services</div>
+                                        <div class="vendor-rating">
+                                            <span class="stars">★★★★★</span>
+                                            <span class="rating-text">4.7 (298)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="price-cell best-price">
+                                    EGP 850
+                                    <span class="price-badge">BEST</span>
+                                    <div class="price-label">Total price</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="delivery-cell">
+                                    <i class="fas fa-truck delivery-icon"></i>
+                                    <span class="delivery-time">3 days</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="features-list">
+                                    <span class="feature-tag">Free Delivery</span>
+                                    <span class="feature-tag">UV Coating</span>
+                                    <span class="feature-tag">Premium Paper</span>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="message-text">We can deliver high-quality business cards with UV coating at competitive price. Express delivery available.</p>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-success">Select Quote</button>
+                                    <button class="btn btn-outline">View Details</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Quote Row 2 - Fastest Delivery -->
+                        <tr>
+                            <td>
+                                <div class="vendor-cell">
+                                    <div class="vendor-logo">
+                                        <i class="fas fa-print"></i>
+                                    </div>
+                                    <div class="vendor-info">
+                                        <div class="vendor-name">Nile Printing Press</div>
+                                        <div class="vendor-rating">
+                                            <span class="stars">★★★★★</span>
+                                            <span class="rating-text">4.8 (234)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="price-cell">
+                                    EGP 950
+                                    <div class="price-label">Total price</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="delivery-cell fastest-delivery">
+                                    <i class="fas fa-rocket delivery-icon"></i>
+                                    <span class="delivery-time">24 hours</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="features-list">
+                                    <span class="feature-tag">Express Service</span>
+                                    <span class="feature-tag">Lamination</span>
+                                    <span class="feature-tag">Design Review</span>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="message-text">Premium quality with fastest turnaround. We can deliver within 24 hours with our express service.</p>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-success">Select Quote</button>
+                                    <button class="btn btn-outline">View Details</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Quote Row 3 -->
+                        <tr>
+                            <td>
+                                <div class="vendor-cell">
+                                    <div class="vendor-logo">
+                                        <i class="fas fa-palette"></i>
+                                    </div>
+                                    <div class="vendor-info">
+                                        <div class="vendor-name">Cairo Graphics</div>
+                                        <div class="vendor-rating">
+                                            <span class="stars">★★★★☆</span>
+                                            <span class="rating-text">4.5 (189)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="price-cell">
+                                    EGP 900
+                                    <div class="price-label">Total price</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="delivery-cell">
+                                    <i class="fas fa-truck delivery-icon"></i>
+                                    <span class="delivery-time">4 days</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="features-list">
+                                    <span class="feature-tag">Matte Finish</span>
+                                    <span class="feature-tag">Round Corners</span>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="message-text">Professional business cards with attention to detail. Multiple finish options available.</p>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-success">Select Quote</button>
+                                    <button class="btn btn-outline">View Details</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Quote Row 4 -->
+                        <tr>
+                            <td>
+                                <div class="vendor-cell">
+                                    <div class="vendor-logo">
+                                        <i class="fas fa-stamp"></i>
+                                    </div>
+                                    <div class="vendor-info">
+                                        <div class="vendor-name">Digital Print Egypt</div>
+                                        <div class="vendor-rating">
+                                            <span class="stars">★★★★★</span>
+                                            <span class="rating-text">4.9 (342)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="price-cell">
+                                    EGP 1,100
+                                    <div class="price-label">Total price</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="delivery-cell">
+                                    <i class="fas fa-truck delivery-icon"></i>
+                                    <span class="delivery-time">5 days</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="features-list">
+                                    <span class="feature-tag">Eco-Friendly</span>
+                                    <span class="feature-tag">Gold Foiling</span>
+                                    <span class="feature-tag">Premium Box</span>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="message-text">Premium business cards with gold foiling option. Eco-friendly materials available.</p>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-success">Select Quote</button>
+                                    <button class="btn btn-outline">View Details</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Quote Row 5 -->
+                        <tr>
+                            <td>
+                                <div class="vendor-cell">
+                                    <div class="vendor-logo">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="vendor-info">
+                                        <div class="vendor-name">Premium Print Solutions</div>
+                                        <div class="vendor-rating">
+                                            <span class="stars">★★★★☆</span>
+                                            <span class="rating-text">4.6 (156)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="price-cell">
+                                    EGP 1,250
+                                    <div class="price-label">Total price</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="delivery-cell">
+                                    <i class="fas fa-truck delivery-icon"></i>
+                                    <span class="delivery-time">3 days</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="features-list">
+                                    <span class="feature-tag">Embossing</span>
+                                    <span class="feature-tag">Spot UV</span>
+                                    <span class="feature-tag">Design Service</span>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="message-text">Luxury business cards with embossing and spot UV. Free design consultation included.</p>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-success">Select Quote</button>
+                                    <button class="btn btn-outline">View Details</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Comparison Cards (Mobile View) -->
+        <div class="comparison-cards">
+            <!-- Quote Card 1 - Best Value -->
+            <div class="quote-card best-value">
+                <span class="best-value-badge">BEST VALUE</span>
+                <div class="card-header">
+                    <div class="card-vendor">
+                        <div class="vendor-logo">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div>
+                            <div class="vendor-name">Quick Print Services</div>
+                            <div class="vendor-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">4.7</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-price">
+                        <div class="price-cell best-price">EGP 850</div>
+                        <div class="price-label">Total price</div>
+                    </div>
+                </div>
+
+                <div class="card-details">
+                    <div class="detail-item">
+                        <i class="fas fa-truck detail-icon"></i>
+                        <span class="detail-text">3 days delivery</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-check-circle detail-icon"></i>
+                        <span class="detail-text">Free Delivery</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-star detail-icon"></i>
+                        <span class="detail-text">UV Coating</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-award detail-icon"></i>
+                        <span class="detail-text">Premium Paper</span>
+                    </div>
+                </div>
+
+                <div class="card-message">
+                    <p class="message-text">We can deliver high-quality business cards with UV coating at competitive price. Express delivery available.</p>
+                </div>
+
+                <div class="card-actions">
+                    <button class="btn btn-success">Select Quote</button>
+                    <button class="btn btn-outline">View Details</button>
+                </div>
+            </div>
+
+            <!-- Additional Quote Cards... (continuing with all 5 cards for mobile view) -->
+        </div>
+
+        <!-- Additional Analysis Cards -->
+        <div class="analysis-cards">
+            <!-- Price Breakdown Card -->
+            <div class="analysis-card">
+                <h3 class="analysis-title">
+                    <i class="fas fa-chart-bar" style="color: #3B82F6;"></i>
+                    Price Comparison
+                </h3>
+                <div style="space-y: 0.75rem;">
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #E5E7EB;">
+                        <span style="color: #6B7280;">Lowest Price:</span>
+                        <span style="font-weight: 600; color: #10B981;">EGP 850</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #E5E7EB;">
+                        <span style="color: #6B7280;">Highest Price:</span>
+                        <span style="font-weight: 600; color: #1F2937;">EGP 1,250</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #E5E7EB;">
+                        <span style="color: #6B7280;">Average Price:</span>
+                        <span style="font-weight: 600; color: #1F2937;">EGP 990</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                        <span style="color: #6B7280;">Price Range:</span>
+                        <span style="font-weight: 600; color: #F59E0B;">EGP 400</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delivery Timeline Card -->
+            <div class="analysis-card">
+                <h3 class="analysis-title">
+                    <i class="fas fa-clock" style="color: #3B82F6;"></i>
+                    Delivery Timeline
+                </h3>
+                <div style="space-y: 0.75rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0;">
+                        <div style="width: 8px; height: 8px; background: #10B981; border-radius: 50%;"></div>
+                        <span style="color: #6B7280;">Fastest:</span>
+                        <span style="font-weight: 600; color: #1F2937;">24 hours (Nile Printing)</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0;">
+                        <div style="width: 8px; height: 8px; background: #F59E0B; border-radius: 50%;"></div>
+                        <span style="color: #6B7280;">Average:</span>
+                        <span style="font-weight: 600; color: #1F2937;">3.6 days</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0;">
+                        <div style="width: 8px; height: 8px; background: #EF4444; border-radius: 50%;"></div>
+                        <span style="color: #6B7280;">Latest:</span>
+                        <span style="font-weight: 600; color: #1F2937;">5 days</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Features Card -->
+            <div class="analysis-card">
+                <h3 class="analysis-title">
+                    <i class="fas fa-star" style="color: #3B82F6;"></i>
+                    Popular Features
+                </h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <span style="background: #EBF5FF; color: #3B82F6; padding: 0.375rem 0.75rem; border-radius: 1rem; font-size: 0.875rem; font-weight: 500;">
+                        UV Coating (3 vendors)
+                    </span>
+                    <span style="background: #F0FDF4; color: #10B981; padding: 0.375rem 0.75rem; border-radius: 1rem; font-size: 0.875rem; font-weight: 500;">
+                        Free Delivery (2 vendors)
+                    </span>
+                    <span style="background: #FEF3C7; color: #D97706; padding: 0.375rem 0.75rem; border-radius: 1rem; font-size: 0.875rem; font-weight: 500;">
+                        Premium Paper (4 vendors)
+                    </span>
+                    <span style="background: #FCE7F3; color: #BE185D; padding: 0.375rem 0.75rem; border-radius: 1rem; font-size: 0.875rem; font-weight: 500;">
+                        Design Service (2 vendors)
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Footer -->
+        <div class="summary-footer">
+            <h3 class="summary-title">Our Recommendation</h3>
+            <div class="recommendation">
+                <div class="recommendation-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="recommendation-text">
+                    <div class="recommendation-vendor">Quick Print Services offers the best value</div>
+                    <div class="recommendation-reason">Lowest price with premium features, excellent rating, and reasonable delivery time. They offer UV coating and free delivery at the most competitive price.</div>
+                </div>
+                <button class="btn btn-success btn-lg">
+                    Select This Quote
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 PrintHub Egypt. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleLanguage() {
+            const langText = document.getElementById('langText');
+            langText.textContent = langText.textContent === 'عربي' ? 'English' : 'عربي';
+        }
+
+        function setView(view) {
+            const tableView = document.querySelector('.comparison-table');
+            const cardsView = document.querySelector('.comparison-cards');
+            const viewBtns = document.querySelectorAll('.view-btn');
+
+            viewBtns.forEach(btn => btn.classList.remove('active'));
+
+            if (view === 'table') {
+                tableView.style.display = 'block';
+                cardsView.style.display = 'none';
+                viewBtns[0].classList.add('active');
+            } else {
+                tableView.style.display = 'none';
+                cardsView.style.display = 'block';
+                viewBtns[1].classList.add('active');
+            }
+        }
+
+        // Highlight best values
+        window.addEventListener('DOMContentLoaded', () => {
+            // Find lowest price
+            const prices = document.querySelectorAll('.price-cell');
+            let lowestPrice = Infinity;
+            let lowestPriceElement = null;
+
+            prices.forEach(price => {
+                const value = parseInt(price.textContent.replace(/[^0-9]/g, ''));
+                if (value < lowestPrice) {
+                    lowestPrice = value;
+                    lowestPriceElement = price;
+                }
+            });
+
+            // Find fastest delivery
+            const deliveries = document.querySelectorAll('.delivery-time');
+            let fastestDelivery = Infinity;
+            let fastestElement = null;
+
+            deliveries.forEach(delivery => {
+                const text = delivery.textContent.toLowerCase();
+                let hours = 0;
+
+                if (text.includes('hour')) {
+                    hours = parseInt(text);
+                } else if (text.includes('day')) {
+                    hours = parseInt(text) * 24;
+                }
+
+                if (hours < fastestDelivery) {
+                    fastestDelivery = hours;
+                    fastestElement = delivery.parentElement;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

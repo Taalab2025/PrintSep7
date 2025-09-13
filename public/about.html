@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - PrintHub Egypt</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Cairo', sans-serif;
+            background-color: #f8f9fa;
+            color: #2C3E50;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #3B82F6;
+            font-size: 1.5rem;
+            font-weight: 700;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #6B7280;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #3B82F6;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #3B82F6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-outline {
+            background: white;
+            color: #6B7280;
+            border: 1px solid #E5E7EB;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-section p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1F2937;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #6B7280;
+            font-size: 1.125rem;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Story Section */
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .story-text h3 {
+            font-size: 1.875rem;
+            color: #1F2937;
+            margin-bottom: 1rem;
+        }
+
+        .story-text p {
+            color: #4B5563;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .story-image {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .story-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #3B82F6;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #6B7280;
+            font-size: 1rem;
+        }
+
+        /* Mission Cards */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .mission-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .mission-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .mission-card h3 {
+            font-size: 1.25rem;
+            color: #1F2937;
+            margin-bottom: 1rem;
+        }
+
+        .mission-card p {
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .team-member-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .team-member-info {
+            padding: 1.5rem;
+        }
+
+        .team-member-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .team-member-role {
+            color: #6B7280;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .social-link {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B7280;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: #3B82F6;
+            color: white;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            border-radius: 1rem;
+            margin: 4rem 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-white {
+            background: white;
+            color: #2C3E50;
+        }
+
+        .btn-white:hover {
+            background: #F9FAFB;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1F2937;
+            color: #9CA3AF;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #9CA3AF;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .story-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                padding: 0 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-print"></i>
+                    <span>PrintHub Egypt</span>
+                </a>
+
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="vendors.html" class="nav-link">Vendors</a>
+                    <a href="about.html" class="nav-link active">About</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+
+                <div class="nav-actions">
+                    <button class="btn btn-outline" onclick="toggleLanguage()">
+                        <i class="fas fa-globe"></i>
+                        <span id="langText">عربي</span>
+                    </button>
+                    <a href="login.html" class="btn btn-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li class="active" data-en="About Us" data-ar="معلومات عنا">About Us</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>About PrintHub Egypt</h1>
+            <p>Revolutionizing the printing industry by connecting businesses with quality printing services across Egypt</p>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Story</h2>
+            <p class="section-subtitle">How we started and where we're heading</p>
+
+            <div class="story-content">
+                <div class="story-text">
+                    <h3>Founded in 2024</h3>
+                    <p>PrintHub Egypt was born from a simple observation: businesses in Egypt struggled to find reliable printing services, compare prices, and manage their printing projects efficiently.</p>
+                    <p>We created a platform that brings together the best printing vendors across Egypt, making it easy for businesses to get competitive quotes, compare services, and track their orders - all in one place.</p>
+                    <p>Today, we're proud to serve thousands of businesses across Egypt, from startups to large corporations, helping them save time and money on their printing needs.</p>
+                </div>
+                <div class="story-image">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 400px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">5,000+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Verified Vendors</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50,000+</div>
+                    <div class="stat-label">Orders Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Cities Covered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Values -->
+    <section class="section" style="background: #F9FAFB;">
+        <div class="container">
+            <h2 class="section-title">Our Mission & Values</h2>
+            <p class="section-subtitle">What drives us every day</p>
+
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>To democratize access to quality printing services by creating a transparent, efficient marketplace that benefits both businesses and printing vendors.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Our Vision</h3>
+                    <p>To become the leading printing marketplace in the Middle East, setting the standard for quality, reliability, and innovation in the printing industry.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Our Values</h3>
+                    <p>Transparency, quality, innovation, and customer satisfaction are at the core of everything we do. We believe in fair business practices and supporting local vendors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Why Choose PrintHub Egypt?</h2>
+            <p class="section-subtitle">Benefits that make us stand out</p>
+
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Competitive Pricing</h3>
+                    <p>Compare quotes from multiple vendors to ensure you get the best price for your printing needs.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Quality Guaranteed</h3>
+                    <p>All our vendors are verified and rated by real customers, ensuring you work with trusted professionals.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Save Time</h3>
+                    <p>No more calling multiple vendors. Get all your quotes in one place within 24-48 hours.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Track Orders</h3>
+                    <p>Monitor your printing projects from quote to delivery with real-time status updates.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Our customer support team is always ready to help you with any questions or concerns.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Nationwide Coverage</h3>
+                    <p>Access printing services across Egypt, from Cairo to Alexandria and beyond.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section" style="background: #F9FAFB;">
+        <div class="container">
+            <h2 class="section-title">Meet Our Team</h2>
+            <p class="section-subtitle">The people behind PrintHub Egypt</p>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-member-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="team-member-info">
+                        <div class="team-member-name">Ahmed Hassan</div>
+                        <div class="team-member-role">CEO & Founder</div>
+                        <div class="team-social">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="team-member-info">
+                        <div class="team-member-name">Sara Mohamed</div>
+                        <div class="team-member-role">Head of Operations</div>
+                        <div class="team-social">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="team-member-info">
+                        <div class="team-member-name">Omar Ali</div>
+                        <div class="team-member-role">Tech Lead</div>
+                        <div class="team-social">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="team-member-info">
+                        <div class="team-member-name">Fatima Ahmed</div>
+                        <div class="team-member-role">Customer Success</div>
+                        <div class="team-social">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container">
+            <div class="cta-section">
+                <h2>Ready to Transform Your Printing Experience?</h2>
+                <p>Join thousands of businesses already using PrintHub Egypt</p>
+                <div class="cta-buttons">
+                    <a href="quote-request.html" class="btn btn-white btn-lg">
+                        <i class="fas fa-file-alt"></i>
+                        Get Started Now
+                    </a>
+                    <a href="vendors.html" class="btn btn-outline btn-lg" style="border-color: white; color: white;">
+                        <i class="fas fa-store"></i>
+                        Browse Vendors
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <a href="about.html">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Press</a>
+                    <a href="#">Blog</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <a href="services.html">Browse Services</a>
+                    <a href="quote-request.html">Get Quote</a>
+                    <a href="vendors.html">Find Vendors</a>
+                    <a href="#">Track Order</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+                    <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 PrintHub Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleLanguage() {
+            const langText = document.getElementById('langText');
+            langText.textContent = langText.textContent === 'عربي' ? 'English' : 'عربي';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Quotes - Egypt Printing Marketplace</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+
+    <style>
+        /* Quotes Specific Styles */
+        .quotes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .quotes-filters {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #27AE60;
+        }
+
+        .quotes-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .quote-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .quote-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .quote-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #ecf0f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .quote-id {
+            font-weight: 600;
+            color: #2C3E50;
+            font-size: 1.1rem;
+        }
+
+        .quote-date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .quote-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-received {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-accepted {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-expired {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .quote-body {
+            padding: 1.5rem;
+        }
+
+        .quote-service {
+            margin-bottom: 1rem;
+        }
+
+        .quote-service h3 {
+            color: #2C3E50;
+            margin-bottom: 0.5rem;
+        }
+
+        .quote-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .spec-item i {
+            color: #27AE60;
+        }
+
+        .vendor-responses {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .response-count {
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .vendor-list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .vendor-response {
+            background: white;
+            border: 1px solid #ecf0f1;
+            border-radius: 5px;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .vendor-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .vendor-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            background: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vendor-details h4 {
+            margin-bottom: 0.25rem;
+            color: #2C3E50;
+        }
+
+        .vendor-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #f39c12;
+            font-size: 0.85rem;
+        }
+
+        .vendor-price {
+            text-align: right;
+        }
+
+        .price-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #27AE60;
+        }
+
+        .price-delivery {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        .quote-actions {
+            padding: 1.5rem;
+            border-top: 1px solid #ecf0f1;
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            color: #ecf0f1;
+            margin-bottom: 1rem;
+        }
+
+        .empty-title {
+            font-size: 1.5rem;
+            color: #2C3E50;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-text {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+        }
+
+        /* RTL Adjustments */
+        html[dir="rtl"] .quotes-header {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .quote-header {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .vendor-response {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .vendor-info {
+            flex-direction: row-reverse;
+        }
+
+        html[dir="rtl"] .vendor-price {
+            text-align: left;
+        }
+
+        html[dir="rtl"] .quote-actions {
+            justify-content: flex-start;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                </div>
+
+                <nav class="main-nav">
+                    <a href="../public/index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+                    <a href="../public/services.html" data-en="Services" data-ar="الخدمات">Services</a>
+                    <a href="../public/vendors.html" data-en="Vendors" data-ar="الموردون">Vendors</a>
+                    <a href="../public/about.html" data-en="About" data-ar="حول">About</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span data-en="My Account" data-ar="حسابي">My Account</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span></a>
+                            <a href="profile.html"><i class="fas fa-user"></i> <span data-en="Profile" data-ar="الملف الشخصي">Profile</span></a>
+                            <a href="quotes.html" class="active"><i class="fas fa-file-invoice"></i> <span data-en="My Quotes" data-ar="عروض الأسعار">My Quotes</span></a>
+                            <a href="orders.html"><i class="fas fa-box"></i> <span data-en="Orders" data-ar="الطلبات">Orders</span></a>
+                            <hr>
+                            <a href="../public/login.html"><i class="fas fa-sign-out-alt"></i> <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span></a>
+                        </div>
+                    </div>
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <span data-en="العربية" data-ar="English">العربية</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="dashboard.html" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</a></li>
+                <li class="active" data-en="Quote Requests" data-ar="طلبات الأسعار">Quote Requests</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="quotes-main">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="quotes-header">
+                <div>
+                    <h1 data-en="My Quote Requests" data-ar="طلبات عروض الأسعار">My Quote Requests</h1>
+                    <p data-en="Manage and track all your printing quote requests" data-ar="إدارة وتتبع جميع طلبات عروض أسعار الطباعة">Manage and track all your printing quote requests</p>
+                </div>
+                <a href="../public/quote-request.html" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    <span data-en="New Quote Request" data-ar="طلب عرض سعر جديد">New Quote Request</span>
+                </a>
+            </div>
+
+            <!-- Filters -->
+            <div class="quotes-filters">
+                <select class="filter-select">
+                    <option data-en="All Status" data-ar="جميع الحالات">All Status</option>
+                    <option data-en="Pending" data-ar="معلق">Pending</option>
+                    <option data-en="Quotes Received" data-ar="تم استلام العروض">Quotes Received</option>
+                    <option data-en="Accepted" data-ar="مقبول">Accepted</option>
+                    <option data-en="Expired" data-ar="منتهي">Expired</option>
+                </select>
+
+                <select class="filter-select">
+                    <option data-en="All Categories" data-ar="جميع الفئات">All Categories</option>
+                    <option data-en="Business Cards" data-ar="بطاقات العمل">Business Cards</option>
+                    <option data-en="Banners" data-ar="لافتات">Banners</option>
+                    <option data-en="Brochures" data-ar="كتيبات">Brochures</option>
+                    <option data-en="Packaging" data-ar="التغليف">Packaging</option>
+                </select>
+
+                <select class="filter-select">
+                    <option data-en="Sort by: Newest" data-ar="ترتيب: الأحدث">Sort by: Newest</option>
+                    <option data-en="Sort by: Oldest" data-ar="ترتيب: الأقدم">Sort by: Oldest</option>
+                    <option data-en="Sort by: Price (Low to High)" data-ar="ترتيب: السعر (الأقل للأعلى)">Sort by: Price (Low to High)</option>
+                    <option data-en="Sort by: Price (High to Low)" data-ar="ترتيب: السعر (الأعلى للأقل)">Sort by: Price (High to Low)</option>
+                </select>
+            </div>
+
+            <!-- Quotes Grid -->
+            <div class="quotes-grid">
+                <!-- Quote Card 1 - With Multiple Responses -->
+                <div class="quote-card">
+                    <div class="quote-header">
+                        <div>
+                            <div class="quote-id">#QR-2024-0089</div>
+                            <div class="quote-date">December 10, 2024</div>
+                        </div>
+                        <span class="quote-status status-received" data-en="3 Quotes Received" data-ar="تم استلام 3 عروض">3 Quotes Received</span>
+                    </div>
+
+                    <div class="quote-body">
+                        <div class="quote-service">
+                            <h3 data-en="Business Cards - Premium" data-ar="بطاقات العمل - فاخرة">Business Cards - Premium</h3>
+                            <div class="quote-specs">
+                                <span class="spec-item">
+                                    <i class="fas fa-copy"></i>
+                                    <span data-en="500 pieces" data-ar="500 قطعة">500 pieces</span>
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-palette"></i>
+                                    <span data-en="Full Color" data-ar="ألوان كاملة">Full Color</span>
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-layer-group"></i>
+                                    <span data-en="350gsm Card" data-ar="كارت 350 جرام">350gsm Card</span>
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-star"></i>
+                                    <span data-en="Matt Lamination" data-ar="تغليف مط">Matt Lamination</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="vendor-responses">
+                            <div class="response-header">
+                                <span class="response-count" data-en="3 Vendor Responses" data-ar="3 ردود من الموردين">3 Vendor Responses</span>
+                                <span class="quote-deadline" style="color: #e74c3c; font-size: 0.9rem;">
+                                    <i class="fas fa-clock"></i>
+                                    <span data-en="Expires in 2 days" data-ar="ينتهي خلال يومين">Expires in 2 days</span>
+                                </span>
+                            </div>
+
+                            <div class="vendor-list">
+                                <div class="vendor-response">
+                                    <div class="vendor-info">
+                                        <div class="vendor-logo">
+                                            <i class="fas fa-store"></i>
+                                        </div>
+                                        <div class="vendor-details">
+                                            <h4>PrintPro Solutions</h4>
+                                            <div class="vendor-rating">
+                                                <i class="fas fa-star"></i>
+                                                <span>4.8</span>
+                                                <span style="color: #7f8c8d;">(124 reviews)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vendor-price">
+                                        <div class="price-value">EGP 850</div>
+                                        <div class="price-delivery" data-en="3 days delivery" data-ar="التسليم خلال 3 أيام">3 days delivery</div>
+                                    </div>
+                                </div>
+
+                                <div class="vendor-response">
+                                    <div class="vendor-info">
+                                        <div class="vendor-logo">
+                                            <i class="fas fa-store"></i>
+                                        </div>
+                                        <div class="vendor-details">
+                                            <h4>FastPrint Egypt</h4>
+                                            <div class="vendor-rating">
+                                                <i class="fas fa-star"></i>
+                                                <span>4.6</span>
+                                                <span style="color: #7f8c8d;">(89 reviews)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vendor-price">
+                                        <div class="price-value">EGP 920</div>
+                                        <div class="price-delivery" data-en="2 days delivery" data-ar="التسليم خلال يومين">2 days delivery</div>
+                                    </div>
+                                </div>
+
+                                <div class="vendor-response">
+                                    <div class="vendor-info">
+                                        <div class="vendor-logo">
+                                            <i class="fas fa-store"></i>
+                                        </div>
+                                        <div class="vendor-details">
+                                            <h4>Quality Prints Co.</h4>
+                                            <div class="vendor-rating">
+                                                <i class="fas fa-star"></i>
+                                                <span>4.9</span>
+                                                <span style="color: #7f8c8d;">(201 reviews)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vendor-price">
+                                        <div class="price-value">EGP 780</div>
+                                        <div class="price-delivery" data-en="5 days delivery" data-ar="التسليم خلال 5 أيام">5 days delivery</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quote-actions">
+                        <a href="../public/quote-comparison.html" class="btn btn-primary">
+                            <i class="fas fa-balance-scale"></i>
+                            <span data-en="Compare Quotes" data-ar="مقارنة العروض">Compare Quotes</span>
+                        </a>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-eye"></i>
+                            <span data-en="View Details" data-ar="عرض التفاصيل">View Details</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quote Card 2 - Pending -->
+                <div class="quote-card">
+                    <div class="quote-header">
+                        <div>
+                            <div class="quote-id">#QR-2024-0088</div>
+                            <div class="quote-date">December 9, 2024</div>
+                        </div>
+                        <span class="quote-status status-pending" data-en="Pending Responses" data-ar="في انتظار الردود">Pending Responses</span>
+                    </div>
+
+                    <div class="quote-body">
+                        <div class="quote-service">
+                            <h3 data-en="Roll-up Banners" data-ar="لافتات رول أب">Roll-up Banners</h3>
+                            <div class="quote-specs">
+                                <span class="spec-item">
+                                    <i class="fas fa-copy"></i>
+                                    <span data-en="10 pieces" data-ar="10 قطع">10 pieces</span>
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-ruler-combined"></i>
+                                    <span data-en="85x200cm" data-ar="85×200 سم">85x200cm</span>
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-palette"></i>
+                                    <span data-en="Full Color Print" data-ar="طباعة ألوان كاملة">Full Color Print</span>
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-box"></i>
+                                    <span data-en="With Stand" data-ar="مع حامل">With Stand</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 8px; margin-top: 1rem;">
+                            <i class="fas fa-hourglass-half" style="font-size: 2rem; color: #f39c12; margin-bottom: 1rem;"></i>
+                            <p data-en="Waiting for vendor responses..." data-ar="في انتظار ردود الموردين...">Waiting for vendor responses...</p>
+                            <small style="color: #7f8c8d;" data-en="Quote request sent to 5 vendors" data-ar="تم إرسال طلب عرض السعر إلى 5 موردين">Quote request sent to 5 vendors</small>
+                        </div>
+                    </div>
+
+                    <div class="quote-actions">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-edit"></i>
+                            <span data-en="Edit Request" data-ar="تعديل الطلب">Edit Request</span>
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-times"></i>
+                            <span data-en="Cancel" data-ar="إلغاء">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quote Card 3 - Accepted -->
+                <div class="quote-card">
+                    <div class="quote-header">
+                        <div>
+                            <div class="quote-id">#QR-2024-0087</div>
+                            <div class="quote-date">December 5, 2024</div>
+                        </div>
+                        <span class="quote-status status-accepted" data-en="Accepted" data-ar="مقبول">Accepted</span>
+                    </div>
+
+                    <div class="quote-body">
+                        <div class="quote-service">
+                            <h3 data-en="Flyers - A5 Size" data-ar="منشورات - حجم A5">Flyers - A5 Size</h3>
+                            <div class="quote-specs">
+                                <span class="spec-item">
+                                    <i class="fas fa-copy"></i>
+                                    <span data-en="1000 pieces" data-ar="1000 قطعة">1000 pieces</span>
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-palette"></i>
+                                    <span data-en="Double Sided" data-ar="وجهين">Double Sided</span>
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-layer-group"></i>
+                                    <span data-en="150gsm Paper" data-ar="ورق 150 جرام">150gsm Paper</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div style="background: #d4edda; border: 1px solid #c3e6cb; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <strong style="color: #155724;">Accepted Quote from PrintMaster Pro</strong>
+                                    <p style="margin: 0.5rem 0 0; color: #155724;">Order #ORD-2024-1234</p>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-size: 1.25rem; font-weight: 700; color: #155724;">EGP 1,250</div>
+                                    <small style="color: #155724;">Delivered on Dec 8</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quote-actions">
+                        <a href="orders.html" class="btn btn-primary">
+                            <i class="fas fa-box"></i>
+                            <span data-en="View Order" data-ar="عرض الطلب">View Order</span>
+                        </a>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-download"></i>
+                            <span data-en="Download Invoice" data-ar="تحميل الفاتورة">Download Invoice</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quote Card 4 - Expired -->
+                <div class="quote-card">
+                    <div class="quote-header">
+                        <div>
+                            <div class="quote-id">#QR-2024-0086</div>
+                            <div class="quote-date">November 28, 2024</div>
+                        </div>
+                        <span class="quote-status status-expired" data-en="Expired" data-ar="منتهي">Expired</span>
+                    </div>
+
+                    <div class="quote-body">
+                        <div class="quote-service">
+                            <h3 data-en="Custom Packaging Boxes" data-ar="صناديق تغليف مخصصة">Custom Packaging Boxes</h3>
+                            <div class="quote-specs">
+                                <span class="spec-item">
+                                    <i class="fas fa-copy"></i>
+                                    <span data-en="200 pieces" data-ar="200 قطعة">200 pieces</span>
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-ruler-combined"></i>
+                                    <span data-en="30x20x10cm" data-ar="30×20×10 سم">30x20x10cm</span>
+                                </span>
+                                <span class="spec-item">
+                                    <i class="fas fa-layer-group"></i>
+                                    <span data-en="Corrugated" data-ar="مموج">Corrugated</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; padding: 1.5rem; background: #f8d7da; border-radius: 8px; margin-top: 1rem;">
+                            <i class="fas fa-exclamation-circle" style="font-size: 2rem; color: #721c24; margin-bottom: 0.5rem;"></i>
+                            <p style="color: #721c24; margin: 0;" data-en="This quote request has expired" data-ar="انتهت صلاحية طلب عرض السعر هذا">This quote request has expired</p>
+                        </div>
+                    </div>
+
+                    <div class="quote-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-redo"></i>
+                            <span data-en="Request Again" data-ar="طلب مرة أخرى">Request Again</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" style="margin-top: 3rem;">
+                <button class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 data-en="About PrintHub" data-ar="عن PrintHub">About PrintHub</h4>
+                    <p data-en="Your trusted printing marketplace in Egypt" data-ar="سوق الطباعة الموثوق به في مصر">Your trusted printing marketplace in Egypt</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+                    <ul>
+                        <li><a href="../public/services.html" data-en="Services" data-ar="الخدمات">Services</a></li>
+                        <li><a href="../public/vendors.html" data-en="Vendors" data-ar="الموردون">Vendors</a></li>
+                        <li><a href="../public/about.html" data-en="About Us" data-ar="من نحن">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Contact" data-ar="اتصل بنا">Contact</h4>
+                    <p><i class="fas fa-envelope"></i> info@printhub.eg</p>
+                    <p><i class="fas fa-phone"></i> +20 100 123 4567</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-en="© 2024 PrintHub Egypt. All rights reserved." data-ar="© 2024 PrintHub مصر. جميع الحقوق محفوظة.">© 2024 PrintHub Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/language.js"></script>
+</body>
+</html>

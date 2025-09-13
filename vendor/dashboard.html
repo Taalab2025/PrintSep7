@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard - Egypt Printing Marketplace</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+
+    <style>
+        /* Vendor Dashboard Specific */
+        .vendor-header {
+            background: linear-gradient(135deg, #2C3E50 0%, #34495e 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .vendor-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .vendor-logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2C3E50;
+            font-size: 2rem;
+        }
+
+        .vendor-details h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .vendor-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .vendor-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .subscription-banner {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .metric-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .metric-change {
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .metric-change.positive {
+            color: #27AE60;
+        }
+
+        .metric-change.negative {
+            color: #e74c3c;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2C3E50;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .recent-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .recent-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .recent-card h3 {
+            margin-bottom: 1rem;
+            color: #2C3E50;
+        }
+
+        .request-item {
+            padding: 1rem;
+            border-bottom: 1px solid #ecf0f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .request-item:last-child {
+            border-bottom: none;
+        }
+
+        .request-info h4 {
+            margin-bottom: 0.25rem;
+            color: #2C3E50;
+        }
+
+        .request-meta {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        .request-action {
+            background: #27AE60;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .request-action:hover {
+            background: #229954;
+        }
+
+        /* Sidebar Navigation */
+        .vendor-nav {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            left: 20px;
+            top: 100px;
+            width: 250px;
+        }
+
+        .vendor-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #2C3E50;
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .vendor-nav-item:hover,
+        .vendor-nav-item.active {
+            background: #f8fffe;
+            color: #27AE60;
+        }
+
+        .vendor-content {
+            margin-left: 280px;
+        }
+
+        @media (max-width: 1024px) {
+            .vendor-nav {
+                display: none;
+            }
+
+            .vendor-content {
+                margin-left: 0;
+            }
+
+            .recent-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                </div>
+
+                <nav class="main-nav">
+                    <span style="color: #27AE60; font-weight: 600;">Vendor Portal</span>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-store"></i>
+                            <span data-en="PrintPro Solutions" data-ar="PrintPro Solutions">PrintPro Solutions</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span></a>
+                            <a href="services.html"><i class="fas fa-print"></i> <span data-en="My Services" data-ar="خدماتي">My Services</span></a>
+                            <a href="quotes.html"><i class="fas fa-file-invoice"></i> <span data-en="Quote Requests" data-ar="طلبات الأسعار">Quote Requests</span></a>
+                            <a href="orders.html"><i class="fas fa-box"></i> <span data-en="Orders" data-ar="الطلبات">Orders</span></a>
+                            <a href="analytics.html"><i class="fas fa-chart-line"></i> <span data-en="Analytics" data-ar="التحليلات">Analytics</span></a>
+                            <a href="profile.html"><i class="fas fa-cog"></i> <span data-en="Settings" data-ar="الإعدادات">Settings</span></a>
+                            <hr>
+                            <a href="../public/login.html"><i class="fas fa-sign-out-alt"></i> <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span></a>
+                        </div>
+                    </div>
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <span data-en="العربية" data-ar="English">العربية</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="../public/index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li class="active" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Vendor Header -->
+    <div class="vendor-header">
+        <div class="container">
+            <div class="vendor-info">
+                <div class="vendor-logo">
+                    <i class="fas fa-store"></i>
+                </div>
+                <div class="vendor-details">
+                    <h1>Welcome back, PrintPro Solutions!</h1>
+                    <p>Your business performance overview</p>
+                    <div class="vendor-stats">
+                        <div class="vendor-stat">
+                            <i class="fas fa-star" style="color: #f39c12;"></i>
+                            <span>4.8 Rating</span>
+                        </div>
+                        <div class="vendor-stat">
+                            <i class="fas fa-check-circle" style="color: #27AE60;"></i>
+                            <span>Verified Vendor</span>
+                        </div>
+                        <div class="vendor-stat">
+                            <i class="fas fa-calendar" style="color: #3498db;"></i>
+                            <span>Member since 2022</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="vendor-main">
+        <div class="container">
+            <!-- Subscription Banner -->
+            <div class="subscription-banner">
+                <div>
+                    <strong>Free Tier Status:</strong> You've used 7 out of 10 free quote responses this month
+                    <div style="margin-top: 0.5rem;">
+                        <div style="background: #ecf0f1; height: 8px; border-radius: 4px; overflow: hidden;">
+                            <div style="background: #f39c12; height: 100%; width: 70%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <a href="subscription.html" class="btn btn-primary">
+                    <i class="fas fa-crown"></i>
+                    <span data-en="Upgrade to Premium" data-ar="الترقية إلى المميز">Upgrade to Premium</span>
+                </a>
+            </div>
+
+            <!-- Metrics Grid -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon" style="background: rgba(39, 174, 96, 0.1);">
+                            <i class="fas fa-file-invoice" style="color: #27AE60;"></i>
+                        </div>
+                        <div class="metric-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+12%</span>
+                        </div>
+                    </div>
+                    <div class="metric-value">24</div>
+                    <div class="metric-label" data-en="Active Quote Requests" data-ar="طلبات عروض أسعار نشطة">Active Quote Requests</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon" style="background: rgba(52, 152, 219, 0.1);">
+                            <i class="fas fa-box" style="color: #3498db;"></i>
+                        </div>
+                        <div class="metric-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+8%</span>
+                        </div>
+                    </div>
+                    <div class="metric-value">18</div>
+                    <div class="metric-label" data-en="Orders in Progress" data-ar="طلبات قيد التنفيذ">Orders in Progress</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon" style="background: rgba(155, 89, 182, 0.1);">
+                            <i class="fas fa-dollar-sign" style="color: #9b59b6;"></i>
+                        </div>
+                        <div class="metric-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+23%</span>
+                        </div>
+                    </div>
+                    <div class="metric-value">EGP 45,280</div>
+                    <div class="metric-label" data-en="Revenue This Month" data-ar="الإيرادات هذا الشهر">Revenue This Month</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon" style="background: rgba(241, 196, 15, 0.1);">
+                            <i class="fas fa-percentage" style="color: #f1c40f;"></i>
+                        </div>
+                        <div class="metric-change negative">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>-2%</span>
+                        </div>
+                    </div>
+                    <div class="metric-value">68%</div>
+                    <div class="metric-label" data-en="Quote Conversion Rate" data-ar="معدل تحويل العروض">Quote Conversion Rate</div>
+                </div>
+            </div>
+
+            <!-- Chart Section -->
+            <div class="chart-container">
+                <h3 data-en="Revenue Overview - Last 7 Days" data-ar="نظرة عامة على الإيرادات - آخر 7 أيام">Revenue Overview - Last 7 Days</h3>
+                <div style="height: 300px; display: flex; align-items: center; justify-content: center; background: #f8f9fa; border-radius: 5px; margin-top: 1rem;">
+                    <p style="color: #7f8c8d;">Chart placeholder - Revenue trends will display here</p>
+                </div>
+            </div>
+
+            <!-- Recent Sections -->
+            <div class="recent-section">
+                <!-- Recent Quote Requests -->
+                <div class="recent-card">
+                    <h3 data-en="New Quote Requests" data-ar="طلبات عروض أسعار جديدة">New Quote Requests</h3>
+
+                    <div class="request-item">
+                        <div class="request-info">
+                            <h4>500 Business Cards</h4>
+                            <div class="request-meta">Ahmed Mohamed • 2 hours ago</div>
+                        </div>
+                        <a href="quotes.html" class="request-action">
+                            <span data-en="Respond" data-ar="رد">Respond</span>
+                        </a>
+                    </div>
+
+                    <div class="request-item">
+                        <div class="request-info">
+                            <h4>10 Roll-up Banners</h4>
+                            <div class="request-meta">Sara Ahmed • 4 hours ago</div>
+                        </div>
+                        <a href="quotes.html" class="request-action">
+                            <span data-en="Respond" data-ar="رد">Respond</span>
+                        </a>
+                    </div>
+
+                    <div class="request-item">
+                        <div class="request-info">
+                            <h4>1000 Flyers A5</h4>
+                            <div class="request-meta">Tech Company • 6 hours ago</div>
+                        </div>
+                        <a href="quotes.html" class="request-action">
+                            <span data-en="Respond" data-ar="رد">Respond</span>
+                        </a>
+                    </div>
+
+                    <a href="quotes.html" style="display: block; text-align: center; margin-top: 1rem; color: #27AE60; text-decoration: none;">
+                        <span data-en="View All Requests →" data-ar="عرض جميع الطلبات ←">View All Requests →</span>
+                    </a>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="recent-card">
+                    <h3 data-en="Active Orders" data-ar="الطلبات النشطة">Active Orders</h3>
+
+                    <div class="request-item">
+                        <div class="request-info">
+                            <h4>Order #1235</h4>
+                            <div class="request-meta">Business Cards • Due tomorrow</div>
+                        </div>
+                        <span style="background: #f39c12; color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">
+                            <span data-en="In Production" data-ar="قيد الإنتاج">In Production</span>
+                        </span>
+                    </div>
+
+                    <div class="request-item">
+                        <div class="request-info">
+                            <h4>Order #1234</h4>
+                            <div class="request-meta">Banners • Due in 2 days</div>
+                        </div>
+                        <span style="background: #3498db; color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">
+                            <span data-en="Preparing" data-ar="التحضير">Preparing</span>
+                        </span>
+                    </div>
+
+                    <div class="request-item">
+                        <div class="request-info">
+                            <h4>Order #1233</h4>
+                            <div class="request-meta">Flyers • Due in 3 days</div>
+                        </div>
+                        <span style="background: #3498db; color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">
+                            <span data-en="Preparing" data-ar="التحضير">Preparing</span>
+                        </span>
+                    </div>
+
+                    <a href="orders.html" style="display: block; text-align: center; margin-top: 1rem; color: #27AE60; text-decoration: none;">
+                        <span data-en="View All Orders →" data-ar="عرض جميع الطلبات ←">View All Orders →</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 data-en="About PrintHub" data-ar="عن PrintHub">About PrintHub</h4>
+                    <p data-en="Your trusted printing marketplace in Egypt" data-ar="سوق الطباعة الموثوق به في مصر">Your trusted printing marketplace in Egypt</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Vendor Resources" data-ar="موارد الموردين">Vendor Resources</h4>
+                    <ul>
+                        <li><a href="#" data-en="Help Center" data-ar="مركز المساعدة">Help Center</a></li>
+                        <li><a href="#" data-en="Best Practices" data-ar="أفضل الممارسات">Best Practices</a></li>
+                        <li><a href="#" data-en="API Documentation" data-ar="وثائق API">API Documentation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Contact Support" data-ar="اتصل بالدعم">Contact Support</h4>
+                    <p><i class="fas fa-envelope"></i> vendor-support@printhub.eg</p>
+                    <p><i class="fas fa-phone"></i> +20 100 123 4567</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-en="© 2024 PrintHub Egypt. All rights reserved." data-ar="© 2024 PrintHub مصر. جميع الحقوق محفوظة.">© 2024 PrintHub Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/language.js"></script>
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - Vendor Portal</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+
+    <style>
+        .orders-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-box {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .stat-box i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2C3E50;
+            margin-bottom: 0.25rem;
+        }
+
+        .orders-filters {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .orders-table-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .orders-table thead {
+            background: #f8f9fa;
+        }
+
+        .orders-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #2C3E50;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .orders-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .orders-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .order-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-new {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-production {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-ready {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-shipped {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-delivered {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .priority-urgent {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            padding: 0.5rem;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-icon:hover {
+            background: #27AE60;
+            color: white;
+            border-color: #27AE60;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                </div>
+
+                <nav class="main-nav">
+                    <span style="color: #27AE60; font-weight: 600;">Vendor Portal</span>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-store"></i>
+                            <span>PrintPro Solutions</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                            <a href="services.html"><i class="fas fa-print"></i> My Services</a>
+                            <a href="quotes.html"><i class="fas fa-file-invoice"></i> Quote Requests</a>
+                            <a href="orders.html" class="active"><i class="fas fa-box"></i> Orders</a>
+                            <hr>
+                            <a href="../public/login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <span data-en="العربية" data-ar="English">العربية</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="dashboard.html" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</a></li>
+                <li class="active" data-en="Orders" data-ar="الطلبات">Orders</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="vendor-orders-main">
+        <div class="container">
+            <div class="page-header">
+                <h1 data-en="Order Management" data-ar="إدارة الطلبات">Order Management</h1>
+                <p data-en="Track and manage your customer orders" data-ar="تتبع وإدارة طلبات العملاء">Track and manage your customer orders</p>
+            </div>
+
+            <!-- Statistics -->
+            <div class="orders-stats">
+                <div class="stat-box">
+                    <i class="fas fa-clock" style="color: #f39c12;"></i>
+                    <div class="stat-value">5</div>
+                    <div class="stat-label" data-en="New Orders" data-ar="طلبات جديدة">New Orders</div>
+                </div>
+
+                <div class="stat-box">
+                    <i class="fas fa-cogs" style="color: #3498db;"></i>
+                    <div class="stat-value">12</div>
+                    <div class="stat-label" data-en="In Production" data-ar="قيد الإنتاج">In Production</div>
+                </div>
+
+                <div class="stat-box">
+                    <i class="fas fa-check" style="color: #27AE60;"></i>
+                    <div class="stat-value">3</div>
+                    <div class="stat-label" data-en="Ready to Ship" data-ar="جاهز للشحن">Ready to Ship</div>
+                </div>
+
+                <div class="stat-box">
+                    <i class="fas fa-truck" style="color: #9b59b6;"></i>
+                    <div class="stat-value">8</div>
+                    <div class="stat-label" data-en="Shipped" data-ar="تم الشحن">Shipped</div>
+                </div>
+
+                <div class="stat-box">
+                    <i class="fas fa-check-circle" style="color: #27AE60;"></i>
+                    <div class="stat-value">156</div>
+                    <div class="stat-label" data-en="Completed" data-ar="مكتمل">Completed</div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="orders-filters">
+                <select class="filter-select">
+                    <option>All Orders</option>
+                    <option>New</option>
+                    <option>In Production</option>
+                    <option>Ready to Ship</option>
+                    <option>Shipped</option>
+                    <option>Delivered</option>
+                </select>
+
+                <select class="filter-select">
+                    <option>All Services</option>
+                    <option>Business Cards</option>
+                    <option>Banners</option>
+                    <option>Flyers</option>
+                </select>
+
+                <select class="filter-select">
+                    <option>Sort by Date</option>
+                    <option>Sort by Priority</option>
+                    <option>Sort by Amount</option>
+                </select>
+
+                <input type="text" placeholder="Search by order ID or customer..." style="flex: 1; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px;">
+
+                <button class="btn btn-secondary">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="orders-table-container">
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Amount</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>#ORD-1245</strong>
+                                <span class="priority-badge priority-urgent">URGENT</span>
+                            </td>
+                            <td>
+                                <div>Ahmed Mohamed</div>
+                                <small style="color: #7f8c8d;">Cairo</small>
+                            </td>
+                            <td>500 Business Cards</td>
+                            <td style="font-weight: 600;">EGP 850</td>
+                            <td>Dec 15, 2024</td>
+                            <td><span class="order-status status-production">In Production</span></td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Update Status">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Message Customer">
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>#ORD-1244</strong></td>
+                            <td>
+                                <div>Tech Solutions Ltd.</div>
+                                <small style="color: #7f8c8d;">Giza</small>
+                            </td>
+                            <td>10 Roll-up Banners</td>
+                            <td style="font-weight: 600;">EGP 3,200</td>
+                            <td>Dec 18, 2024</td>
+                            <td><span class="order-status status-new">New Order</span></td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Confirm Order">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Message Customer">
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>#ORD-1243</strong></td>
+                            <td>
+                                <div>Sara Ahmed</div>
+                                <small style="color: #7f8c8d;">Alexandria</small>
+                            </td>
+                            <td>1000 Flyers A5</td>
+                            <td style="font-weight: 600;">EGP 1,250</td>
+                            <td>Dec 17, 2024</td>
+                            <td><span class="order-status status-ready">Ready to Ship</span></td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Mark as Shipped">
+                                        <i class="fas fa-truck"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Print Label">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>#ORD-1242</strong></td>
+                            <td>
+                                <div>Mohamed Ali</div>
+                                <small style="color: #7f8c8d;">Cairo</small>
+                            </td>
+                            <td>200 Brochures</td>
+                            <td style="font-weight: 600;">EGP 1,800</td>
+                            <td>Dec 20, 2024</td>
+                            <td><span class="order-status status-confirmed">Confirmed</span></td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Start Production">
+                                        <i class="fas fa-play"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Message Customer">
+                                        <i class="fas fa-comment"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>#ORD-1241</strong></td>
+                            <td>
+                                <div>Nile Company</div>
+                                <small style="color: #7f8c8d;">Aswan</small>
+                            </td>
+                            <td>50 Posters A3</td>
+                            <td style="font-weight: 600;">EGP 750</td>
+                            <td>Dec 14, 2024</td>
+                            <td><span class="order-status status-shipped">Shipped</span></td>
+                            <td>
+                                <div class="order-actions">
+                                    <button class="btn-icon" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon" title="Track Shipment">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                    <button class="btn-icon" title="View Invoice">
+                                        <i class="fas fa-file-invoice"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" style="margin-top: 2rem;">
+                <button class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About PrintHub</h4>
+                    <p>Your trusted printing marketplace in Egypt</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Vendor Resources</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Best Practices</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Support</h4>
+                    <p><i class="fas fa-envelope"></i> vendor-support@printhub.eg</p>
+                    <p><i class="fas fa-phone"></i> +20 100 123 4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 PrintHub Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/language.js"></script>
+</body>
+</html>

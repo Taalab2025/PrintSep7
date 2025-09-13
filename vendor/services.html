@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Services - Vendor Portal</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+
+    <style>
+        .services-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-image {
+            height: 200px;
+            background: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .service-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .service-body {
+            padding: 1.5rem;
+        }
+
+        .service-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-category {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .service-stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        .service-actions {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .add-service-card {
+            border: 2px dashed #ddd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-service-card:hover {
+            border-color: #27AE60;
+            background: #f8fffe;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                </div>
+
+                <nav class="main-nav">
+                    <span style="color: #27AE60; font-weight: 600;">Vendor Portal</span>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-store"></i>
+                            <span>PrintPro Solutions</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                            <a href="services.html" class="active"><i class="fas fa-print"></i> My Services</a>
+                            <a href="quotes.html"><i class="fas fa-file-invoice"></i> Quote Requests</a>
+                            <a href="orders.html"><i class="fas fa-box"></i> Orders</a>
+                            <hr>
+                            <a href="../public/login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <span data-en="العربية" data-ar="English">العربية</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="dashboard.html" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</a></li>
+                <li class="active" data-en="My Services" data-ar="خدماتي">My Services</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="vendor-services-main">
+        <div class="container">
+            <div class="services-header">
+                <div>
+                    <h1 data-en="My Services" data-ar="خدماتي">My Services</h1>
+                    <p data-en="Manage your printing services and pricing" data-ar="إدارة خدمات الطباعة والأسعار">Manage your printing services and pricing</p>
+                </div>
+                <button class="btn btn-primary" onclick="window.location.href='service-form.html'">
+                    <i class="fas fa-plus"></i>
+                    <span data-en="Add New Service" data-ar="إضافة خدمة جديدة">Add New Service</span>
+                </button>
+            </div>
+
+            <div class="services-grid">
+                <!-- Service Card 1 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://via.placeholder.com/350x200" alt="Business Cards" style="width: 100%; height: 100%; object-fit: cover;">
+                        <span class="service-status status-active">Active</span>
+                    </div>
+                    <div class="service-body">
+                        <h3 class="service-title">Premium Business Cards</h3>
+                        <p class="service-category">Business Cards</p>
+                        <div class="service-details">
+                            <div class="detail-item">
+                                <i class="fas fa-dollar-sign" style="color: #27AE60;"></i>
+                                <span>EGP 150-500</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-clock" style="color: #3498db;"></i>
+                                <span>3-5 days</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-box" style="color: #f39c12;"></i>
+                                <span>Min: 100 pcs</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-star" style="color: #f39c12;"></i>
+                                <span>4.8 (45)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">156</div>
+                            <div class="stat-label">Views</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">23</div>
+                            <div class="stat-label">Quotes</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">18</div>
+                            <div class="stat-label">Orders</div>
+                        </div>
+                    </div>
+                    <div class="service-actions">
+                        <button class="btn btn-primary" style="flex: 1;">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-secondary" style="flex: 1;">
+                            <i class="fas fa-chart-line"></i> Analytics
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://via.placeholder.com/350x200" alt="Banners" style="width: 100%; height: 100%; object-fit: cover;">
+                        <span class="service-status status-active">Active</span>
+                    </div>
+                    <div class="service-body">
+                        <h3 class="service-title">Roll-up Banners</h3>
+                        <p class="service-category">Banners & Signage</p>
+                        <div class="service-details">
+                            <div class="detail-item">
+                                <i class="fas fa-dollar-sign" style="color: #27AE60;"></i>
+                                <span>EGP 300-800</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-clock" style="color: #3498db;"></i>
+                                <span>5-7 days</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-box" style="color: #f39c12;"></i>
+                                <span>Min: 1 pc</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-star" style="color: #f39c12;"></i>
+                                <span>4.9 (32)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">98</div>
+                            <div class="stat-label">Views</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">15</div>
+                            <div class="stat-label">Quotes</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Orders</div>
+                        </div>
+                    </div>
+                    <div class="service-actions">
+                        <button class="btn btn-primary" style="flex: 1;">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-secondary" style="flex: 1;">
+                            <i class="fas fa-chart-line"></i> Analytics
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 - Inactive -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://via.placeholder.com/350x200" alt="Flyers" style="width: 100%; height: 100%; object-fit: cover;">
+                        <span class="service-status status-inactive">Inactive</span>
+                    </div>
+                    <div class="service-body">
+                        <h3 class="service-title">Promotional Flyers</h3>
+                        <p class="service-category">Marketing Materials</p>
+                        <div class="service-details">
+                            <div class="detail-item">
+                                <i class="fas fa-dollar-sign" style="color: #27AE60;"></i>
+                                <span>EGP 100-400</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-clock" style="color: #3498db;"></i>
+                                <span>2-3 days</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-box" style="color: #f39c12;"></i>
+                                <span>Min: 500 pcs</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-star" style="color: #f39c12;"></i>
+                                <span>4.7 (28)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">45</div>
+                            <div class="stat-label">Views</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">Quotes</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">6</div>
+                            <div class="stat-label">Orders</div>
+                        </div>
+                    </div>
+                    <div class="service-actions">
+                        <button class="btn btn-primary" style="flex: 1;">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-secondary" style="flex: 1;">
+                            <i class="fas fa-play"></i> Activate
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add New Service Card -->
+                <div class="service-card add-service-card" onclick="window.location.href='service-form.html'">
+                    <i class="fas fa-plus-circle" style="font-size: 3rem; color: #27AE60; margin-bottom: 1rem;"></i>
+                    <h3 style="color: #2C3E50;">Add New Service</h3>
+                    <p style="color: #7f8c8d;">Expand your service offerings</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About PrintHub</h4>
+                    <p>Your trusted printing marketplace in Egypt</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Vendor Resources</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Best Practices</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Support</h4>
+                    <p><i class="fas fa-envelope"></i> vendor-support@printhub.eg</p>
+                    <p><i class="fas fa-phone"></i> +20 100 123 4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 PrintHub Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/language.js"></script>
+</body>
+</html>

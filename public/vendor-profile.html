@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nile Printing Press - Vendor Profile | PrintHub Egypt</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Cairo', sans-serif;
+            background-color: #f8f9fa;
+            color: #2C3E50;
+            line-height: 1.6;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #3B82F6;
+            font-size: 1.5rem;
+            font-weight: 700;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #6B7280;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #3B82F6;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #3B82F6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-outline {
+            background: white;
+            color: #6B7280;
+            border: 1px solid #E5E7EB;
+        }
+
+        .btn-success {
+            background: #10B981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-lg {
+            padding: 0.875rem 1.75rem;
+            font-size: 1.125rem;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem 0 8rem;
+            position: relative;
+        }
+
+        .profile-header-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .vendor-logo-large {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #6B7280;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .vendor-header-info {
+            flex: 1;
+            color: white;
+        }
+
+        .vendor-name-large {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .vendor-tagline {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .vendor-badges {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.375rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .vendor-header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Profile Navigation */
+        .profile-nav {
+            background: white;
+            margin-top: -4rem;
+            border-radius: 1rem 1rem 0 0;
+            box-shadow: 0 -4px 6px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 10;
+        }
+
+        .profile-nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .profile-tabs {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .profile-tab {
+            color: #6B7280;
+            text-decoration: none;
+            font-weight: 500;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .profile-tab:hover,
+        .profile-tab.active {
+            color: #3B82F6;
+            border-color: #3B82F6;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1F2937;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        /* Main Content */
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        /* Left Column */
+        .content-main {
+            space-y: 2rem;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1F2937;
+        }
+
+        /* About Section */
+        .about-text {
+            color: #4B5563;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: #F3F4F6;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3B82F6;
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            color: #6B7280;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .service-card {
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            border-color: #3B82F6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            color: #3B82F6;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-name {
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .service-price {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        /* Portfolio Gallery */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: #F3F4F6;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #9CA3AF;
+        }
+
+        /* Reviews Section */
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .rating-summary {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .rating-large {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1F2937;
+        }
+
+        .rating-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stars-large {
+            color: #F59E0B;
+            font-size: 1.25rem;
+        }
+
+        .rating-count {
+            color: #6B7280;
+            font-size: 0.875rem;
+        }
+
+        .review-filters {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-chip {
+            padding: 0.375rem 1rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 2rem;
+            background: white;
+            color: #6B7280;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-chip:hover,
+        .filter-chip.active {
+            background: #3B82F6;
+            color: white;
+            border-color: #3B82F6;
+        }
+
+        .review-item {
+            border-bottom: 1px solid #E5E7EB;
+            padding: 1.5rem 0;
+        }
+
+        .review-item:last-child {
+            border: none;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .reviewer-info {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .reviewer-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B7280;
+        }
+
+        .reviewer-details {
+            flex: 1;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .review-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        .review-stars {
+            color: #F59E0B;
+        }
+
+        .review-text {
+            color: #4B5563;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .review-service {
+            display: inline-block;
+            background: #F3F4F6;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            color: #6B7280;
+        }
+
+        /* Right Sidebar */
+        .content-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: #4B5563;
+        }
+
+        .contact-icon {
+            width: 32px;
+            height: 32px;
+            background: #F3F4F6;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B7280;
+        }
+
+        .business-hours {
+            margin-top: 1.5rem;
+        }
+
+        .hours-title {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1F2937;
+        }
+
+        .hours-list {
+            font-size: 0.875rem;
+            color: #4B5563;
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .day {
+            font-weight: 500;
+        }
+
+        .time {
+            color: #6B7280;
+        }
+
+        /* Response Time Card */
+        .response-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .response-stat {
+            text-align: center;
+            padding: 1rem;
+            background: #F9FAFB;
+            border-radius: 0.5rem;
+        }
+
+        .response-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #10B981;
+        }
+
+        .response-label {
+            font-size: 0.75rem;
+            color: #6B7280;
+            margin-top: 0.25rem;
+        }
+
+        /* Location Map */
+        .map-placeholder {
+            height: 200px;
+            background: linear-gradient(135deg, #E5E7EB 0%, #F3F4F6 100%);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B7280;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1F2937;
+            color: #9CA3AF;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+
+            .content-sidebar {
+                position: static;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-tabs {
+                overflow-x: auto;
+                gap: 1rem;
+            }
+
+            .profile-stats {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-print"></i>
+                    <span>PrintHub Egypt</span>
+                </a>
+
+                <div class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="vendors.html" class="nav-link active">Vendors</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+
+                <div class="nav-actions">
+                    <button class="btn btn-outline" onclick="toggleLanguage()">
+                        <i class="fas fa-globe"></i>
+                        <span id="langText">عربي</span>
+                    </button>
+                    <a href="login.html" class="btn btn-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Header -->
+    <section class="profile-header">
+        <div class="container">
+            <div class="profile-header-content">
+                <div class="vendor-logo-large">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="vendor-header-info">
+                    <h1 class="vendor-name-large">Nile Printing Press</h1>
+                    <p class="vendor-tagline">Your trusted partner for premium printing solutions since 2005</p>
+                    <div class="vendor-badges">
+                        <span class="badge">✓ Verified Vendor</span>
+                        <span class="badge">⭐ Top Rated</span>
+                        <span class="badge">🏆 Featured</span>
+                    </div>
+                    <div class="vendor-header-actions">
+                        <a href="quote-request.html" class="btn btn-success btn-lg">
+                            <i class="fas fa-file-alt"></i>
+                            Request Quote
+                        </a>
+                        <button class="btn btn-outline btn-lg" style="background: rgba(255,255,255,0.9);">
+                            <i class="fas fa-phone"></i>
+                            Contact Vendor
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Navigation & Stats -->
+    <section class="profile-nav">
+        <div class="container">
+            <div class="profile-nav-wrapper">
+                <div class="profile-tabs">
+                    <a href="#about" class="profile-tab active">About</a>
+                    <a href="#services" class="profile-tab">Services</a>
+                    <a href="#portfolio" class="profile-tab">Portfolio</a>
+                    <a href="#reviews" class="profile-tab">Reviews</a>
+                    <a href="#pricing" class="profile-tab">Pricing</a>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <div class="stat-value">4.8</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">1,250</div>
+                        <div class="stat-label">Orders</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">98%</div>
+                        <div class="stat-label">On-time</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value"><2h</div>
+                        <div class="stat-label">Response</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li><a href="vendors.html" data-en="Vendors" data-ar="المورديين">Vendors</a></li>
+                <li class="active" data-en="Vendor Profile" data-ar="ملف المورد">Vendor Profile</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="container">
+        <div class="profile-content">
+            <!-- Left Column -->
+            <div class="content-main">
+                <!-- About Section -->
+                <div class="section-card" id="about">
+                    <h2 class="section-title">About Nile Printing Press</h2>
+                    <p class="about-text">
+                        With over 18 years of experience in the printing industry, Nile Printing Press has established itself as one of Egypt's leading printing service providers. We specialize in high-quality commercial printing, packaging solutions, and promotional materials.
+                    </p>
+                    <p class="about-text">
+                        Our state-of-the-art facility in Cairo is equipped with the latest printing technology, allowing us to handle projects of any size with precision and efficiency. From business cards to large-format banners, we deliver exceptional quality that exceeds expectations.
+                    </p>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <div class="info-text">
+                                <div class="info-label">Established</div>
+                                <div class="info-value">2005</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="info-text">
+                                <div class="info-label">Team Size</div>
+                                <div class="info-value">50+ Employees</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="info-text">
+                                <div class="info-label">Certifications</div>
+                                <div class="info-value">ISO 9001:2015</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="info-text">
+                                <div class="info-label">Delivery</div>
+                                <div class="info-value">Nationwide</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Services Section -->
+                <div class="section-card" id="services">
+                    <h2 class="section-title">Our Services</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                            <div class="service-name">Business Cards</div>
+                            <div class="service-price">From EGP 150</div>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <div class="service-name">Brochures</div>
+                            <div class="service-price">From EGP 500</div>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                            <div class="service-name">Banners</div>
+                            <div class="service-price">From EGP 800</div>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="service-name">Packaging</div>
+                            <div class="service-price">Custom Quote</div>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-sticky-note"></i>
+                            </div>
+                            <div class="service-name">Stickers</div>
+                            <div class="service-price">From EGP 200</div>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <div class="service-name">Posters</div>
+                            <div class="service-price">From EGP 300</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Section -->
+                <div class="section-card" id="portfolio">
+                    <h2 class="section-title">Portfolio</h2>
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item">
+                            <div class="portfolio-image">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="portfolio-item">
+                            <div class="portfolio-image">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="portfolio-item">
+                            <div class="portfolio-image">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="portfolio-item">
+                            <div class="portfolio-image">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="portfolio-item">
+                            <div class="portfolio-image">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="portfolio-item">
+                            <div class="portfolio-image">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="portfolio-item">
+                            <div class="portfolio-image">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="portfolio-item">
+                            <div class="portfolio-image">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviews Section -->
+                <div class="section-card" id="reviews">
+                    <h2 class="section-title">Customer Reviews</h2>
+
+                    <div class="reviews-header">
+                        <div class="rating-summary">
+                            <div class="rating-large">4.8</div>
+                            <div class="rating-details">
+                                <div class="stars-large">★★★★★</div>
+                                <div class="rating-count">234 reviews</div>
+                            </div>
+                        </div>
+                        <div class="review-filters">
+                            <button class="filter-chip active">All</button>
+                            <button class="filter-chip">5 Stars</button>
+                            <button class="filter-chip">4 Stars</button>
+                            <button class="filter-chip">Recent</button>
+                        </div>
+                    </div>
+
+                    <!-- Review Items -->
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="reviewer-details">
+                                    <div class="reviewer-name">Ahmed Hassan</div>
+                                    <div class="review-meta">
+                                        <span class="review-stars">★★★★★</span>
+                                        <span>2 days ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="review-text">
+                            Excellent service! The quality of the business cards exceeded my expectations. Fast delivery and professional communication throughout. Highly recommended!
+                        </p>
+                        <span class="review-service">Business Cards</span>
+                    </div>
+
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="reviewer-details">
+                                    <div class="reviewer-name">Sara Mohamed</div>
+                                    <div class="review-meta">
+                                        <span class="review-stars">★★★★★</span>
+                                        <span>1 week ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="review-text">
+                            We ordered packaging for our new product line and couldn't be happier. The attention to detail and print quality is outstanding. Will definitely use again!
+                        </p>
+                        <span class="review-service">Packaging</span>
+                    </div>
+
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="reviewer-details">
+                                    <div class="reviewer-name">Omar Ali</div>
+                                    <div class="review-meta">
+                                        <span class="review-stars">★★★★☆</span>
+                                        <span>2 weeks ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="review-text">
+                            Good quality banners delivered on time. The only reason for 4 stars is that the initial quote response took longer than expected. Otherwise, great work!
+                        </p>
+                        <span class="review-service">Banners</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="content-sidebar">
+                <!-- Contact Card -->
+                <div class="sidebar-card">
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Contact Information</h3>
+
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <span>+20 123 456 7890</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <span>info@nileprintingpress.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span>123 Tahrir Square, Cairo, Egypt</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <span>www.nileprintingpress.com</span>
+                        </div>
+                    </div>
+
+                    <div class="business-hours">
+                        <h4 class="hours-title">Business Hours</h4>
+                        <div class="hours-list">
+                            <div class="hours-row">
+                                <span class="day">Sunday - Thursday</span>
+                                <span class="time">9:00 AM - 6:00 PM</span>
+                            </div>
+                            <div class="hours-row">
+                                <span class="day">Friday</span>
+                                <span class="time">Closed</span>
+                            </div>
+                            <div class="hours-row">
+                                <span class="day">Saturday</span>
+                                <span class="time">10:00 AM - 4:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Response Time Card -->
+                <div class="sidebar-card">
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Response Statistics</h3>
+                    <div class="response-stats">
+                        <div class="response-stat">
+                            <div class="response-value">< 2h</div>
+                            <div class="response-label">Avg Response</div>
+                        </div>
+                        <div class="response-stat">
+                            <div class="response-value">98%</div>
+                            <div class="response-label">Quote Rate</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location Card -->
+                <div class="sidebar-card">
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Location</h3>
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marked-alt" style="font-size: 3rem;"></i>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="sidebar-card">
+                    <button class="btn btn-primary" style="width: 100%; margin-bottom: 0.75rem;">
+                        <i class="fas fa-file-alt"></i>
+                        Request Quote
+                    </button>
+                    <button class="btn btn-outline" style="width: 100%;">
+                        <i class="fas fa-share-alt"></i>
+                        Share Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 PrintHub Egypt. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleLanguage() {
+            const langText = document.getElementById('langText');
+            langText.textContent = langText.textContent === 'عربي' ? 'English' : 'عربي';
+        }
+
+        // Tab Navigation
+        document.querySelectorAll('.profile-tab').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // Remove active class from all tabs
+                document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+
+                // Add active to clicked tab
+                this.classList.add('active');
+
+                // Smooth scroll to section
+                const target = this.getAttribute('href');
+                if (target && target !== '#') {
+                    const element = document.querySelector(target);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

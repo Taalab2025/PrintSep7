@@ -1,0 +1,387 @@
+/* ========================================
+   Dashboard Pages Stylesheet
+   Admin, Customer, and Vendor Dashboards
+   ======================================== */
+
+/* 1. DASHBOARD LAYOUT */
+.dashboard-container {
+    min-height: 100vh;
+    background: #f8f9fa;
+}
+
+.dashboard-header {
+    background: white;
+    border-bottom: 1px solid var(--light);
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+.dashboard-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+    color: var(--muted);
+    font-size: 1rem;
+}
+
+/* 2. ANALYTICS CHARTS */
+.chart-container {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.chart-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.chart-filters {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chart-filter {
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--light);
+    border-radius: var(--radius-md);
+    background: white;
+    color: var(--dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+}
+
+.chart-filter:hover,
+.chart-filter.active {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* 3. DATA TABLES */
+.data-table-container {
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th {
+    background: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--dark);
+    border-bottom: 1px solid var(--light);
+}
+
+.data-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--light);
+    color: var(--dark);
+}
+
+.data-table tr:hover {
+    background: #f8f9fa;
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* 4. QUICK ACTIONS */
+.quick-actions {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+}
+
+.quick-actions-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 1rem;
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.quick-action {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid var(--light);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--dark);
+    transition: all 0.2s ease;
+}
+
+.quick-action:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.quick-action-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light);
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+.quick-action-text {
+    font-weight: 500;
+}
+
+/* 5. NOTIFICATION PANEL */
+.notifications-panel {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.notification-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--light);
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
+}
+
+.notification-icon.info { background: rgba(52, 152, 219, 0.1); color: var(--info); }
+.notification-icon.success { background: rgba(39, 174, 96, 0.1); color: var(--success); }
+.notification-icon.warning { background: rgba(243, 156, 18, 0.1); color: var(--warning); }
+.notification-icon.danger { background: rgba(231, 76, 60, 0.1); color: var(--danger); }
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 0.25rem;
+}
+
+.notification-message {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 0.25rem;
+}
+
+.notification-time {
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+/* 6. PERFORMANCE METRICS */
+.performance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.performance-metric {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.metric-value.positive { color: var(--success); }
+.metric-value.negative { color: var(--danger); }
+.metric-value.neutral { color: var(--info); }
+
+.metric-label {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.metric-change {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.metric-change.up {
+    color: var(--success);
+}
+
+.metric-change.down {
+    color: var(--danger);
+}
+
+.metric-change::before {
+    font-family: "Font Awesome 6 Free", sans-serif;
+    font-weight: 900;
+    margin-right: 0.25rem;
+}
+
+.metric-change.up::before {
+    content: "\f077"; /* fa-caret-up */
+}
+
+.metric-change.down::before {
+    content: "\f078"; /* fa-caret-down */
+}
+
+/* 7. SIDEBAR NAVIGATION */
+.dashboard-sidebar {
+    background: white;
+    border-right: 1px solid var(--light);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    padding: 1rem 0;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.sidebar-brand {
+    padding: 0 1.5rem 1rem;
+    border-bottom: 1px solid var(--light);
+    margin-bottom: 1rem;
+}
+
+.sidebar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-item {
+    margin-bottom: 0.25rem;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    color: var(--dark);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+    background: rgba(44, 62, 80, 0.1);
+    color: var(--primary);
+}
+
+.sidebar-icon {
+    width: 20px;
+    text-align: center;
+}
+
+/* 8. MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+    .dashboard-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .dashboard-sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .dashboard-main {
+        margin-left: 0;
+    }
+    
+    .performance-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-actions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .data-table-container {
+        overflow-x: auto;
+    }
+}
+
+/* 9. DASHBOARD MAIN CONTENT */
+.dashboard-main {
+    margin-left: 250px;
+    padding: 2rem;
+    min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+    .dashboard-main {
+        margin-left: 0;
+        padding: 1rem;
+    }
+}

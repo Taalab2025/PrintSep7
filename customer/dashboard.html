@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Egypt Printing Marketplace</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+
+
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../assets/images/logo.png" alt="PrintHub Egypt">
+                </div>
+
+                <nav class="main-nav" aria-label="Main navigation">
+                    <a href="../public/index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+                    <a href="../public/services.html" data-en="Services" data-ar="الخدمات">Services</a>
+                    <a href="../public/vendors.html" data-en="Vendors" data-ar="الموردون">Vendors</a>
+                    <a href="../public/about.html" data-en="About" data-ar="حول">About</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span data-en="My Account" data-ar="حسابي">My Account</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> <span data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</span></a>
+                            <a href="profile.html"><i class="fas fa-user"></i> <span data-en="Profile" data-ar="الملف الشخصي">Profile</span></a>
+                            <a href="quotes.html"><i class="fas fa-file-invoice"></i> <span data-en="My Quotes" data-ar="عروض الأسعار">My Quotes</span></a>
+                            <a href="orders.html"><i class="fas fa-box"></i> <span data-en="Orders" data-ar="الطلبات">Orders</span></a>
+                            <hr>
+                            <a href="../public/login.html"><i class="fas fa-sign-out-alt"></i> <span data-en="Logout" data-ar="تسجيل الخروج">Logout</span></a>
+                        </div>
+                    </div>
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <span data-en="العربية" data-ar="English">العربية</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-container">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="../public/index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li class="active" data-en="Dashboard" data-ar="لوحة التحكم">Dashboard</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="container">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h1 data-en="Welcome back, Ahmed!" data-ar="مرحباً بعودتك، أحمد!">Welcome back, Ahmed!</h1>
+                <p data-en="Here's what's happening with your printing orders" data-ar="إليك ما يحدث مع طلبات الطباعة الخاصة بك">Here's what's happening with your printing orders</p>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <a href="../public/quote-request.html" class="action-btn">
+                    <i class="fas fa-plus-circle"></i>
+                    <span data-en="New Quote Request" data-ar="طلب عرض سعر جديد">New Quote Request</span>
+                </a>
+                <a href="quotes.html" class="action-btn">
+                    <i class="fas fa-file-alt"></i>
+                    <span data-en="View Quotes" data-ar="عرض الأسعار">View Quotes</span>
+                </a>
+                <a href="orders.html" class="action-btn">
+                    <i class="fas fa-truck"></i>
+                    <span data-en="Track Orders" data-ar="تتبع الطلبات">Track Orders</span>
+                </a>
+                <a href="messages.html" class="action-btn">
+                    <i class="fas fa-envelope"></i>
+                    <span data-en="Messages" data-ar="الرسائل">Messages</span>
+                </a>
+            </div>
+
+            <!-- Statistics Grid -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(39, 174, 96, 0.1);">
+                        <i class="fas fa-file-invoice" style="color: #27AE60; font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-label" data-en="Active Quotes" data-ar="عروض أسعار نشطة">Active Quotes</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(52, 152, 219, 0.1);">
+                        <i class="fas fa-clock" style="color: #3498db; font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-label" data-en="Pending Responses" data-ar="ردود معلقة">Pending Responses</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(231, 76, 60, 0.1);">
+                        <i class="fas fa-box" style="color: #e74c3c; font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="stat-value">2</div>
+                    <div class="stat-label" data-en="Orders in Progress" data-ar="طلبات قيد التنفيذ">Orders in Progress</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(155, 89, 182, 0.1);">
+                        <i class="fas fa-check-circle" style="color: #9b59b6; font-size: 1.5rem;"></i>
+                    </div>
+                    <div class="stat-value">15</div>
+                    <div class="stat-label" data-en="Completed Orders" data-ar="طلبات مكتملة">Completed Orders</div>
+                </div>
+            </div>
+
+            <!-- Recent Activity and Current Orders -->
+            <div class="dashboard-grid">
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <h3 data-en="Recent Activity" data-ar="النشاط الأخير">Recent Activity</h3>
+
+                    <div class="activity-item">
+                        <div class="activity-icon success">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title" data-en="Quote received from PrintPro" data-ar="تم استلام عرض سعر من PrintPro">Quote received from PrintPro</div>
+                            <div class="activity-time" data-en="2 hours ago" data-ar="قبل ساعتين">2 hours ago</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon info">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title" data-en="Order #1234 shipped" data-ar="تم شحن الطلب #1234">Order #1234 shipped</div>
+                            <div class="activity-time" data-en="1 day ago" data-ar="قبل يوم واحد">1 day ago</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon warning">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title" data-en="Review reminder for order #1232" data-ar="تذكير بالمراجعة للطلب #1232">Review reminder for order #1232</div>
+                            <div class="activity-time" data-en="2 days ago" data-ar="قبل يومين">2 days ago</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon primary">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title" data-en="New quote request submitted" data-ar="تم تقديم طلب عرض سعر جديد">New quote request submitted</div>
+                            <div class="activity-time" data-en="3 days ago" data-ar="قبل 3 أيام">3 days ago</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Current Orders -->
+                <div class="recent-activity">
+                    <h3 data-en="Current Orders" data-ar="الطلبات الحالية">Current Orders</h3>
+
+                    <div class="order-list">
+                        <div class="order-item">
+                            <div class="order-header">
+                                <span class="order-number">#1235</span>
+                                <span class="order-status" style="background: #f39c12; color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">
+                                    <span data-en="In Production" data-ar="قيد الإنتاج">In Production</span>
+                                </span>
+                            </div>
+                            <div class="order-details">
+                                <p data-en="500 Business Cards - Premium" data-ar="500 بطاقة عمل - فاخرة">500 Business Cards - Premium</p>
+                                <p class="order-vendor">FastPrint Solutions</p>
+                                <div class="order-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 60%;"></div>
+                                    </div>
+                                    <small data-en="Expected delivery: Dec 15" data-ar="التسليم المتوقع: 15 ديسمبر">Expected delivery: Dec 15</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="order-item">
+                            <div class="order-header">
+                                <span class="order-number">#1234</span>
+                                <span class="order-status" style="background: #3498db; color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">
+                                    <span data-en="Shipped" data-ar="تم الشحن">Shipped</span>
+                                </span>
+                            </div>
+                            <div class="order-details">
+                                <p data-en="10 Roll-up Banners" data-ar="10 لافتات رول أب">10 Roll-up Banners</p>
+                                <p class="order-vendor">Quality Prints Co.</p>
+                                <div class="order-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 85%;"></div>
+                                    </div>
+                                    <small data-en="Arriving tomorrow" data-ar="يصل غداً">Arriving tomorrow</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="orders.html" class="view-all-link" style="display: block; text-align: center; margin-top: 1rem; color: #27AE60;">
+                        <span data-en="View All Orders →" data-ar="عرض جميع الطلبات ←">View All Orders →</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 data-en="About PrintHub" data-ar="عن PrintHub">About PrintHub</h4>
+                    <p data-en="Your trusted printing marketplace in Egypt" data-ar="سوق الطباعة الموثوق به في مصر">Your trusted printing marketplace in Egypt</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+                    <ul>
+                        <li><a href="../public/services.html" data-en="Services" data-ar="الخدمات">Services</a></li>
+                        <li><a href="../public/vendors.html" data-en="Vendors" data-ar="الموردون">Vendors</a></li>
+                        <li><a href="../public/about.html" data-en="About Us" data-ar="من نحن">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-en="Contact" data-ar="اتصل بنا">Contact</h4>
+                    <p><i class="fas fa-envelope"></i> info@printhub.eg</p>
+                    <p><i class="fas fa-phone"></i> +20 100 123 4567</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-en="© 2024 PrintHub Egypt. All rights reserved." data-ar="© 2024 PrintHub مصر. جميع الحقوق محفوظة.">© 2024 PrintHub Egypt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/language.js"></script>
+    <script>
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize components
+            PrintHub.init();
+            
+            // Initialize page-specific features
+            initDashboard();
+        });
+
+        function initDashboard() {
+            // Add any dashboard-specific JavaScript here
+            console.log('Customer Dashboard initialized');
+        }
+    </script>
+</body>
+</html>
